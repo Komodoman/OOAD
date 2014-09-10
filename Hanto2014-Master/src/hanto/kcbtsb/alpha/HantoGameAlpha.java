@@ -12,20 +12,26 @@ import hanto.common.MoveResult;
 import hanto.kcbtsb.common.HantoCell;
 import hanto.kcbtsb.common.HantoCellManager;
 import hanto.kcbtsb.common.HantoGameManager;
-import hanto.kcbtsb.common.HantoPieceFactory;
 import hanto.kcbtsb.common.HantoPlayer;
 import hanto.kcbtsb.common.HantoPlayerTurn;
 
+/**
+ */
 public class HantoGameAlpha implements HantoGame {
 	
+	/**
+	 * Constructor for HantoGameAlpha.
+	 */
+	HantoGameManager gameManager;
+	
 	public HantoGameAlpha(){
-		HantoGameManager.gameType = this;
-		HantoGameManager.cellManager = new HantoCellManager();
-		HantoGameManager.colorTurn = HantoPlayerTurn.BLUE;
-		ArrayList<HantoPieceType> pieceLineup = new ArrayList<HantoPieceType>();
-		pieceLineup.add(HantoPieceType.BUTTERFLY);
-		HantoGameManager.bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE, pieceLineup);
-		HantoGameManager.redPlayer = new HantoPlayer(HantoPlayerColor.RED, pieceLineup);
+		gameManager = HantoGameManager.getInstance();
+		
+		gameManager.setGameType(this);
+		gameManager.setCellManager(new HantoCellManager());
+		gameManager.setColorTurn(HantoPlayerTurn.BLUE);
+		gameManager.setBluePlayer(new HantoPlayer(HantoPlayerColor.BLUE));
+		gameManager.setRedPlayer(new HantoPlayer(HantoPlayerColor.RED));
 	}
 	
 	
@@ -34,10 +40,10 @@ public class HantoGameAlpha implements HantoGame {
 			HantoCoordinate to) throws HantoException {
 		MoveResult result = MoveResult.OK;
 		
-		if (HantoGameManager.cellManager.isEmpty()){
+		if (gameManager.getCellManager().isEmpty()){
 			// check for first move of game
 			if (to.getX() == 0 && to.getY() == 0 && pieceType == HantoPieceType.BUTTERFLY){
-				HantoGameManager.cellManager.addCell(to.getX(), to.getY());
+				gameManager.getCellManager().addCell(to.getX(), to.getY());
 			}
 			else{
 				throw new HantoException("First butterfly must be placed at 0,0");
@@ -48,19 +54,19 @@ public class HantoGameAlpha implements HantoGame {
 			throw new HantoException("Not a Legal Move!");
 		}
 		
-		else if (HantoGameManager.cellManager.isCellOccupied(to.getX(), to.getY())){
+		else if (gameManager.getCellManager().isCellOccupied(to.getX(), to.getY())){
 			// throw exception if destination is already occupied
 			throw new HantoException("Cell is already occupied");
 		}
 		
 		else{
 			// add cell to cell manager
-			HantoGameManager.cellManager.addCell(to.getX(), to.getY());
-			if (HantoGameManager.getPlayerTurn() == HantoPlayerColor.RED){
+			gameManager.getCellManager().addCell(to.getX(), to.getY());
+			if (gameManager.getPlayerTurn() == HantoPlayerColor.RED){
 				result = MoveResult.DRAW;
 			}
 		}
-		HantoGameManager.colorTurn = HantoGameManager.colorTurn.getNext();
+		gameManager.setColorTurn(gameManager.getColorTurn().getNext());
 		return result;
 	}
 	

@@ -32,8 +32,4 @@ public class HantoCellManager {
 	public void addCell(int x, int y){
 		occupiedCells.add(new HantoCell(x, y));
 	}
-	
-	public void remCell(int x, int y){
-		occupiedCells.remove(new HantoCell(x, y));
-	}
 }

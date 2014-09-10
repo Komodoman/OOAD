@@ -5,18 +5,30 @@ import hanto.common.HantoPlayerColor;
 
 public class HantoGameManager {
 	
-	public static HantoPlayer redPlayer;
+	private static HantoGameManager instance;
 	
-	public static HantoPlayer bluePlayer;
+	private HantoPlayer bluePlayer;
 	
-	public static HantoCellManager cellManager;
+	private HantoCellManager cellManager;
 	
-	public static HantoPlayerTurn colorTurn;
+	private HantoPlayerTurn colorTurn;
 	
-	public static HantoGame gameType;
+	private HantoGame gameType;
 	
 	
-	public static HantoPlayerColor getPlayerTurn(){
+	private void HantoGameManger(){
+		
+	}
+
+	
+	public static HantoGameManager getInstance(){
+		if(instance == null){
+			instance = new HantoGameManager();
+		}
+		return instance;
+	}
+	
+	public HantoPlayerColor getPlayerTurn(){
 		HantoPlayerColor color = null;
 		switch(colorTurn){
 		case BLUE:
@@ -25,7 +37,63 @@ public class HantoGameManager {
 		case RED:
 			color = HantoPlayerColor.RED;
 			break;
+		default:
+			break;
 		}
 		return color;	
 	}
+	
+	
+	public HantoPlayer getRedPlayer() {
+		return redPlayer;
+	}
+
+
+	public void setRedPlayer(HantoPlayer redPlayer) {
+		this.redPlayer = redPlayer;
+	}
+
+
+	public HantoPlayer getBluePlayer() {
+		return bluePlayer;
+	}
+
+
+	public void setBluePlayer(HantoPlayer bluePlayer) {
+		this.bluePlayer = bluePlayer;
+	}
+
+
+	public HantoCellManager getCellManager() {
+		return cellManager;
+	}
+
+
+	public void setCellManager(HantoCellManager cellManager) {
+		this.cellManager = cellManager;
+	}
+
+
+	public HantoPlayerTurn getColorTurn() {
+		return colorTurn;
+	}
+
+
+	public void setColorTurn(HantoPlayerTurn colorTurn) {
+		this.colorTurn = colorTurn;
+	}
+
+
+	public HantoGame getGameType() {
+		return gameType;
+	}
+
+
+	public void setGameType(HantoGame gameType) {
+		this.gameType = gameType;
+	}
+
+
+	private HantoPlayer redPlayer;
+
 }

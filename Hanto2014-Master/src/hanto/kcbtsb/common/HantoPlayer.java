@@ -21,18 +21,15 @@ import hanto.kcbtsb.alpha.HantoGameAlpha;
 public class HantoPlayer {
 	
 	private HantoPlayerColor playerColor;
-	
-	private ArrayList<HantoPieceType> allPieces;
-	
-	public HantoPlayer(HantoPlayerColor color, ArrayList<HantoPieceType> pieces){
+		
+	public HantoPlayer(HantoPlayerColor color){
 		playerColor = color;
-		allPieces = pieces;
 	}
 	
 	public MoveResult placePiece(HantoPieceType pieceType, HantoCell destCell) throws HantoException{
 		MoveResult result = null;
-		if( HantoGameManager.getPlayerTurn() == playerColor){
-			result = HantoGameManager.gameType.makeMove(pieceType, (HantoCoordinate) new HantoCell(), destCell);
+		if( HantoGameManager.getInstance().getPlayerTurn() == playerColor){
+			result = HantoGameManager.getInstance().getGameType().makeMove(pieceType, (HantoCoordinate) new HantoCell(), destCell);
 		}
 		else{
 			throw new HantoException("It is not this player's turn");
@@ -40,20 +37,8 @@ public class HantoPlayer {
 		return result;
 	}
 	
-	public MoveResult movePiece(HantoPiece aPiece){
-		MoveResult result = null;
-		return result;
-	}
-	
 	public HantoPlayerColor getPlayerColor(){
 			return playerColor;
 	}
-	
-	public int getPiecesLeft(){
-		return allPieces.size();
-	}
-	
-	public void removePiece(HantoPieceType aPiece){
-		allPieces.remove(aPiece);
-	}
+
 }
