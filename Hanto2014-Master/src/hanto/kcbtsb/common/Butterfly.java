@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hanto.kcbtsb.alpha;
+package hanto.kcbtsb.common;
 
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
