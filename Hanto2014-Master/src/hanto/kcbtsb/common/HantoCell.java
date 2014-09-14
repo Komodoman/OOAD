@@ -15,25 +15,27 @@ public class HantoCell implements HantoCoordinate {
 	
 	private int yLoc;
 	
+	/**
+	 * Constructor for HantoCell.
+	 */
 	public HantoCell(){
 	}
 	
-	public HantoCell(int x, int y){
+	/**
+	 * Constructor for HantoCell.
+	 * @param x int
+	 * @param y int
+	 */
+	public HantoCell(final int x, final int y){
 		xLoc = x;
 		yLoc = y;
 	}
 	
-	/* (non-Javadoc)
-	 * @see hanto.common.HantoCoordinate#getX()
-	 */
 	@Override
 	public int getX() {
 		return xLoc;
 	}
 
-	/* (non-Javadoc)
-	 * @see hanto.common.HantoCoordinate#getY()
-	 */
 	@Override
 	public int getY() {
 		return yLoc;

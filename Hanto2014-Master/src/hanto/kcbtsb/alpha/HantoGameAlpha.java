@@ -1,6 +1,7 @@
+/**
+ * 
+ */
 package hanto.kcbtsb.alpha;
-
-import java.util.ArrayList;
 
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
@@ -9,7 +10,6 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.kcbtsb.common.HantoCell;
 import hanto.kcbtsb.common.HantoCellManager;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.common.HantoPlayer;
@@ -36,8 +36,8 @@ public class HantoGameAlpha implements HantoGame {
 	
 	
 	@Override
-	final public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
-			HantoCoordinate to) throws HantoException {
+	final public MoveResult makeMove(final HantoPieceType pieceType, final HantoCoordinate from,
+	final HantoCoordinate to) throws HantoException {
 		MoveResult result = MoveResult.OK;
 		
 		if (gameManager.getCellManager().isEmpty()){
@@ -70,7 +70,7 @@ public class HantoGameAlpha implements HantoGame {
 		return result;
 	}
 	
-	private boolean isLegalMove(HantoCoordinate to){
+	private static boolean isLegalMove(final HantoCoordinate to){
 		boolean isLegal = true;
 		if (Math.abs(to.getX()) > 1 || Math.abs(to.getY()) > 1){
 			isLegal = false;
@@ -79,7 +79,7 @@ public class HantoGameAlpha implements HantoGame {
 	}
 
 	@Override
-	final public HantoPiece getPieceAt(HantoCoordinate where) {
+	final public HantoPiece getPieceAt(final HantoCoordinate where) {
 		// TODO Auto-generated method stub
 		return null;
 	}

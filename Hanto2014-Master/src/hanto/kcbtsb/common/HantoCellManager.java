@@ -1,18 +1,31 @@
+/**
+ * 
+ */
 package hanto.kcbtsb.common;
 
-import hanto.common.HantoCoordinate;
-
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * 
+ * @author Kyle
+ *
+ */
 public class HantoCellManager {
 	
-	private ArrayList<HantoCell> occupiedCells;
+	private final List<HantoCell> occupiedCells;
 	
 	public HantoCellManager(){
 		occupiedCells = new ArrayList<HantoCell>();
 	}
 	
-	public boolean isCellOccupied(int x, int y){
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return if cell is occupied
+	 */
+	public boolean isCellOccupied(final int x, final int y){
 		boolean isOccupied = false;
 
 		for (int i = 0; i < occupiedCells.size(); i++){
@@ -29,7 +42,12 @@ public class HantoCellManager {
 		return occupiedCells.isEmpty();
 	}
 	
-	public void addCell(int x, int y){
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public void addCell(final int x, final int y){
 		occupiedCells.add(new HantoCell(x, y));
 	}
 }

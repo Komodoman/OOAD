@@ -3,16 +3,10 @@
  */
 package hanto.kcbtsb.common;
 
-import java.util.ArrayList;
-
-import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
-import hanto.common.HantoGame;
-import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.kcbtsb.alpha.HantoGameAlpha;
 
 /**
  * @author Kyle
@@ -20,16 +14,29 @@ import hanto.kcbtsb.alpha.HantoGameAlpha;
  */
 public class HantoPlayer {
 	
-	private HantoPlayerColor playerColor;
-		
-	public HantoPlayer(HantoPlayerColor color){
+	private final HantoPlayerColor playerColor;
+	
+	/**
+	 * 
+	 * @param color
+	 */
+	public HantoPlayer(final HantoPlayerColor color){
 		playerColor = color;
 	}
 	
-	public MoveResult placePiece(HantoPieceType pieceType, HantoCell destCell) throws HantoException{
+	/**
+	 * 
+	 * @param pieceType
+	 * @param destCell
+	 * @return result of piece placement
+	 * @throws HantoException
+	 */
+	public MoveResult placePiece(final HantoPieceType pieceType, final HantoCell destCell) 
+	throws HantoException{
 		MoveResult result = null;
 		if( HantoGameManager.getInstance().getPlayerTurn() == playerColor){
-			result = HantoGameManager.getInstance().getGameType().makeMove(pieceType, (HantoCoordinate) new HantoCell(), destCell);
+			result = HantoGameManager.getInstance().getGameType().makeMove
+			(pieceType, new HantoCell(), destCell);
 		}
 		else{
 			throw new HantoException("It is not this player's turn");
@@ -38,7 +45,7 @@ public class HantoPlayer {
 	}
 	
 	public HantoPlayerColor getPlayerColor(){
-			return playerColor;
+		return playerColor;
 	}
 
 }

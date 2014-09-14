@@ -1,8 +1,16 @@
+/**
+ * 
+ */
 package hanto.kcbtsb.common;
 
 import hanto.common.HantoGame;
 import hanto.common.HantoPlayerColor;
 
+/**
+ * 
+ * @author Kyle
+ *
+ */
 public class HantoGameManager {
 	
 	private static HantoGameManager instance;
@@ -16,11 +24,13 @@ public class HantoGameManager {
 	private HantoGame gameType;
 	
 	
-	private void HantoGameManger(){
-		
-	}
+	@SuppressWarnings("unused")
+	private static void HantoGameManger(){}
 
-	
+	/**
+	 * 
+	 * @return instance of HantoGameManager
+	 */
 	public static HantoGameManager getInstance(){
 		if(instance == null){
 			instance = new HantoGameManager();
@@ -28,6 +38,10 @@ public class HantoGameManager {
 		return instance;
 	}
 	
+	/**
+	 * 
+	 * @return HantoPlayerColor what colors turn
+	 */
 	public HantoPlayerColor getPlayerTurn(){
 		HantoPlayerColor color = null;
 		switch(colorTurn){
@@ -40,7 +54,7 @@ public class HantoGameManager {
 		default:
 			break;
 		}
-		return color;	
+		return color;
 	}
 	
 	
@@ -49,7 +63,7 @@ public class HantoGameManager {
 	}
 
 
-	public void setRedPlayer(HantoPlayer redPlayer) {
+	public void setRedPlayer(final HantoPlayer redPlayer) {
 		this.redPlayer = redPlayer;
 	}
 
@@ -59,7 +73,7 @@ public class HantoGameManager {
 	}
 
 
-	public void setBluePlayer(HantoPlayer bluePlayer) {
+	public void setBluePlayer(final HantoPlayer bluePlayer) {
 		this.bluePlayer = bluePlayer;
 	}
 
@@ -69,7 +83,7 @@ public class HantoGameManager {
 	}
 
 
-	public void setCellManager(HantoCellManager cellManager) {
+	public void setCellManager(final HantoCellManager cellManager) {
 		this.cellManager = cellManager;
 	}
 
@@ -79,7 +93,7 @@ public class HantoGameManager {
 	}
 
 
-	public void setColorTurn(HantoPlayerTurn colorTurn) {
+	public void setColorTurn(final HantoPlayerTurn colorTurn) {
 		this.colorTurn = colorTurn;
 	}
 
@@ -89,7 +103,7 @@ public class HantoGameManager {
 	}
 
 
-	public void setGameType(HantoGame gameType) {
+	public void setGameType(final HantoGame gameType) {
 		this.gameType = gameType;
 	}
 
