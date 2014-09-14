@@ -12,6 +12,7 @@ package hanto;
 
 import hanto.common.*;
 import hanto.kcbtsb.alpha.HantoGameAlpha;
+import hanto.kcbtsb.beta.HantoGameBeta;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version
@@ -22,7 +23,7 @@ import hanto.kcbtsb.alpha.HantoGameAlpha;
  */
 public class HantoGameFactory
 {
-	private static final HantoGameFactory instance = new HantoGameFactory();
+	private static final HantoGameFactory INSTANCE = new HantoGameFactory();
 	
 	/**
 	 * Default private descriptor.
@@ -37,7 +38,7 @@ public class HantoGameFactory
 	 */
 	public static HantoGameFactory getInstance()
 	{
-		return instance;
+		return INSTANCE;
 	}
 	
 	/**
@@ -46,7 +47,7 @@ public class HantoGameFactory
 	 * @param gameId the version desired.
 	 * @return the game instance
 	 */
-	public static HantoGame makeHantoGame(HantoGameID gameId)
+	public static HantoGame makeHantoGame(final HantoGameID gameId)
 	{
 		return makeHantoGame(gameId, HantoPlayerColor.BLUE);
 	}
@@ -57,11 +58,14 @@ public class HantoGameFactory
 	 * @param movesFirst the player color that moves first
 	 * @return the game instance
 	 */
-	public static HantoGame makeHantoGame(HantoGameID gameId, HantoPlayerColor movesFirst) {
+	public static HantoGame makeHantoGame
+	(final HantoGameID gameId, final HantoPlayerColor movesFirst) {
 		HantoGame game = null;
 		switch (gameId) {
 		case ALPHA_HANTO:
 			game = new HantoGameAlpha();
+		case BETA_HANTO:
+			game = new HantoGameBeta();
 		}
 		return game;
 	}
