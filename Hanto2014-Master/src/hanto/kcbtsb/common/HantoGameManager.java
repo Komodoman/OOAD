@@ -3,7 +3,11 @@
  */
 package hanto.kcbtsb.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hanto.common.HantoGame;
+import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
 /**
@@ -22,6 +26,8 @@ public class HantoGameManager {
 	private HantoPlayerTurn colorTurn;
 	
 	private HantoGame gameType;
+	
+	private List<HantoPieceType> pieceLineup = new ArrayList<HantoPieceType>();
 	
 	
 	@SuppressWarnings("unused")
@@ -105,6 +111,20 @@ public class HantoGameManager {
 
 	public void setGameType(final HantoGame gameType) {
 		this.gameType = gameType;
+	}
+	
+	public List<HantoPieceType> getPieceLineup(){
+		return pieceLineup;
+	}
+	
+	/**
+	 * 
+	 * @param aPiece
+	 */
+	public void addPieceToLineup(final HantoPieceType aPiece, final int amount){
+		for (int i = 0; i < amount; i++){
+			pieceLineup.add(aPiece);
+		}
 	}
 
 

@@ -3,6 +3,8 @@
  */
 package hanto.kcbtsb.alpha;
 
+import java.util.ArrayList;
+
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoGame;
@@ -25,13 +27,14 @@ public class HantoGameAlpha implements HantoGame {
 	HantoGameManager gameManager;
 	
 	public HantoGameAlpha(){
-		gameManager = HantoGameManager.getInstance();
-		
+		gameManager = HantoGameManager.getInstance();	
 		gameManager.setGameType(this);
 		gameManager.setCellManager(new HantoCellManager());
 		gameManager.setColorTurn(HantoPlayerTurn.BLUE);
+		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1);
 		gameManager.setBluePlayer(new HantoPlayer(HantoPlayerColor.BLUE));
 		gameManager.setRedPlayer(new HantoPlayer(HantoPlayerColor.RED));
+		
 	}
 	
 	
