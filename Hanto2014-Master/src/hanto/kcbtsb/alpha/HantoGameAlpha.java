@@ -18,14 +18,20 @@ import hanto.kcbtsb.common.HantoPlayer;
 import hanto.kcbtsb.common.HantoPlayerTurn;
 
 /**
+ * <p> Realization of the {@link HantoGame} interface specifically for the Alpha version
+ * of Hanto.  HantoGameAlpha only initalizes enough code to meet the requirements of Alpha
+ * Hanto.  Blue player moves first always, and each player only places one ButterFly.  All
+ * games end in a draw.</p>
+ * 
  */
 public class HantoGameAlpha implements HantoGame {
 	
-	/**
-	 * Constructor for HantoGameAlpha.
-	 */
+	
 	HantoGameManager gameManager;
 	
+	/**
+	 * Constructor for HantoGameAlpha. Initializes and sets up the HantoGameManager singleton
+	 */
 	public HantoGameAlpha(){
 		gameManager = HantoGameManager.getInstance();	
 		gameManager.setGameType(this);
@@ -37,7 +43,9 @@ public class HantoGameAlpha implements HantoGame {
 		
 	}
 	
-	
+	/**
+	 * @see HantoGame.makeMove
+	 */
 	@Override
 	final public MoveResult makeMove(final HantoPieceType pieceType, final HantoCoordinate from,
 	final HantoCoordinate to) throws HantoException {
@@ -73,6 +81,13 @@ public class HantoGameAlpha implements HantoGame {
 		return result;
 	}
 	
+	/**
+	 * <p> Determines whether a move is legal or not in {@link HantoGameAlpha} </p>
+	 * @param to
+	 * 			the position on the hanto board a piece is moving to.
+	 * @return
+	 * 			a boolean representing whether the move was legal or not
+	 */
 	private static boolean isLegalMove(final HantoCoordinate to){
 		boolean isLegal = true;
 		if (Math.abs(to.getX()) > 1 || Math.abs(to.getY()) > 1){
@@ -81,15 +96,27 @@ public class HantoGameAlpha implements HantoGame {
 		return isLegal;
 	}
 
+	/**
+	 * <p> Currently unimplemented getter for getting {@link HantoPiece}'s from the board </p>
+	 * 
+	 * @param where
+	 * 			the coordinate where the a reference of the HantoPiece will be taken
+	 * 
+	 * @return will return a HantoPiece given the coordinate in later iterations.  As of
+	 * now, it returns null.
+	 */
 	@Override
 	final public HantoPiece getPieceAt(final HantoCoordinate where) {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * <p> Currently unimplemented utility tool for printing out the current hantoBoard as a string
+	 * </p>
+	 * @return will return a printed representation of the board in future iterations.
+	 */
 	@Override
 	final public String getPrintableBoard() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

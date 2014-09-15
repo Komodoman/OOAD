@@ -1,13 +1,12 @@
 /**
- * 
+ * @author Kyle Bryant and Tim Bujnevicie
  */
 package hanto.kcbtsb.common;
 
 import hanto.common.HantoCoordinate;
 
 /**
- * @author Kyle
- *
+ *@see HantoCoordinate
  */
 public class HantoCell implements HantoCoordinate {
 	
@@ -30,12 +29,20 @@ public class HantoCell implements HantoCoordinate {
 		xLoc = x;
 		yLoc = y;
 	}
-	
+	/**
+	 * Getter for the x coordinate
+	 * @return 
+	 * 		x coodinate
+	 */
 	@Override
 	public int getX() {
 		return xLoc;
 	}
-
+	/**
+	 * Getter for the y coordinate
+	 * @return 
+	 * 		y coodinate
+	 */
 	@Override
 	public int getY() {
 		return yLoc;

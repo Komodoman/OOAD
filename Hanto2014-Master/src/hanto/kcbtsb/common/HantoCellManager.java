@@ -1,5 +1,5 @@
 /**
- * 
+ * @author Kyle Bryant and Tim Bujnevicie
  */
 package hanto.kcbtsb.common;
 
@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
- * @author Kyle
- *
+ *<p> Manager of the Hanto game board.  Contains all the methods
+ *for adding to the board, checking cells, and also
+ *contains the board itself.<p> 
  */
 public class HantoCellManager {
 	
@@ -20,10 +20,11 @@ public class HantoCellManager {
 	}
 	
 	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @return if cell is occupied
+	 * Determines if a cell is occupied or not
+	 * @param x coordinate
+	 * @param y	coordinate
+	 * @return 
+	 * 		if cell is occupied
 	 */
 	public boolean isCellOccupied(final int x, final int y){
 		boolean isOccupied = false;
@@ -37,13 +38,17 @@ public class HantoCellManager {
 		
 		return isOccupied;
 	}
-	
+	/**
+	 * Method to check whether the board is empty or not
+	 * @return
+	 * 		boolean check if occupied cells is empty.
+	 */
 	public boolean isEmpty(){
 		return occupiedCells.isEmpty();
 	}
 	
 	/**
-	 * 
+	 * Adds a {@link HantoPiece} to the array of occupied cells
 	 * @param x
 	 * @param y
 	 */
