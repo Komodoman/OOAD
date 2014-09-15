@@ -45,6 +45,7 @@ public class HantoPlayer {
 		MoveResult result = null;
 		if( HantoGameManager.getInstance().getPlayerTurn() == playerColor){
 			if (turnCounter == 4 && pieceLineup.contains(HantoPieceType.BUTTERFLY)){
+				System.out.print(pieceLineup);
 				throw new HantoException("Player must place butterfly by fourth turn.");
 			}
 			result = HantoGameManager.getInstance().getGameType().makeMove
@@ -56,6 +57,10 @@ public class HantoPlayer {
 			throw new HantoException("It is not this player's turn");
 		}
 		return result;
+	}
+	
+	public int getPieceCount(){
+		return pieceLineup.size();
 	}
 	
 	public HantoPlayerColor getPlayerColor(){
