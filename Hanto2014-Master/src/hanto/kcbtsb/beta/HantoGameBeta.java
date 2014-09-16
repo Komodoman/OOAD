@@ -10,6 +10,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.kcbtsb.common.HantoCell;
 import hanto.kcbtsb.common.HantoCellManager;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.common.HantoPlayer;
@@ -39,17 +40,38 @@ public class HantoGameBeta implements HantoGame {
 	@Override
 	public MoveResult makeMove(final HantoPieceType pieceType, final HantoCoordinate from,
 	final HantoCoordinate to) throws HantoException{
+		
+		MoveResult result = MoveResult.OK;
+		
 		if (gameManager.getCellManager().isCellOccupied(to.getX(), to.getY())){
 			throw new HantoException("Cell is already occupied.");
-		} else if (!isContiguous){
-			if (to.getX() != 0 && to.getY() != 0){
+		} else if (!gameManager.getCellManager().isContiguous(to.getX(), to.getY())){
+			if (to.getX() != 0 || to.getY() != 0){
 				throw new HantoException("Cell is not contiguous to another piece");
 			}
 		}
+		
+		gameManager.getCellManager().addCell(to.getX(), to.getY(), pieceType);
+		
+		if (gameManager.getBluePlayer().getPieceCount() == 0){
+			result = MoveResult.DRAW;
+		}
+		
+		if (gameManager.getCellManager().isVictory(gameManager.getPlayerTurn())){
+			System.out.println("There's a winner");
+			switch (gameManager.getPlayerTurn()){
+				case BLUE:
+					result = MoveResult.BLUE_WINS;
+				case RED:
+					result = MoveResult.RED_WINS;
+			}
+		}
+		
 		gameManager.setColorTurn(gameManager.getColorTurn().getNext());
-		gameManager.getCellManager().addCell(to.getX(), to.getY());
-		return MoveResult.OK;
+		
+		return result;
 	}
+	
 
 	@Override
 	public HantoPiece getPieceAt(final HantoCoordinate where) {

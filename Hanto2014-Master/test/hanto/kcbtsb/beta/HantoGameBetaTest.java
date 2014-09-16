@@ -1,14 +1,19 @@
 package hanto.kcbtsb.beta;
 
 import static org.junit.Assert.assertTrue;
+
+import java.lang.reflect.Field;
+
 import hanto.HantoGameFactory;
 import hanto.common.HantoException;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
+import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.kcbtsb.common.HantoCell;
 import hanto.kcbtsb.common.HantoGameManager;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.TestCase;
@@ -26,6 +31,13 @@ import junit.framework.TestCase;
  * @version $Revision$
  */
 public class HantoGameBetaTest {
+	
+    @Before
+    public void resetSingleton() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+       Field instance = HantoGameManager.class.getDeclaredField("instance");
+       instance.setAccessible(true);
+       instance.set(null, null);
+    }
 	
 	@Test(expected=HantoException.class)
 	public void blueShouldFailPlaceSparrowOnFourth() throws HantoException {
@@ -66,6 +78,48 @@ public class HantoGameBetaTest {
 		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
 		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 0));
 		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 2));
+	}
+	
+	@Test
+	public void gameShouldTie() throws HantoException {
+		HantoGameManager manager = HantoGameManager.getInstance();
+		HantoGameFactory.getInstance();
+		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
+		manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, 0));
+		manager.getRedPlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, -1));
+		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -2));
+		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 1));
+		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 2));
+		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 3));
+		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 4));
+		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 5));
+		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 6));
+		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 7));
+		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 8));
+		MoveResult result = manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 9));
+		assertTrue("Game should Draw: ", result == MoveResult.DRAW);
+	}
+	
+	@Test
+	public void redShouldWin() throws HantoException {
+		HantoGameManager manager = HantoGameManager.getInstance();
+		HantoGameFactory.getInstance();
+		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
+		manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, 0));
+		manager.getRedPlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, -1));
+		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -2));
+		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(-1, 0));
+		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -3));
+		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(-1, 1));
+		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -4));
+		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 1));
+		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -5));
+		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(1, 0));
+		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -6));
+		MoveResult result = manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(1, -1));
+		System.out.print(manager.getCellManager().isVictory(HantoPlayerColor.RED));
+		System.out.println(result);
+		assertTrue("Red should win: ", result == MoveResult.RED_WINS);
 	}
 }
 
