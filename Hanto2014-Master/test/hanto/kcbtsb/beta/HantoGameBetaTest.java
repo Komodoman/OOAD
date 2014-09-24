@@ -72,6 +72,14 @@ public class HantoGameBetaTest {
 	}
 	
 	@Test(expected=HantoException.class)
+	public void blueShouldFailPlaceFirstSparrow() throws HantoException {
+		HantoGameManager manager = HantoGameManager.getInstance();
+		HantoGameFactory.getInstance();
+		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
+		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(1, 0));
+	}
+	
+	@Test(expected=HantoException.class)
 	public void redShouldFailPlaceNonContiguousSparrow() throws HantoException {
 		HantoGameManager manager = HantoGameManager.getInstance();
 		HantoGameFactory.getInstance();
