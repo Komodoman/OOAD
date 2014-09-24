@@ -41,6 +41,7 @@ public class HantoGameBetaTest {
 	
 	@Test(expected=HantoException.class)
 	public void blueShouldFailPlaceSparrowOnFourth() throws HantoException {
+		System.out.println("START TEST__________________________________");
 		HantoGameManager manager = HantoGameManager.getInstance();
 		HantoGameFactory.getInstance();
 		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
@@ -50,8 +51,8 @@ public class HantoGameBetaTest {
 		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 3));
 		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 4));
 		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 5));
-		System.out.println(manager.getTurnCount());
 		MoveResult result = manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 6));
+		System.out.println("_________________________________________END TEST");
 	}
 	
 	@Test(expected=HantoException.class)
@@ -69,7 +70,6 @@ public class HantoGameBetaTest {
 		HantoGameFactory.getInstance();
 		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
 		MoveResult result = manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 0));
-		System.out.println("____" + result + "____");
 		assertTrue("Should place sparrow: ", result == MoveResult.OK);
 	}
 	

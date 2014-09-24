@@ -12,6 +12,7 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.kcbtsb.common.HantoBaseGame;
 import hanto.kcbtsb.common.HantoGameManager;
+import hanto.kcbtsb.common.HantoPlayer;
 
 /**
  * <p> Realization of the {@link HantoGame} interface specifically for the Alpha version
@@ -31,6 +32,8 @@ public class HantoGameAlpha extends HantoBaseGame {
 		super();
 		gameManager = HantoGameManager.getInstance();
 		gameManager.setGame(this);
+		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1);
+		gameManager.setUp();
 	}
 	
 	/**
@@ -71,7 +74,7 @@ public class HantoGameAlpha extends HantoBaseGame {
 				result = MoveResult.DRAW;
 			}
 		}
-		gameManager.setColorTurn(gameManager.getColorTurn().getNext());
+		HantoGameManager.getInstance().nextTurn();
 		return result;
 	}
 	

@@ -1,6 +1,9 @@
 package hanto.kcbtsb.common;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import hanto.HantoGameFactory;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;

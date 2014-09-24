@@ -30,7 +30,9 @@ public class HantoGameBeta extends HantoBaseGame {
 		super();
 		gameManager = HantoGameManager.getInstance();
 		gameManager.setGame(this);
-		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 4);
+		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 5);
+		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1);
+		gameManager.setUp();
 	}
 	
 	@Override
@@ -61,8 +63,7 @@ public class HantoGameBeta extends HantoBaseGame {
 					result = MoveResult.RED_WINS;
 			}
 		}
-		
-		gameManager.setColorTurn(gameManager.getColorTurn().getNext());
+		HantoGameManager.getInstance().nextTurn();
 		
 		return result;
 	}

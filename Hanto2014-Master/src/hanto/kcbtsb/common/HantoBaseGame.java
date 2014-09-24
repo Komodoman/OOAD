@@ -16,9 +16,6 @@ public abstract class HantoBaseGame implements HantoGame {
 		gameManager = HantoGameManager.getInstance();
 		gameManager.setCellManager(new HantoCellManager());
 		gameManager.setColorTurn(HantoPlayerTurn.BLUE);
-		gameManager.setBluePlayer(new HantoPlayer(HantoPlayerColor.BLUE));
-		gameManager.setRedPlayer(new HantoPlayer(HantoPlayerColor.RED));
-		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1);
 		gameManager.setTurnCount(1);
 	}
 	

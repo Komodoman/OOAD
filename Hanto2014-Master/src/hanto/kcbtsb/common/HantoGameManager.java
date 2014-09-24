@@ -28,8 +28,6 @@ public class HantoGameManager {
 	
 	private HantoPlayerTurn colorTurn;
 	
-	private HantoGameID gameType;
-	
 	private HantoGame game;
 	
 	private int turnCounter;
@@ -40,6 +38,11 @@ public class HantoGameManager {
 	
 	@SuppressWarnings("unused")
 	private void HantoGameManger(){}
+	
+	public void setUp(){
+		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE, pieceLineup);
+		redPlayer = new HantoPlayer(HantoPlayerColor.RED, pieceLineup);
+	}
 
 	/**
 	 * Creates an instance of HantoGameManager if none exists.
@@ -149,25 +152,6 @@ public class HantoGameManager {
 	public void setColorTurn(final HantoPlayerTurn colorTurn) {
 		this.colorTurn = colorTurn;
 	}
-
-	/**
-	 * Getter for game type instance
-	 * @return
-	 * 		game type instance
-	 */
-	public HantoGameID getGameType() {
-		return gameType;
-	}
-
-	/**
-	 * Setter for game type instance
-	 * @param redPlayer
-	 * 		instance to be set as game type
-	 */
-	public void setGameType(final HantoGameID gameType) {
-		this.gameType = gameType;
-	}
-	
 	
 	/**
 	 * Getter for game type instance
@@ -200,6 +184,7 @@ public class HantoGameManager {
 	 * increments the value of turnCounter
 	 */
 	public void nextTurn(){
+		colorTurn = colorTurn.getNext();
 		turnCounter++;
 	}
 	

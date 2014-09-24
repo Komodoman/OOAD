@@ -68,7 +68,6 @@ public class HantoGameAlphaTest{
 		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, 0));
 		MoveResult result = manager.getRedPlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(1, 1));
-		System.out.println("____" + result + "____");
 		assertTrue("Should place butterfly: ", result == MoveResult.DRAW);
 	}
 	
@@ -79,7 +78,6 @@ public class HantoGameAlphaTest{
 		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, 0));
 		MoveResult result = manager.getRedPlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(2, 1));
-		System.out.println("____" + result + "____");
 	}
 	
 }
