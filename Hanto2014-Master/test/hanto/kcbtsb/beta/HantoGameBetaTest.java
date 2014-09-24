@@ -77,7 +77,8 @@ public class HantoGameBetaTest {
 		HantoGameFactory.getInstance();
 		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
 		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 0));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 2));
+		MoveResult result = manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 3));
+		System.out.println(result);
 	}
 	
 	@Test

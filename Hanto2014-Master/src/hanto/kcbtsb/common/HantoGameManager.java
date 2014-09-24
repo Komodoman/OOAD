@@ -29,6 +29,8 @@ public class HantoGameManager {
 	
 	private HantoGame gameType;
 	
+	private int turnCounter;
+	
 	private List<HantoPieceType> pieceLineup = new ArrayList<HantoPieceType>();
 	
 	//Static instance of the Singleton
@@ -157,6 +159,19 @@ public class HantoGameManager {
 	 */
 	public void setGameType(final HantoGame gameType) {
 		this.gameType = gameType;
+	}
+	
+	public int getTurnCount(){
+		
+		return turnCounter;
+	}
+	
+	public void setTurnCount(int turn){
+		turnCounter = turn;
+	}
+	
+	public void nextTurn(){
+		turnCounter++;
 	}
 	
 	/**

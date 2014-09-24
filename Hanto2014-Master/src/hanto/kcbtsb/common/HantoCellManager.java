@@ -103,7 +103,7 @@ public class HantoCellManager {
 		}
 		
 		if (butterflyCell != null){
-			System.out.println("checking surrounding cells");
+			//System.out.println("checking surrounding cells");
 			isVictory = areSurroundingCellsEnemies(butterflyCell);
 		}
 		

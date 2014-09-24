@@ -35,6 +35,7 @@ public class HantoGameBeta implements HantoGame {
 		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 4);
 		gameManager.setBluePlayer(new HantoPlayer(HantoPlayerColor.BLUE));
 		gameManager.setRedPlayer(new HantoPlayer(HantoPlayerColor.RED));
+		gameManager.setTurnCount(1);
 	}
 	
 	@Override
@@ -42,11 +43,10 @@ public class HantoGameBeta implements HantoGame {
 	final HantoCoordinate to) throws HantoException{
 		
 		MoveResult result = MoveResult.OK;
-		
 		if (gameManager.getCellManager().isCellOccupied(to.getX(), to.getY())){
 			throw new HantoException("Cell is already occupied.");
 		} else if (!gameManager.getCellManager().isContiguous(to.getX(), to.getY())){
-			if (to.getX() != 0 || to.getY() != 0){
+			if (gameManager.getTurnCount() != 1){
 				throw new HantoException("Cell is not contiguous to another piece");
 			}
 		}

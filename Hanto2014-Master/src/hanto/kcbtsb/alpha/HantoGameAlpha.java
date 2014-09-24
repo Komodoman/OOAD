@@ -40,6 +40,7 @@ public class HantoGameAlpha implements HantoGame {
 		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1);
 		gameManager.setBluePlayer(new HantoPlayer(HantoPlayerColor.BLUE));
 		gameManager.setRedPlayer(new HantoPlayer(HantoPlayerColor.RED));
+		gameManager.setTurnCount(1);
 		
 	}
 	

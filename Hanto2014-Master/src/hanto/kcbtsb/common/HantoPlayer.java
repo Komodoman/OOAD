@@ -19,8 +19,6 @@ public class HantoPlayer {
 	
 	private final HantoPlayerColor playerColor;
 	
-	private int turnCounter;
-	
 	private final List<HantoPieceType> pieceLineup = new ArrayList<HantoPieceType>();
 	
 	/**
@@ -30,7 +28,6 @@ public class HantoPlayer {
 	public HantoPlayer(final HantoPlayerColor color){
 		playerColor = color;
 		pieceLineup.addAll(HantoGameManager.getInstance().getPieceLineup());
-		turnCounter = 1;
 	}
 	
 	/**
@@ -43,15 +40,19 @@ public class HantoPlayer {
 	public MoveResult placePiece(final HantoPieceType pieceType, final HantoCell destCell) 
 	throws HantoException{
 		MoveResult result = null;
+		int turn = HantoGameManager.getInstance().getTurnCount();
 		if( HantoGameManager.getInstance().getPlayerTurn() == playerColor){
-			if (turnCounter == 4 && pieceLineup.contains(HantoPieceType.BUTTERFLY)){
+			if (turn == 1 && (destCell.getX() != 0 || destCell.getY() != 0)){
+				System.out.println("Exception should be thrown");
+				throw new HantoException("Player must place first piece at 0,0");
+			} else if (turn == 4 && pieceLineup.contains(HantoPieceType.BUTTERFLY)){
 				System.out.print(pieceLineup);
 				throw new HantoException("Player must place butterfly by fourth turn.");
 			}
 			result = HantoGameManager.getInstance().getGameType().makeMove
 			(pieceType, new HantoCell(), destCell);
 			pieceLineup.remove(pieceType);
-			turnCounter++;
+			HantoGameManager.getInstance().nextTurn();
 		}
 		else{
 			throw new HantoException("It is not this player's turn");
