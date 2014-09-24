@@ -10,7 +10,6 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.kcbtsb.common.HantoCell;
 import hanto.kcbtsb.common.HantoCellManager;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.common.HantoPlayer;
@@ -27,7 +26,7 @@ public class HantoGameBeta implements HantoGame {
 	HantoGameManager gameManager;
 	
 	public HantoGameBeta(){
-		gameManager = HantoGameManager.getInstance();	
+		gameManager = HantoGameManager.getInstance();
 		gameManager.setGameType(this);
 		gameManager.setCellManager(new HantoCellManager());
 		gameManager.setColorTurn(HantoPlayerTurn.BLUE);
@@ -57,8 +56,8 @@ public class HantoGameBeta implements HantoGame {
 			result = MoveResult.DRAW;
 		}
 		
-		if (gameManager.getCellManager().isVictory(gameManager.getPlayerTurn())){
-			System.out.println("There's a winner");
+		if (isVictory()){
+			//System.out.println("There's a winner");
 			switch (gameManager.getPlayerTurn()){
 				case BLUE:
 					result = MoveResult.BLUE_WINS;
@@ -70,6 +69,10 @@ public class HantoGameBeta implements HantoGame {
 		gameManager.setColorTurn(gameManager.getColorTurn().getNext());
 		
 		return result;
+	}
+	
+	private boolean isVictory(){
+		return gameManager.getCellManager().isVictory(gameManager.getPlayerTurn());
 	}
 	
 

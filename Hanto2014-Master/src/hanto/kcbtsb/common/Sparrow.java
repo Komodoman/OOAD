@@ -11,19 +11,16 @@ import hanto.common.HantoPlayerColor;
 /**
  * A HantoPiece of type butterfly
  */
-public class Butterfly implements HantoPiece{
+public class Sparrow implements HantoPiece{
 	
 	private HantoPlayerColor color;
-	
-	private HantoCell curCell;
 	
 	/**
 	 * Constructor
 	 * @param playerColor
 	 */
-	public Butterfly(HantoPlayerColor playerColor){
+	public Sparrow(HantoPlayerColor playerColor){
 		color = playerColor;
-		curCell = null;
 	}
 	
 	@Override
@@ -35,13 +32,4 @@ public class Butterfly implements HantoPiece{
 	public HantoPieceType getType() {
 		return HantoPieceType.BUTTERFLY;
 	}
-	
-	public void setCell(HantoCell aCell){
-		curCell = aCell;
-	}
-	
-	public HantoCell getCell(){
-		return curCell;
-	}
-
 }

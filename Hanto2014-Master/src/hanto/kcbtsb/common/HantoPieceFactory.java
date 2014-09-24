@@ -12,16 +12,19 @@ package hanto.kcbtsb.common;
 
 import hanto.common.*;
 
-
+/**
+ * 
+ * @author kcbryant
+ *
+ */
 public class HantoPieceFactory{
 
 
-	
 	/**
-	 * Factory method that returns the appropriately configured Hanto game.
-	 * @param gameId the version desired.
-	 * @param movesFirst the player color that moves first
-	 * @return the game instance
+	 * 
+	 * @param pieceId
+	 * @param pieceColor
+	 * @return Piece that is made by the factory
 	 */
 	public static HantoPiece makeHantoPiece
 	(final HantoPieceType pieceId, final HantoPlayerColor pieceColor) {

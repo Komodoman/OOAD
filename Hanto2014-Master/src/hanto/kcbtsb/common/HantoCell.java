@@ -19,10 +19,6 @@ public class HantoCell implements HantoCoordinate {
 	
 	private HantoPiece occPiece;
 	
-	private HantoPieceType pieceType;
-	
-	private HantoPlayerColor curColor;
-	
 	/**
 	 * Constructor for HantoCell.
 	 */
@@ -33,21 +29,23 @@ public class HantoCell implements HantoCoordinate {
 	 * @param x int
 	 * @param y int
 	 */
-	public HantoCell(final int x, final int y){
-		xLoc = x;
-		yLoc = y;
-	}
+//	public HantoCell(final int x, final int y){
+//		xLoc = x;
+//		yLoc = y;
+//	}
 	
 	
 	/**
 	 * Constructor for HantoCell.
 	 * @param x int
 	 * @param y int
+	 * @param aPiece HantoPieceType
 	 */
 	public HantoCell(final int x, final int y, HantoPieceType aPiece){
 		xLoc = x;
 		yLoc = y;
-		occPiece = HantoPieceFactory.makeHantoPiece(aPiece, HantoGameManager.getInstance().getPlayerTurn());
+		occPiece = HantoPieceFactory.makeHantoPiece(
+				aPiece, HantoGameManager.getInstance().getPlayerTurn());
 	}
 	
 	

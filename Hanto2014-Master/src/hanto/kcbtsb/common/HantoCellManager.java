@@ -32,12 +32,9 @@ public class HantoCellManager {
 	 */
 	public boolean isCellOccupied(final int x, final int y){
 		boolean isOccupied = false;
-
-		for (int i = 0; i < occupiedCells.size(); i++){
-			if (occupiedCells.get(i).getX() == x && occupiedCells.get(i).getY() == y){
-				isOccupied = true;
-				break;
-			}
+		
+		if (findCell(x, y) != null){
+			isOccupied = true;
 		}
 		
 		return isOccupied;
@@ -45,11 +42,10 @@ public class HantoCellManager {
 	
 	/**
 	 * 
-	 * @param x
-	 * @param y
+	 * @param cell HantoCell
 	 * @return if cell is occupied
 	 */
-	public boolean isCellOccupied(HantoCell cell){
+	public boolean isCellOccupied(final HantoCell cell){
 		boolean isOccupied = false;
 
 		for (int i = 0; i < occupiedCells.size(); i++){
@@ -62,6 +58,12 @@ public class HantoCellManager {
 		return isOccupied;
 	}
 	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return if cell is contiguous to another
+	 */
 	public boolean isContiguous(final int x, final int y){
 		boolean isContiguous = false;
 		
@@ -91,55 +93,81 @@ public class HantoCellManager {
 		return occupiedCells.isEmpty();
 	}
 	
-	public boolean isVictory(HantoPlayerColor color){
+	/**
+	 * 
+	 * @param color
+	 * @return if a victory condition has been met
+	 */
+	public boolean isVictory(final HantoPlayerColor color){
 		
 		boolean isVictory = false;
 		HantoCell butterflyCell = null;
-		
-		for(int i = 0; i < occupiedCells.size(); i++){
-			HantoCell curCell = occupiedCells.get(i);
-			if (curCell.getPiece().getType() == HantoPieceType.BUTTERFLY && curCell.getCellColor() != color){
-				butterflyCell = curCell;
+		int gridSize = occupiedCells.size();
+		System.out.println(gridSize);
+
+		for(int i = 0; i < gridSize - 1; i++){
+			HantoPiece curPiece = occupiedCells.get(i).getPiece();
+			if (curPiece.getType() == HantoPieceType.BUTTERFLY && curPiece.getColor() != color){
+				butterflyCell = occupiedCells.get(i);
+				break;
 			}
 		}
 		
+		
 		if (butterflyCell != null){
-			//System.out.println("checking surrounding cells");
-			isVictory = areSurroundingCellsEnemies(butterflyCell);
+			isVictory = isSurroundingCellsEnemies(butterflyCell);
 		}
 		
 		return isVictory;
 	}
 	
-	private boolean areSurroundingCellsEnemies(HantoCell butterfly){
+	private boolean isSurroundingCellsEnemies(final HantoCell butterfly){
 		boolean areEnemies = true;
 		
-		HantoCell neCell = new HantoCell(butterfly.getX() + 1, butterfly.getY());
+		final HantoCell neCell = new HantoCell(butterfly.getX() + 1, butterfly.getY());
 		if (!isCellOccupied(neCell) ||  getCellColor(neCell) == butterfly.getCellColor()){
 			areEnemies = false;
 		}
-		HantoCell seCell = new HantoCell(butterfly.getX() + 1, butterfly.getY() - 1);
+		final HantoCell seCell = new HantoCell(butterfly.getX() + 1, butterfly.getY() - 1);
 		if (!isCellOccupied(seCell) ||  getCellColor(seCell) == butterfly.getCellColor()){
 			areEnemies = false;
 		}
-		HantoCell sCell = new HantoCell(butterfly.getX(), butterfly.getY() - 1);
+		final HantoCell sCell = new HantoCell(butterfly.getX(), butterfly.getY() - 1);
 		if (!isCellOccupied(sCell) ||  getCellColor(sCell) == butterfly.getCellColor()){
 			areEnemies = false;
 		}
-		HantoCell swCell = new HantoCell(butterfly.getX() - 1, butterfly.getY());
+		final HantoCell swCell = new HantoCell(butterfly.getX() - 1, butterfly.getY());
 		if (!isCellOccupied(swCell) ||  getCellColor(swCell) == butterfly.getCellColor()){
 			areEnemies = false;
 		}
-		HantoCell nwCell = new HantoCell(butterfly.getX() - 1, butterfly.getY() + 1);
+		final HantoCell nwCell = new HantoCell(butterfly.getX() - 1, butterfly.getY() + 1);
 		if (!isCellOccupied(nwCell) ||  getCellColor(nwCell) == butterfly.getCellColor()){
 			areEnemies = false;
 		}
-		HantoCell nCell = new HantoCell(butterfly.getX(), butterfly.getY() + 1);
+		final HantoCell nCell = new HantoCell(butterfly.getX(), butterfly.getY() + 1);
 		if (!isCellOccupied(nCell) ||  getCellColor(nCell) == butterfly.getCellColor()){
 			areEnemies = false;
 		}
 		
 		return areEnemies;
+	}
+	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private HantoCell findCell(final int x, final int y){
+		HantoCell aCell = null;
+		for (int i = 0; i < occupiedCells.size(); i++){
+			if (occupiedCells.get(i).getX() == x && occupiedCells.get(i).getY() == y){
+				aCell = occupiedCells.get(i);
+				break;
+			}
+		}
+		
+		return aCell;
 	}
 	
 	/**
@@ -155,47 +183,47 @@ public class HantoCellManager {
 	 * 
 	 * @param x
 	 * @param y
+	 * @param aPiece HantoPieceType
 	 */
-	public void addCell(final int x, final int y, HantoPieceType aPiece){
+	public void addCell(final int x, final int y, final HantoPieceType aPiece){
 		occupiedCells.add(new HantoCell(x, y, aPiece));
 	}
 	
+	
+	/**
+	 * @param aCell HantoCell
+	 * @return the cell's piece
+	 */
+	public HantoPiece getCellPiece(final HantoCell aCell){
+		return findCell(aCell.getX(), aCell.getY()).getPiece();
+	}
+	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return the cell's piece
+	 */
 	public HantoPiece getCellPiece(final int x, final int y){
-		
-		HantoCell aCell = null;
-		for (int i = 0; i < occupiedCells.size(); i++){
-			if (occupiedCells.get(i).getX() == x && occupiedCells.get(i).getY() == y){
-				aCell = occupiedCells.get(i);
-				break;
-			}
-		}
-		
-		return aCell.getPiece();
+		return findCell(x, y).getPiece();
 	}
 	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return the cell's color
+	 */
 	public HantoPlayerColor getCellColor(final int x, final int y){
-		
-		HantoCell aCell = null;
-		for (int i = 0; i < occupiedCells.size(); i++){
-			if (occupiedCells.get(i).getX() == x && occupiedCells.get(i).getY() == y){
-				aCell = occupiedCells.get(i);
-				break;
-			}
-		}
-		
-		return aCell.getCellColor();
+		return findCell(x, y).getCellColor();
 	}
 	
+	/**
+	 * 
+	 * @param cell
+	 * @return the cell's color
+	 */
 	public HantoPlayerColor getCellColor(HantoCell cell){
-		
-		HantoCell aCell = null;
-		for (int i = 0; i < occupiedCells.size(); i++){
-			if (occupiedCells.get(i).getX() == cell.getX() && occupiedCells.get(i).getY() == cell.getY()){
-				aCell = occupiedCells.get(i);
-				break;
-			}
-		}
-		
-		return aCell.getCellColor();
+		return findCell(cell.getX(), cell.getY()).getCellColor();
 	}
 }

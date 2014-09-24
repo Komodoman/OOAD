@@ -170,6 +170,9 @@ public class HantoGameManager {
 		turnCounter = turn;
 	}
 	
+	/**
+	 * increments the value of turnCounter
+	 */
 	public void nextTurn(){
 		turnCounter++;
 	}

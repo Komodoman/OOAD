@@ -33,7 +33,7 @@ public class HantoGameAlpha implements HantoGame {
 	 * Constructor for HantoGameAlpha. Initializes and sets up the HantoGameManager singleton
 	 */
 	public HantoGameAlpha(){
-		gameManager = HantoGameManager.getInstance();	
+		gameManager = HantoGameManager.getInstance();
 		gameManager.setGameType(this);
 		gameManager.setCellManager(new HantoCellManager());
 		gameManager.setColorTurn(HantoPlayerTurn.BLUE);

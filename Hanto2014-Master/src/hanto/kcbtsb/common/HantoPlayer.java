@@ -40,7 +40,7 @@ public class HantoPlayer {
 	public MoveResult placePiece(final HantoPieceType pieceType, final HantoCell destCell) 
 	throws HantoException{
 		MoveResult result = null;
-		int turn = HantoGameManager.getInstance().getTurnCount();
+		final int turn = HantoGameManager.getInstance().getTurnCount();
 		if( HantoGameManager.getInstance().getPlayerTurn() == playerColor){
 			if (turn == 1 && (destCell.getX() != 0 || destCell.getY() != 0)){
 				System.out.println("Exception should be thrown");
