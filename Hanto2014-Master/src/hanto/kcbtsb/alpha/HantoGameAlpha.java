@@ -52,10 +52,14 @@ public class HantoGameAlpha implements HantoGame {
 	final HantoCoordinate to) throws HantoException {
 		MoveResult result = MoveResult.OK;
 		
+		if (from != null){
+			throw new HantoException("Moving not available");
+		}
+		
 		if (gameManager.getCellManager().isEmpty()){
 			// check for first move of game
 			if (to.getX() == 0 && to.getY() == 0 && pieceType == HantoPieceType.BUTTERFLY){
-				gameManager.getCellManager().addCell(to.getX(), to.getY());
+				gameManager.getCellManager().addCell(to.getX(), to.getY(), pieceType);
 			}
 			else{
 				throw new HantoException("First butterfly must be placed at 0,0");
@@ -73,7 +77,7 @@ public class HantoGameAlpha implements HantoGame {
 		
 		else{
 			// add cell to cell manager
-			gameManager.getCellManager().addCell(to.getX(), to.getY());
+			gameManager.getCellManager().addCell(to.getX(), to.getY(), pieceType);
 			if (gameManager.getPlayerTurn() == HantoPlayerColor.RED){
 				result = MoveResult.DRAW;
 			}
@@ -108,7 +112,7 @@ public class HantoGameAlpha implements HantoGame {
 	 */
 	@Override
 	final public HantoPiece getPieceAt(final HantoCoordinate where) {
-		return null;
+		return gameManager.getCellManager().getCellPiece(where.getX(), where.getY());
 	}
 	
 	/**

@@ -4,6 +4,7 @@
 package hanto.kcbtsb.common;
 
 import hanto.common.HantoCoordinate;
+import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
@@ -16,6 +17,8 @@ public class HantoCell implements HantoCoordinate {
 	
 	private int yLoc;
 	
+	private HantoPiece occPiece;
+	
 	private HantoPieceType pieceType;
 	
 	private HantoPlayerColor curColor;
@@ -23,8 +26,7 @@ public class HantoCell implements HantoCoordinate {
 	/**
 	 * Constructor for HantoCell.
 	 */
-	public HantoCell(){
-	}
+	public HantoCell(){}
 	
 	/**
 	 * Constructor for HantoCell.
@@ -35,7 +37,6 @@ public class HantoCell implements HantoCoordinate {
 		xLoc = x;
 		yLoc = y;
 	}
-
 	
 	
 	/**
@@ -46,8 +47,7 @@ public class HantoCell implements HantoCoordinate {
 	public HantoCell(final int x, final int y, HantoPieceType aPiece){
 		xLoc = x;
 		yLoc = y;
-		pieceType = aPiece;
-		curColor = HantoGameManager.getInstance().getPlayerTurn();
+		occPiece = HantoPieceFactory.makeHantoPiece(aPiece, HantoGameManager.getInstance().getPlayerTurn());
 	}
 	
 	
@@ -70,12 +70,12 @@ public class HantoCell implements HantoCoordinate {
 		return yLoc;
 	}
 	
-	public HantoPieceType getPiece() {
-		return pieceType;
+	public HantoPiece getPiece() {
+		return occPiece;
 	}
 	
 	public HantoPlayerColor getCellColor() {
-		return curColor;
+		return occPiece.getColor();
 	}
 
 }

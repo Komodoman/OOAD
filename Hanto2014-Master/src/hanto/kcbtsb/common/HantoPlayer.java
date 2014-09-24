@@ -50,7 +50,7 @@ public class HantoPlayer {
 				throw new HantoException("Player must place butterfly by fourth turn.");
 			}
 			result = HantoGameManager.getInstance().getGameType().makeMove
-			(pieceType, new HantoCell(), destCell);
+			(pieceType, null, destCell);
 			pieceLineup.remove(pieceType);
 			HantoGameManager.getInstance().nextTurn();
 		}

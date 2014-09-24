@@ -3,6 +3,7 @@
  */
 package hanto.kcbtsb.common;
 
+import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
@@ -97,7 +98,7 @@ public class HantoCellManager {
 		
 		for(int i = 0; i < occupiedCells.size(); i++){
 			HantoCell curCell = occupiedCells.get(i);
-			if (curCell.getPiece() == HantoPieceType.BUTTERFLY && curCell.getCellColor() != color){
+			if (curCell.getPiece().getType() == HantoPieceType.BUTTERFLY && curCell.getCellColor() != color){
 				butterflyCell = curCell;
 			}
 		}
@@ -157,6 +158,19 @@ public class HantoCellManager {
 	 */
 	public void addCell(final int x, final int y, HantoPieceType aPiece){
 		occupiedCells.add(new HantoCell(x, y, aPiece));
+	}
+	
+	public HantoPiece getCellPiece(final int x, final int y){
+		
+		HantoCell aCell = null;
+		for (int i = 0; i < occupiedCells.size(); i++){
+			if (occupiedCells.get(i).getX() == x && occupiedCells.get(i).getY() == y){
+				aCell = occupiedCells.get(i);
+				break;
+			}
+		}
+		
+		return aCell.getPiece();
 	}
 	
 	public HantoPlayerColor getCellColor(final int x, final int y){
