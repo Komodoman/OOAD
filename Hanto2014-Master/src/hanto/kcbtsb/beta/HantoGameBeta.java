@@ -10,6 +10,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.kcbtsb.common.HantoBaseGame;
 import hanto.kcbtsb.common.HantoCellManager;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.common.HantoPlayer;
@@ -19,22 +20,17 @@ import hanto.kcbtsb.common.HantoPlayerTurn;
  * @author Kyle
  *
  */
-public class HantoGameBeta implements HantoGame {
-	/**
-	 * Constructor for HantoGameAlpha.
-	 */
+public class HantoGameBeta extends HantoBaseGame {
 	HantoGameManager gameManager;
 	
+	/**
+	 * Constructor for HantoGameBeta.
+	 */
 	public HantoGameBeta(){
+		super();
 		gameManager = HantoGameManager.getInstance();
-		gameManager.setGameType(this);
-		gameManager.setCellManager(new HantoCellManager());
-		gameManager.setColorTurn(HantoPlayerTurn.BLUE);
-		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1);
+		gameManager.setGame(this);
 		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 4);
-		gameManager.setBluePlayer(new HantoPlayer(HantoPlayerColor.BLUE));
-		gameManager.setRedPlayer(new HantoPlayer(HantoPlayerColor.RED));
-		gameManager.setTurnCount(1);
 	}
 	
 	@Override

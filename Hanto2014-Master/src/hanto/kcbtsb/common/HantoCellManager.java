@@ -103,7 +103,6 @@ public class HantoCellManager {
 		boolean isVictory = false;
 		HantoCell butterflyCell = null;
 		int gridSize = occupiedCells.size();
-		System.out.println(gridSize);
 
 		for(int i = 0; i < gridSize - 1; i++){
 			HantoPiece curPiece = occupiedCells.get(i).getPiece();

@@ -50,7 +50,8 @@ public class HantoGameBetaTest {
 		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 3));
 		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 4));
 		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 5));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 6));
+		System.out.println(manager.getTurnCount());
+		MoveResult result = manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 6));
 	}
 	
 	@Test(expected=HantoException.class)
@@ -68,6 +69,7 @@ public class HantoGameBetaTest {
 		HantoGameFactory.getInstance();
 		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
 		MoveResult result = manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 0));
+		System.out.println("____" + result + "____");
 		assertTrue("Should place sparrow: ", result == MoveResult.OK);
 	}
 	
@@ -85,8 +87,7 @@ public class HantoGameBetaTest {
 		HantoGameFactory.getInstance();
 		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
 		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 0));
-		MoveResult result = manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 3));
-		System.out.println(result);
+		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 3));
 	}
 	
 	@Test
@@ -126,8 +127,6 @@ public class HantoGameBetaTest {
 		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(1, 0));
 		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -6));
 		MoveResult result = manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(1, -1));
-		System.out.print(manager.getCellManager().isVictory(HantoPlayerColor.RED));
-		System.out.println(result);
 		assertTrue("Red should win: ", result == MoveResult.RED_WINS);
 	}
 }

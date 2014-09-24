@@ -3,8 +3,6 @@
  */
 package hanto.kcbtsb.alpha;
 
-import java.util.ArrayList;
-
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoException;
 import hanto.common.HantoGame;
@@ -12,10 +10,8 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.kcbtsb.common.HantoCellManager;
+import hanto.kcbtsb.common.HantoBaseGame;
 import hanto.kcbtsb.common.HantoGameManager;
-import hanto.kcbtsb.common.HantoPlayer;
-import hanto.kcbtsb.common.HantoPlayerTurn;
 
 /**
  * <p> Realization of the {@link HantoGame} interface specifically for the Alpha version
@@ -24,24 +20,17 @@ import hanto.kcbtsb.common.HantoPlayerTurn;
  * games end in a draw.</p>
  * 
  */
-public class HantoGameAlpha implements HantoGame {
+public class HantoGameAlpha extends HantoBaseGame {
 	
-	
-	HantoGameManager gameManager;
+	private HantoGameManager gameManager;
 	
 	/**
 	 * Constructor for HantoGameAlpha. Initializes and sets up the HantoGameManager singleton
 	 */
 	public HantoGameAlpha(){
+		super();
 		gameManager = HantoGameManager.getInstance();
-		gameManager.setGameType(this);
-		gameManager.setCellManager(new HantoCellManager());
-		gameManager.setColorTurn(HantoPlayerTurn.BLUE);
-		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1);
-		gameManager.setBluePlayer(new HantoPlayer(HantoPlayerColor.BLUE));
-		gameManager.setRedPlayer(new HantoPlayer(HantoPlayerColor.RED));
-		gameManager.setTurnCount(1);
-		
+		gameManager.setGame(this);
 	}
 	
 	/**

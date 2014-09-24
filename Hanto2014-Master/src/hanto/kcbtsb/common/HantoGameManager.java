@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hanto.common.HantoGame;
+import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
@@ -27,7 +28,9 @@ public class HantoGameManager {
 	
 	private HantoPlayerTurn colorTurn;
 	
-	private HantoGame gameType;
+	private HantoGameID gameType;
+	
+	private HantoGame game;
 	
 	private int turnCounter;
 	
@@ -48,6 +51,10 @@ public class HantoGameManager {
 			instance = new HantoGameManager();
 		}
 		return instance;
+	}
+	
+	public static void clearInstance(){
+		instance = null;
 	}
 	
 	/**
@@ -148,7 +155,7 @@ public class HantoGameManager {
 	 * @return
 	 * 		game type instance
 	 */
-	public HantoGame getGameType() {
+	public HantoGameID getGameType() {
 		return gameType;
 	}
 
@@ -157,8 +164,27 @@ public class HantoGameManager {
 	 * @param redPlayer
 	 * 		instance to be set as game type
 	 */
-	public void setGameType(final HantoGame gameType) {
+	public void setGameType(final HantoGameID gameType) {
 		this.gameType = gameType;
+	}
+	
+	
+	/**
+	 * Getter for game type instance
+	 * @return
+	 * 		game type instance
+	 */
+	public HantoGame getGame() {
+		return game;
+	}
+
+	/**
+	 * Setter for game type instance
+	 * @param redPlayer
+	 * 		instance to be set as game type
+	 */
+	public void setGame(final HantoGame aGame) {
+		game = aGame;
 	}
 	
 	public int getTurnCount(){

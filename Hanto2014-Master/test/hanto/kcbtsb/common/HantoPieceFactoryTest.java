@@ -31,7 +31,7 @@ public class HantoPieceFactoryTest {
 	
 	@Test (expected = NullPointerException.class)
 	public void shouldFailMakeNull(){
-		HantoPiece butterfly = HantoPieceFactory.makeHantoPiece(null, null);
+		HantoPieceFactory.makeHantoPiece(null, null);
 	}
 	
 }

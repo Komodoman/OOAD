@@ -59,7 +59,6 @@ public class HantoGameAlphaTest{
 		HantoGameFactory.getInstance();
 	    HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		MoveResult result = manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(1, 1));
-		System.out.println("____" + result + "____");
 	}
 	
 	@Test
