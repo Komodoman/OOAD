@@ -30,6 +30,6 @@ public class Sparrow implements HantoPiece{
 
 	@Override
 	public HantoPieceType getType() {
-		return HantoPieceType.BUTTERFLY;
+		return HantoPieceType.SPARROW;
 	}
 }

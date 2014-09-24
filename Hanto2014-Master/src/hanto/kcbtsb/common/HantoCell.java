@@ -29,10 +29,11 @@ public class HantoCell implements HantoCoordinate {
 	 * @param x int
 	 * @param y int
 	 */
-//	public HantoCell(final int x, final int y){
-//		xLoc = x;
-//		yLoc = y;
-//	}
+	public HantoCell(final int x, final int y){
+		xLoc = x;
+		yLoc = y;
+		occPiece = null;
+	}
 	
 	
 	/**
