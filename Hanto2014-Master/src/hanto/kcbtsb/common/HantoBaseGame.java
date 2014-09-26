@@ -28,8 +28,7 @@ public abstract class HantoBaseGame implements HantoGame {
 	
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
-		// TODO Auto-generated method stub
-		return null;
+		return gameManager.getCellManager().getCellPiece(where.getX(), where.getY());
 	}
 
 	@Override
@@ -38,6 +37,7 @@ public abstract class HantoBaseGame implements HantoGame {
 		return null;
 	}
 	
+
 
 	protected void preCheck(HantoCoordinate from, HantoCoordinate to) throws HantoException
 	{
@@ -48,6 +48,32 @@ public abstract class HantoBaseGame implements HantoGame {
 				throw new HantoException("Cell is not contiguous to another piece");
 			}
 		}
+	}
+	
+	protected MoveResult postCheck(){
+		MoveResult result = MoveResult.OK;
+		
+		if (gameManager.getBluePlayer().getPieceCount() == 0){
+			result = MoveResult.DRAW;
+		}
+		
+		if (isVictory()){
+			//System.out.println("There's a winner");
+			switch (gameManager.getPlayerTurn()){
+				case BLUE:
+					result = MoveResult.BLUE_WINS;
+				case RED:
+					result = MoveResult.RED_WINS;
+			}
+		}
+		
+		HantoGameManager.getInstance().nextTurn();
+		return result;
+	}
+	
+	
+	private boolean isVictory(){
+		return gameManager.getCellManager().isVictory(gameManager.getPlayerTurn());
 	}
 
 }
