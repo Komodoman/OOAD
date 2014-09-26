@@ -40,13 +40,8 @@ public class HantoGameBeta extends HantoBaseGame {
 	final HantoCoordinate to) throws HantoException{
 		
 		MoveResult result = MoveResult.OK;
-		if (gameManager.getCellManager().isCellOccupied(to.getX(), to.getY())){
-			throw new HantoException("Cell is already occupied.");
-		} else if (!gameManager.getCellManager().isContiguous(to.getX(), to.getY())){
-			if (gameManager.getTurnCount() != 1){
-				throw new HantoException("Cell is not contiguous to another piece");
-			}
-		}
+		preCheck(from, to);
+	
 		
 		gameManager.getCellManager().addCell(to.getX(), to.getY(), pieceType);
 		

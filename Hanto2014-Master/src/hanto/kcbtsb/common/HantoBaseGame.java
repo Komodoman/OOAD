@@ -25,7 +25,7 @@ public abstract class HantoBaseGame implements HantoGame {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public HantoPiece getPieceAt(HantoCoordinate where) {
 		// TODO Auto-generated method stub
@@ -36,6 +36,18 @@ public abstract class HantoBaseGame implements HantoGame {
 	public String getPrintableBoard() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+
+	protected void preCheck(HantoCoordinate from, HantoCoordinate to) throws HantoException
+	{
+		if (gameManager.getCellManager().isCellOccupied(to.getX(), to.getY())){
+			throw new HantoException("Cell is already occupied.");
+		} else if (!gameManager.getCellManager().isContiguous(to.getX(), to.getY())){
+			if (gameManager.getTurnCount() != 1){
+				throw new HantoException("Cell is not contiguous to another piece");
+			}
+		}
 	}
 
 }
