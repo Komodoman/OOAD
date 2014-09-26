@@ -92,20 +92,6 @@ public class HantoGameAlpha extends HantoBaseGame {
 		}
 		return isLegal;
 	}
-
-	/**
-	 * <p> Currently unimplemented getter for getting {@link HantoPiece}'s from the board </p>
-	 * 
-	 * @param where
-	 * 			the coordinate where the a reference of the HantoPiece will be taken
-	 * 
-	 * @return will return a HantoPiece given the coordinate in later iterations.  As of
-	 * now, it returns null.
-	 */
-	@Override
-	final public HantoPiece getPieceAt(final HantoCoordinate where) {
-		return gameManager.getCellManager().getCellPiece(where.getX(), where.getY());
-	}
 	
 	/**
 	 * <p> Currently unimplemented utility tool for printing out the current hantoBoard as a string
@@ -116,6 +102,6 @@ public class HantoGameAlpha extends HantoBaseGame {
 	final public String getPrintableBoard() {
 		return null;
 	}
-	
+
 
 }

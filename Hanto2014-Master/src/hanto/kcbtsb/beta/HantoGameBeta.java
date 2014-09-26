@@ -50,35 +50,12 @@ public class HantoGameBeta extends HantoBaseGame {
 		
 		gameManager.getCellManager().addCell(to.getX(), to.getY(), pieceType);
 		
-		if (gameManager.getBluePlayer().getPieceCount() == 0){
-			result = MoveResult.DRAW;
-		}
-		
-		if (isVictory()){
-			//System.out.println("There's a winner");
-			switch (gameManager.getPlayerTurn()){
-				case BLUE:
-					result = MoveResult.BLUE_WINS;
-				case RED:
-					result = MoveResult.RED_WINS;
-			}
-		}
-		HantoGameManager.getInstance().nextTurn();
+		result = postCheck();
 		
 		return result;
 	}
 	
-	private boolean isVictory(){
-		return gameManager.getCellManager().isVictory(gameManager.getPlayerTurn());
-	}
 	
-
-	@Override
-	public HantoPiece getPieceAt(final HantoCoordinate where) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public String getPrintableBoard() {
 		// TODO Auto-generated method stub

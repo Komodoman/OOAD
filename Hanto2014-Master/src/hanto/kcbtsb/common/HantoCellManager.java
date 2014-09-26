@@ -114,41 +114,41 @@ public class HantoCellManager {
 		
 		
 		if (butterflyCell != null){
-			isVictory = isSurroundingCellsEnemies(butterflyCell);
+			isVictory = isSurroundingCellsOccupied(butterflyCell);
 		}
 		
 		return isVictory;
 	}
 	
-	private boolean isSurroundingCellsEnemies(final HantoCell butterfly){
-		boolean areEnemies = true;
+	private boolean isSurroundingCellsOccupied(final HantoCell butterfly){
+		boolean allOccupied = true;
 		
 		final HantoCell neCell = new HantoCell(butterfly.getX() + 1, butterfly.getY());
-		if (!isCellOccupied(neCell) ||  getCellColor(neCell) == butterfly.getCellColor()){
-			areEnemies = false;
+		if (!isCellOccupied(neCell)){
+			allOccupied = false;
 		}
 		final HantoCell seCell = new HantoCell(butterfly.getX() + 1, butterfly.getY() - 1);
-		if (!isCellOccupied(seCell) ||  getCellColor(seCell) == butterfly.getCellColor()){
-			areEnemies = false;
+		if (!isCellOccupied(seCell)){
+			allOccupied = false;
 		}
 		final HantoCell sCell = new HantoCell(butterfly.getX(), butterfly.getY() - 1);
-		if (!isCellOccupied(sCell) ||  getCellColor(sCell) == butterfly.getCellColor()){
-			areEnemies = false;
+		if (!isCellOccupied(sCell)){
+			allOccupied = false;
 		}
 		final HantoCell swCell = new HantoCell(butterfly.getX() - 1, butterfly.getY());
-		if (!isCellOccupied(swCell) ||  getCellColor(swCell) == butterfly.getCellColor()){
-			areEnemies = false;
+		if (!isCellOccupied(swCell)){
+			allOccupied = false;
 		}
 		final HantoCell nwCell = new HantoCell(butterfly.getX() - 1, butterfly.getY() + 1);
-		if (!isCellOccupied(nwCell) ||  getCellColor(nwCell) == butterfly.getCellColor()){
-			areEnemies = false;
+		if (!isCellOccupied(nwCell)){
+			allOccupied = false;
 		}
 		final HantoCell nCell = new HantoCell(butterfly.getX(), butterfly.getY() + 1);
-		if (!isCellOccupied(nCell) ||  getCellColor(nCell) == butterfly.getCellColor()){
-			areEnemies = false;
+		if (!isCellOccupied(nCell)){
+			allOccupied = false;
 		}
 		
-		return areEnemies;
+		return allOccupied;
 	}
 	
 	/**
