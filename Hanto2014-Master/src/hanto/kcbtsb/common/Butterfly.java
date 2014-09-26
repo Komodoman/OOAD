@@ -11,37 +11,22 @@ import hanto.common.HantoPlayerColor;
 /**
  * A HantoPiece of type butterfly
  */
-public class Butterfly implements HantoPiece{
+public class Butterfly extends HantoPlayerPiece{
 	
-	private HantoPlayerColor color;
-	
-	private HantoCell curCell;
-	
+
 	/**
 	 * Constructor
 	 * @param playerColor
 	 */
+	public Butterfly(HantoPlayerColor playerColor, HantoCell cell){
+		color = playerColor;
+		currentCell = cell;
+		type = HantoPieceType.BUTTERFLY;
+	}
 	public Butterfly(HantoPlayerColor playerColor){
 		color = playerColor;
-		curCell = null;
-	}
-	
-	@Override
-	public HantoPlayerColor getColor() {
-		return color;
-	}
-
-	@Override
-	public HantoPieceType getType() {
-		return HantoPieceType.BUTTERFLY;
-	}
-	
-	public void setCell(HantoCell aCell){
-		curCell = aCell;
-	}
-	
-	public HantoCell getCell(){
-		return curCell;
+		currentCell = null;
+		type = HantoPieceType.BUTTERFLY;
 	}
 
 }
