@@ -11,7 +11,7 @@ import hanto.common.HantoPlayerColor;
 /**
  * A HantoPiece of type butterfly
  */
-public class Butterfly extends HantoPlayerPiece{
+public class Butterfly extends HantoBasePiece{
 	
 
 	/**

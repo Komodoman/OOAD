@@ -8,11 +8,12 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package hanto;
+package hanto.kcbtsb;
 
 import hanto.common.*;
 import hanto.kcbtsb.alpha.HantoGameAlpha;
 import hanto.kcbtsb.beta.HantoGameBeta;
+import hanto.kcbtsb.gamma.GammaHantoGame;
 
 /**
  * This is a singleton class that provides a factory to create an instance of any version
@@ -68,6 +69,8 @@ public class HantoGameFactory
 		case BETA_HANTO:
 			game = new HantoGameBeta(movesFirst);
 			break;
+		case GAMMA_HANTO:
+			game = new GammaHantoGame(movesFirst);
 		}
 		return game;
 	}

@@ -4,7 +4,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
-public abstract class HantoPlayerPiece implements HantoPiece
+public abstract class HantoBasePiece implements HantoPiece
 {
 	protected HantoPlayerColor color;
 	protected HantoPieceType type;

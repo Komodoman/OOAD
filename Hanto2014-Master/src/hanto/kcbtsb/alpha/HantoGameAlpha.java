@@ -4,7 +4,7 @@
 package hanto.kcbtsb.alpha;
 
 import hanto.common.HantoCoordinate;
-import hanto.kcbtsb.common.ExtendedHantoException;
+import hanto.common.HantoException;
 import hanto.common.HantoGame;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
@@ -41,11 +41,11 @@ public class HantoGameAlpha extends HantoBaseGame {
 	 */
 	@Override
 	final public MoveResult makeMove(final HantoPieceType pieceType, final HantoCoordinate from,
-	final HantoCoordinate to) throws ExtendedHantoException {
+	final HantoCoordinate to) throws HantoException {
 		MoveResult result = MoveResult.OK;
 		
 		if (from != null){
-			throw new ExtendedHantoException("Moving not available");
+			throw new HantoException("Moving not available");
 		}
 		
 		if (gameManager.getCellManager().isEmpty()){
@@ -54,17 +54,17 @@ public class HantoGameAlpha extends HantoBaseGame {
 				gameManager.getCellManager().addCell(to.getX(), to.getY(), pieceType);
 			}
 			else{
-				throw new ExtendedHantoException("First butterfly must be placed at 0,0");
+				throw new HantoException("First butterfly must be placed at 0,0");
 			}
 		}
 		
 		else if (!isLegalMove(to)){
-			throw new ExtendedHantoException("Not a Legal Move!");
+			throw new HantoException("Not a Legal Move!");
 		}
 		
 		else if (gameManager.getCellManager().isCellOccupied(to.getX(), to.getY())){
 			// throw exception if destination is already occupied
-			throw new ExtendedHantoException("Cell is already occupied");
+			throw new HantoException("Cell is already occupied");
 		}
 		
 		else{

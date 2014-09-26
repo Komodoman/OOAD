@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import hanto.HantoGameFactory;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;
+import hanto.kcbtsb.HantoGameFactory;
 
 import org.junit.Test;
 

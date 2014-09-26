@@ -9,7 +9,7 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
-import hanto.kcbtsb.common.ExtendedHantoException;
+import hanto.common.HantoException;
 import hanto.kcbtsb.common.HantoBaseGame;
 import hanto.kcbtsb.common.HantoCellManager;
 import hanto.kcbtsb.common.HantoGameManager;
@@ -36,10 +36,10 @@ public class HantoGameBeta extends HantoBaseGame {
 	}
 	
 	@Override
-	protected void preCheck(HantoCoordinate from, HantoCoordinate to) throws ExtendedHantoException
+	protected void preCheck(HantoCoordinate from, HantoCoordinate to) throws HantoException
 	{	
 		if (from != null){
-			throw new ExtendedHantoException("Can't make moves in Beta Hanto");
+			throw new HantoException("Can't make moves in Beta Hanto");
 		}
 		
 		super.preCheck(from, to);

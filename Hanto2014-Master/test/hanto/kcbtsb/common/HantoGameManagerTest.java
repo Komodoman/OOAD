@@ -1,7 +1,7 @@
 package hanto.kcbtsb.common;
 
-import hanto.HantoGameFactory;
 import hanto.common.HantoGameID;
+import hanto.kcbtsb.HantoGameFactory;
 
 import org.junit.Test;
 

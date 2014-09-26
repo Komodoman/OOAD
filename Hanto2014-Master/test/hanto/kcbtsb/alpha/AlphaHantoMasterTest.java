@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import hanto.HantoGameFactory;
 import hanto.common.HantoCoordinate;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
@@ -15,6 +14,7 @@ import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.kcbtsb.HantoGameFactory;
 
 public class AlphaHantoMasterTest{
 	/**         * Internal class for these test cases.         * @version Sep 13, 2014    */   

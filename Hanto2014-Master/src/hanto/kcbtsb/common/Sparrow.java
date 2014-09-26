@@ -11,7 +11,7 @@ import hanto.common.HantoPlayerColor;
 /**
  * A HantoPiece of type butterfly
  */
-public class Sparrow implements HantoPiece{
+public class Sparrow extends HantoBasePiece{
 	
 	private HantoPlayerColor color;
 	

@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import hanto.HantoGameFactory;
 import hanto.common.HantoGameID;
+import hanto.kcbtsb.HantoGameFactory;
 import hanto.kcbtsb.common.HantoGameManager;
 
 /**
