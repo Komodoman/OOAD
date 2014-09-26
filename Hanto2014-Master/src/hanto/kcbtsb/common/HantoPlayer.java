@@ -39,39 +39,17 @@ public class HantoPlayer {
 		pieceLineup = null;
 	}
 	
-	/**
-	 * 
-	 * @param pieceType
-	 * @param destCell
-	 * @return result of piece placement
-	 * @throws HantoException
-	 */
-	public MoveResult placePiece(final HantoPieceType pieceType, final HantoCell destCell) 
-	throws HantoException{
-		MoveResult result = null;
-		int turn = HantoGameManager.getInstance().getTurnCount();
-		System.out.println(pieceLineup);
-		if( HantoGameManager.getInstance().getPlayerTurn() == playerColor){
-			if (turn == 1 && (destCell.getX() != 0 || destCell.getY() != 0)){
-				throw new HantoException("Player must place first piece at 0,0");
-			} else if (turn >= 7 && pieceLineup.contains(HantoPieceType.BUTTERFLY)){
-				throw new HantoException("Player must place butterfly by fourth turn.");
-			}
-			
-			result = HantoGameManager.getInstance().getGame().makeMove(pieceType, null, destCell);
-			System.out.println(turn);
-			pieceLineup.remove(pieceType);
-			
-		}
-		else{
-			throw new HantoException("It is not this player's turn");
-		}
-		
-		return result;
-	}
 	
 	public int getPieceCount(){
 		return pieceLineup.size();
+	}
+	
+	public ArrayList<HantoPieceType> getPiecesRemaining(){
+		return (ArrayList<HantoPieceType>) pieceLineup;
+	}
+	
+	public void removePieceFromLineup(HantoPieceType pieceType){
+		pieceLineup.remove(pieceType);
 	}
 	
 	public HantoPlayerColor getPlayerColor(){

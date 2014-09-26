@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 
 import hanto.HantoGameFactory;
 import hanto.common.HantoException;
+import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
@@ -41,92 +42,76 @@ public class HantoGameBetaTest {
 	
 	@Test(expected=HantoException.class)
 	public void blueShouldFailPlaceSparrowOnFourth() throws HantoException {
-		System.out.println("START TEST__________________________________");
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 0));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 1));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 2));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 3));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 4));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 5));
-		MoveResult result = manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 6));
-		System.out.println("_________________________________________END TEST");
+		HantoGame betaHanto = HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 0));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 1));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 2));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 3));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 4));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 5));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 6));
 	}
 	
 	@Test(expected=HantoException.class)
 	public void redShouldFailPlaceSparrowOnOccupiedCell() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 0));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 0));
+		HantoGame betaHanto = HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 0));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 0));
 	}
 	
 	@Test
 	public void blueShouldPlaceASparrow() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
-		MoveResult result = manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 0));
+		HantoGame betaHanto = HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
+		MoveResult result = betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 0));
 		assertTrue("Should place sparrow: ", result == MoveResult.OK);
 	}
 	
 	@Test(expected=HantoException.class)
 	public void blueShouldFailPlaceFirstSparrow() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(1, 0));
+		HantoGame betaHanto = HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(2, 0));
 	}
 	
 	@Test(expected=HantoException.class)
 	public void redShouldFailPlaceNonContiguousSparrow() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 0));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 3));
+		HantoGame betaHanto = HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 0));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 3));
 	}
 	
 	@Test
 	public void gameShouldTie() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
-		manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, 0));
-		manager.getRedPlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, -1));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -2));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 1));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 2));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 3));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 4));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 5));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 6));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 7));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 8));
-		MoveResult result = manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 9));
+		HantoGame betaHanto = HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
+		betaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(0, 0));
+		betaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(0, 1));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 2));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 3));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 4));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 5));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 6));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 7));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 8));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 9));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 10));
+		MoveResult result = betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 11));
 		assertTrue("Game should Draw: ", result == MoveResult.DRAW);
 	}
 	
 	@Test
 	public void redShouldWin() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
-		manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, 0));
-		manager.getRedPlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, -1));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -2));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(-1, 0));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -3));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(-1, 1));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -4));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, 1));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -5));
-		manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(1, 0));
-		manager.getBluePlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(0, -6));
-		MoveResult result = manager.getRedPlayer().placePiece(HantoPieceType.SPARROW, new HantoCell(1, -1));
+		HantoGame betaHanto = HantoGameFactory.makeHantoGame(HantoGameID.BETA_HANTO);
+		betaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(0, 0));
+		betaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(0, -1));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, -2));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(-1, 0));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, -3));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(-1, 1));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, -4));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, 1));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, -5));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(1, 0));
+		betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(0, -6));
+		MoveResult result = betaHanto.makeMove(HantoPieceType.SPARROW, null, new HantoCell(1, -1));
 		assertTrue("Red should win: ", result == MoveResult.RED_WINS);
 	}
 }
