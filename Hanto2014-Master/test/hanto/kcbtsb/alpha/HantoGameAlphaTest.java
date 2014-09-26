@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import hanto.HantoGameFactory;
 import hanto.common.HantoException;
+import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.MoveResult;
@@ -29,55 +30,37 @@ public class HantoGameAlphaTest{
 	
 	@Test
 	public void blueShouldPlaceButterfly() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
-		MoveResult result = manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0,0));
+		HantoGame alphaHanto = HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
+		MoveResult result = alphaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(0, 0));
 		assertTrue("Should place butterfly: ", result == MoveResult.OK);
 	}
 	
 	@Test(expected=HantoException.class)
-	public void exceptionRedShouldFailFirstMove() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
-		manager.getRedPlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0,0));
-	}
-	
-	@Test(expected=HantoException.class)
 	public void exceptionRedShouldFailPlaceButterfly() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
-		manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0,0));
-		manager.getRedPlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0,0));
+		HantoGame alphaHanto = HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
+		alphaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(0, 0));
+		alphaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(0, 0));
 	}
 	
 	@Test(expected=HantoException.class)
 	public void exceptionBlueShouldFailPlaceButterfly() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-	    HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
-		MoveResult result = manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(1, 1));
+		HantoGame alphaHanto = HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
+		alphaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(1, 1));
 	}
 	
 	@Test
 	public void redShouldPlaceButterflyAndDraw() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
-		manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, 0));
-		MoveResult result = manager.getRedPlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(1, 1));
+		HantoGame alphaHanto = HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
+		alphaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(0, 0));
+		MoveResult result = alphaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(1, 1));
 		assertTrue("Should place butterfly: ", result == MoveResult.DRAW);
 	}
 	
 	@Test(expected=HantoException.class)
 	public void exceptionRedShouldFailPlaceNonContiguousButterfly() throws HantoException {
-		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
-		manager.getBluePlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(0, 0));
-		MoveResult result = manager.getRedPlayer().placePiece(HantoPieceType.BUTTERFLY, new HantoCell(2, 1));
+		HantoGame alphaHanto = HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
+		alphaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(0, 0));
+		alphaHanto.makeMove(HantoPieceType.BUTTERFLY, null, new HantoCell(2, 1));
 	}
 	
 }

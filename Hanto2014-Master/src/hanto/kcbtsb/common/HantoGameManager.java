@@ -149,8 +149,15 @@ public class HantoGameManager {
 	 * @param redPlayer
 	 * 		color to be set as current turn
 	 */
-	public void setColorTurn(final HantoPlayerTurn colorTurn) {
-		this.colorTurn = colorTurn;
+	public void setColorTurn(final HantoPlayerColor colorTurn) {
+		switch(colorTurn){
+		case BLUE:
+			this.colorTurn = HantoPlayerTurn.BLUE;
+			break;
+		case RED:
+			this.colorTurn = HantoPlayerTurn.RED;
+			break;
+		}
 	}
 	
 	/**
