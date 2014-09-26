@@ -63,10 +63,10 @@ public class HantoGameFactory
 		HantoGame game = null;
 		switch (gameId) {
 		case ALPHA_HANTO:
-			game = new HantoGameAlpha();
+			game = new HantoGameAlpha(movesFirst);
 			break;
 		case BETA_HANTO:
-			game = new HantoGameBeta();
+			game = new HantoGameBeta(movesFirst);
 			break;
 		}
 		return game;
