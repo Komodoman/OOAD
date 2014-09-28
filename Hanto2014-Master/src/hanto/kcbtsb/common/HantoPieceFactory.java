@@ -20,6 +20,8 @@ import hanto.common.*;
 public class HantoPieceFactory{
 
 
+	public HantoPieceFactory(){}
+	
 	/**
 	 * 
 	 * @param pieceId
@@ -37,7 +39,6 @@ public class HantoPieceFactory{
 			piece = new Sparrow(pieceColor);
 			break;
 		default:
-			piece = null;
 			break;
 		}
 		return piece;

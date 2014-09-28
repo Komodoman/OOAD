@@ -16,6 +16,7 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.kcbtsb.HantoGameFactory;
+import hanto.kcbtsb.common.HantoCell;
 import hanto.common.HantoException;
 
 public class HantoGameGammaTest {
@@ -95,10 +96,45 @@ public class HantoGameGammaTest {
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 1));
 			game.setTurnNumber(19);
-			final MoveResult mr = game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, 2));
+			final MoveResult mr = game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -1));
 			assertEquals(MoveResult.DRAW, mr);
 		}
 		
+		@Test
+		public void blueShouldWalkWithSparrow() throws HantoException
+		{	
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 1));
+			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -1));
+			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, 2));
+			MoveResult mr = game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, -1), makeCoordinate(-1, 0));
+			assertEquals(MoveResult.OK, mr);
+		}
+		
+		@Test(expected=HantoException.class)
+		public void blueShouldFailPlaceSparrowNearEnemies() throws HantoException {
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, -1));
+			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -2));
+		}
+		
+		@Test(expected=HantoException.class)
+		public void blueShouldFailWalkMoreThanOneCellWithSparrow() throws HantoException {
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, -1));
+			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, 1));
+			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -2));
+			game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, 1), makeCoordinate(1, -1));
+		}
+		
+		@Test(expected=HantoException.class)
+		public void blueShouldFailWalkIntoNonContiguousRegion() throws HantoException {
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, -1));
+			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, 1));
+			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -2));
+			game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, 1), makeCoordinate(0, 2));
+		}
 
 		// Helper methods
 		private HantoCoordinate makeCoordinate(int x, int y)

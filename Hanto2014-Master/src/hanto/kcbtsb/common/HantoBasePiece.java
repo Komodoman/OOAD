@@ -10,14 +10,6 @@ public abstract class HantoBasePiece implements HantoPiece
 	protected HantoPieceType type;
 	protected HantoCell currentCell;
 	
-	protected void checkMoveValidity(){
-		
-	}
-	
-	protected void checkWalk(){
-		
-	}
-	
 	
 	@Override
 	public HantoPlayerColor getColor(){

@@ -58,6 +58,30 @@ public class HantoCellManager {
 		return isOccupied;
 	}
 	
+	public boolean isLegalMovement(HantoCell from, HantoCell to, HantoPieceType pieceType){
+		boolean isLegal = true;
+		int cellDistance = getDistance(from, to);
+		
+		if (cellDistance > 1){
+			isLegal = false;
+		} else if (!isContiguous(to.getX(), to.getY())){
+			isLegal = false;
+		}
+		return isLegal;
+	}
+	
+	private int getDistance(HantoCell from, HantoCell to){
+		int distance = 0;
+		if (to.getY() > to.getX()){
+			distance = (to.getX() - from.getX()) + (to.getY() - from.getY());
+		} else if ((from.getX() + from.getY()) > (to.getX() + to.getY())){
+			distance = from.getY() - to.getY();
+		} else{
+			distance = to.getX() - from.getX();
+		}
+		return distance;
+	}
+	
 	/**
 	 * 
 	 * @param x
@@ -120,6 +144,47 @@ public class HantoCellManager {
 		return isVictory;
 	}
 	
+	public boolean isContiguousToEnemy(HantoCell to, HantoPlayerColor myColor){
+		boolean isEnemy = false;
+		final HantoCell neCell = new HantoCell(to.getX() + 1, to.getY());
+		if (isCellOccupied(neCell)){
+			if (!findCell(neCell).getCellColor().equals(myColor)){
+				isEnemy = true;
+			}
+		}
+		final HantoCell seCell = new HantoCell(to.getX() + 1, to.getY() - 1);
+		if (isCellOccupied(seCell)){
+			if (!findCell(seCell).getCellColor().equals(myColor)){
+				isEnemy = true;
+			}
+		}
+		final HantoCell sCell = new HantoCell(to.getX(), to.getY() - 1);
+		if (isCellOccupied(sCell)){
+			if (!findCell(sCell).getCellColor().equals(myColor)){
+				isEnemy = true;
+			}
+		}
+		final HantoCell swCell = new HantoCell(to.getX() - 1, to.getY());
+		if (isCellOccupied(swCell)){
+			if (!findCell(swCell).getCellColor().equals(myColor)){
+				isEnemy = true;
+			}
+		}
+		final HantoCell nwCell = new HantoCell(to.getX() - 1, to.getY() + 1);
+		if (isCellOccupied(nwCell)){
+			if (!findCell(nwCell).getCellColor().equals(myColor)){
+				isEnemy = true;
+			}
+		}
+		final HantoCell nCell = new HantoCell(to.getX(), to.getY() + 1);
+		if (isCellOccupied(nCell)){
+			if (!findCell(nCell).getCellColor().equals(myColor)){
+				isEnemy = true;
+			}
+		}
+		return isEnemy;
+	}
+	
 	private boolean isSurroundingCellsOccupied(final HantoCell butterfly){
 		boolean allOccupied = true;
 		
@@ -157,7 +222,7 @@ public class HantoCellManager {
 	 * @param y
 	 * @return
 	 */
-	private HantoCell findCell(final int x, final int y){
+	public HantoCell findCell(final int x, final int y){
 		HantoCell aCell = null;
 		for (int i = 0; i < occupiedCells.size(); i++){
 			if (occupiedCells.get(i).getX() == x && occupiedCells.get(i).getY() == y){
@@ -167,6 +232,41 @@ public class HantoCellManager {
 		}
 		
 		return aCell;
+	}
+	
+	/**
+	 * @param HantoCell
+	 * @return
+	 */
+	public HantoCell findCell(final HantoCell aCell){
+		HantoCell realCell = null;
+		for (int i = 0; i < occupiedCells.size(); i++){
+			if (occupiedCells.get(i).getX() == aCell.getX() && occupiedCells.get(i).getY() == aCell.getY()){
+				realCell = occupiedCells.get(i);
+				break;
+			}
+		}
+		
+		return realCell;
+	}
+	
+	/**
+	 * Removes a {@link HantoPiece} from the array of occupied cells
+	 * @param x
+	 * @param y
+	 */
+	public void remCell(final int x, final int y){
+		HantoCell aCell = findCell(x, y);
+		occupiedCells.remove(aCell);
+	}
+	
+	/**
+	 * Removes a {@link HantoPiece} from the array of occupied cells
+	 * @param HantoCell
+	 */
+	public void remCell(HantoCell cell){
+		HantoCell aCell = findCell(cell);
+		occupiedCells.remove(aCell);
 	}
 	
 	/**
@@ -186,6 +286,15 @@ public class HantoCellManager {
 	 */
 	public void addCell(final int x, final int y, final HantoPieceType aPiece){
 		occupiedCells.add(new HantoCell(x, y, aPiece));
+	}
+	
+	/**
+	 * Adds a {@link HantoPiece} to the array of occupied cells
+	 * @param x
+	 * @param y
+	 */
+	public void addCell(HantoCell aCell){
+		occupiedCells.add(aCell);
 	}
 	
 	

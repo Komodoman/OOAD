@@ -36,8 +36,6 @@ public class HantoGameManager {
 	
 	//Static instance of the Singleton
 	
-	@SuppressWarnings("unused")
-	private void HantoGameManger(){}
 	
 	public void setUp(){
 		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE, pieceLineup);
@@ -91,30 +89,12 @@ public class HantoGameManager {
 	}
 
 	/**
-	 * Setter for Red Player instance
-	 * @param redPlayer
-	 * 		instance to be set as Red Player
-	 */
-	public void setRedPlayer(final HantoPlayer redPlayer) {
-		this.redPlayer = redPlayer;
-	}
-
-	/**
 	 * Getter for Blue Player instance
 	 * @return
 	 * 		Blue Player instance
 	 */
 	public HantoPlayer getBluePlayer() {
 		return bluePlayer;
-	}
-
-	/**
-	 * Setter for Blue Player instance
-	 * @param redPlayer
-	 * 		instance to be set as Blue Player
-	 */
-	public void setBluePlayer(final HantoPlayer bluePlayer) {
-		this.bluePlayer = bluePlayer;
 	}
 
 	/**
@@ -195,14 +175,6 @@ public class HantoGameManager {
 		turnCounter++;
 	}
 	
-	/**
-	 * Getter for piece line up
-	 * @return
-	 * 		piece line up array instance
-	 */
-	public List<HantoPieceType> getPieceLineup(){
-		return pieceLineup;
-	}
 	
 	/**
 	 * Adds a set amount of a specific {@link HantoPieceType} to the array of 

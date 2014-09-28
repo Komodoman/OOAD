@@ -19,10 +19,6 @@ public class HantoCell implements HantoCoordinate {
 	
 	private HantoPiece occPiece;
 	
-	/**
-	 * Constructor for HantoCell.
-	 */
-	public HantoCell(){}
 	
 	/**
 	 * Constructor for HantoCell.

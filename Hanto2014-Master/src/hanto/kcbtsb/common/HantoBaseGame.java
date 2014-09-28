@@ -27,7 +27,7 @@ public abstract class HantoBaseGame implements HantoGame {
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 			HantoCoordinate to) throws HantoException {
 		preCheck(from, to);
-		movePiece(to, pieceType);
+		movePiece(from, to, pieceType);
 		return postCheck(pieceType);
 	}
 	
@@ -35,14 +35,8 @@ public abstract class HantoBaseGame implements HantoGame {
 	public HantoPiece getPieceAt(HantoCoordinate where) {
 		return gameManager.getCellManager().getCellPiece(where.getX(), where.getY());
 	}
-
-	@Override
-	public String getPrintableBoard() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	protected void movePiece(HantoCoordinate to, HantoPieceType pieceType) throws HantoException{
+	protected void movePiece(HantoCoordinate from, HantoCoordinate to, HantoPieceType pieceType) throws HantoException{
 		if (!getCurrentPlayer().getPiecesRemaining().contains(pieceType)){
 			throw new HantoException("None of those pieces remaining");
 		}

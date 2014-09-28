@@ -2,11 +2,18 @@ package hanto.kcbtsb.common;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import common.HantoTestGame;
+import common.HantoTestGameFactory;
+
 import hanto.common.HantoGameID;
+import hanto.common.HantoPieceType;
 import hanto.kcbtsb.HantoGameFactory;
 import hanto.kcbtsb.common.HantoGameManager;
+import hanto.kcbtsb.gamma.GammaHantoTestGame;
 
 /**
  * The class <code>HantoCellManagerTest</code> contains tests for the class
@@ -22,12 +29,25 @@ import hanto.kcbtsb.common.HantoGameManager;
  */
 public class HantoCellManagerTest{
 
+	private static HantoTestGameFactory factory;
+	private HantoTestGame game;
+	
+	@BeforeClass
+	public static void initializeClass()
+	{
+		factory = HantoTestGameFactory.getInstance();
+	}
+	
+	@Before
+	public void setup()
+	{
+		// By default, blue moves first.
+		game = (GammaHantoTestGame) factory.makeHantoTestGame(HantoGameID.GAMMA_HANTO);
+	}
 	
 	@Test
 	public void hantoCellShouldBeOccupied() {
 		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		manager.getCellManager().addCell(0, 0);
 		assertTrue("Should be occupied: ", manager.getCellManager().isCellOccupied(0, 0));
 	}
@@ -35,10 +55,27 @@ public class HantoCellManagerTest{
 	@Test
 	public void hantoCellShouldNotBeOccupied() {
 		HantoGameManager manager = HantoGameManager.getInstance();
-		HantoGameFactory.getInstance();
-		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		manager.getCellManager().addCell(0, 0);
 		assertFalse("Should not be occupied: ", manager.getCellManager().isCellOccupied(1, 1));
+	}
+	
+	@Test
+	public void hantoCellShouldBeOccupiedWithBlueButterfly() {
+		HantoGameManager manager = HantoGameManager.getInstance();
+		HantoCell firstCell = new HantoCell(0, 0, HantoPieceType.BUTTERFLY);
+		manager.getCellManager().addCell(firstCell);
+		assertTrue(firstCell.getPiece() == manager.getCellManager().getCellPiece(firstCell));
+		assertTrue(firstCell.getCellColor() == manager.getCellManager().getCellColor(firstCell));
+		assertTrue(firstCell.getCellColor() == manager.getCellManager().getCellColor(firstCell.getX(), firstCell.getY()));
+	}
+	
+	@Test
+	public void hantoCellShouldBeEmptyAfterRemoval() {
+		HantoGameManager manager = HantoGameManager.getInstance();
+		HantoCell firstCell = new HantoCell(0, 0, HantoPieceType.BUTTERFLY);
+		manager.getCellManager().addCell(firstCell);
+		manager.getCellManager().remCell(firstCell.getX(), firstCell.getY());
+		assertTrue(manager.getCellManager().findCell(firstCell) == null);
 	}
 	
 	
