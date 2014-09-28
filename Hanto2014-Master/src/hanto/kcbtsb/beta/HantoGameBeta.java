@@ -45,4 +45,10 @@ public class HantoGameBeta extends HantoBaseGame {
 		super.preCheck(from, to);
 	}
 
+	@Override
+	public String getPrintableBoard() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

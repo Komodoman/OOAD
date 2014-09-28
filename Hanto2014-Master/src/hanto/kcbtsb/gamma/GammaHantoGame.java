@@ -57,4 +57,10 @@ public class GammaHantoGame extends HantoBaseGame {
 		
 		return mr;
 	}
+
+	@Override
+	public String getPrintableBoard() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
