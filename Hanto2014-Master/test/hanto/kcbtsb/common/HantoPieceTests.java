@@ -26,15 +26,6 @@ public class HantoPieceTests {
 		 */
 		
 		@Test
-		public void createAButterflyWithCell() {
-			Butterfly aButterfly = new Butterfly(HantoPlayerColor.BLUE, new HantoCell(0, 0));
-			assertTrue(aButterfly.getColor() == HantoPlayerColor.BLUE);
-			assertTrue(aButterfly.getCell().getX() == new HantoCell(0,0).getX());
-			assertTrue(aButterfly.getCell().getY() == new HantoCell(0,0).getY());
-			assertFalse(aButterfly.getColor() == HantoPlayerColor.RED);
-		}
-		
-		@Test
 		public void createAButterflyWithoutCell() {
 			Butterfly aButterfly = new Butterfly(HantoPlayerColor.BLUE);
 			assertTrue(aButterfly.getColor() == HantoPlayerColor.BLUE);

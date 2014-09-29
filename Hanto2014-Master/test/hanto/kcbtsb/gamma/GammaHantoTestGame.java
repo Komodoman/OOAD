@@ -20,7 +20,6 @@ public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame 
 	@Override
 	public void setTurnNumber(int turnNumber) {
 		super.gameManager.setTurnCount(turnNumber);
-
 	}
 
 	@Override

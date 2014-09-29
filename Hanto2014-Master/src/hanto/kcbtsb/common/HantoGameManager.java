@@ -26,6 +26,8 @@ public class HantoGameManager {
 	
 	private HantoCellManager cellManager;
 	
+	private HantoPieceManager pieceManager;
+	
 	private HantoPlayerTurn colorTurn;
 	
 	private HantoGame game;
@@ -33,14 +35,6 @@ public class HantoGameManager {
 	private int turnCounter;
 	
 	private List<HantoPieceType> pieceLineup = new ArrayList<HantoPieceType>();
-	
-	//Static instance of the Singleton
-	
-	
-	public void setUp(){
-		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE, pieceLineup);
-		redPlayer = new HantoPlayer(HantoPlayerColor.RED, pieceLineup);
-	}
 
 	/**
 	 * Creates an instance of HantoGameManager if none exists.
@@ -56,6 +50,11 @@ public class HantoGameManager {
 	
 	public static void clearInstance(){
 		instance = null;
+	}
+	
+	public void setUp(){
+		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE, pieceLineup);
+		redPlayer = new HantoPlayer(HantoPlayerColor.RED, pieceLineup);
 	}
 	
 	/**
@@ -185,6 +184,20 @@ public class HantoGameManager {
 	 * 			number to be added.
 	 */
 	public void addPieceToLineup(final HantoPieceType aPiece, final int amount){
+		for (int i = 0; i < amount; i++){
+			pieceLineup.add(aPiece);
+		}
+	}
+	
+	/**
+	 * Adds a set amount of a specific {@link HantoPieceType} to the array of 
+	 * pieces that can be used
+	 * @param aPiece
+	 * 			piece type
+	 * @param amount
+	 * 			number to be added.
+	 */
+	public void addPieceToLineup(final HantoPieceType aPiece, final int amount, HantoMove aMoveType, int moveDistance){
 		for (int i = 0; i < amount; i++){
 			pieceLineup.add(aPiece);
 		}

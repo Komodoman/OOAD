@@ -13,19 +13,13 @@ import hanto.common.HantoPlayerColor;
  */
 public class Butterfly extends HantoBasePiece{
 	
-
-	/**
-	 * Constructor
-	 * @param playerColor
-	 */
-	public Butterfly(HantoPlayerColor playerColor, HantoCell cell){
-		color = playerColor;
-		currentCell = cell;
+	public Butterfly(HantoPlayerColor playerColor,HantoMove aMoveType, int aDistance){
+		super(playerColor, aMoveType, aDistance);
 		type = HantoPieceType.BUTTERFLY;
 	}
+	
 	public Butterfly(HantoPlayerColor playerColor){
-		color = playerColor;
-		currentCell = null;
+		super(playerColor, HantoMove.WALK, 1);
 		type = HantoPieceType.BUTTERFLY;
 	}
 

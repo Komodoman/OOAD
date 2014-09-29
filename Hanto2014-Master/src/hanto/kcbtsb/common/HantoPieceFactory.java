@@ -38,6 +38,34 @@ public class HantoPieceFactory{
 		case SPARROW:
 			piece = new Sparrow(pieceColor);
 			break;
+		case CRAB:
+			piece = new Crab(pieceColor);
+			break;
+		default:
+			break;
+		}
+		return piece;
+	}
+	
+	/**
+	 * 
+	 * @param pieceId
+	 * @param pieceColor
+	 * @return Piece that is made by the factory
+	 */
+	public static HantoPiece makeHantoPiece
+	(final HantoPieceType pieceId, final HantoPlayerColor pieceColor, final HantoMove moveType, final int moveDistance) {
+		HantoPiece piece = null;
+		switch (pieceId) {
+		case BUTTERFLY:
+			piece = new Butterfly(pieceColor, moveType, moveDistance);
+			break;
+		case SPARROW:
+			piece = new Sparrow(pieceColor, moveType, moveDistance);
+			break;
+		case CRAB:
+			piece = new Crab(pieceColor, moveType, moveDistance);
+			break;
 		default:
 			break;
 		}

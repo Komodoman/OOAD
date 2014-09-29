@@ -13,23 +13,13 @@ import hanto.common.HantoPlayerColor;
  */
 public class Sparrow extends HantoBasePiece{
 	
-	private HantoPlayerColor color;
-	
-	/**
-	 * Constructor
-	 * @param playerColor
-	 */
+	public Sparrow(HantoPlayerColor playerColor, HantoMove aMoveType, int aDistance){
+		super(playerColor, aMoveType, aDistance);
+		type = HantoPieceType.SPARROW;
+	}
 	public Sparrow(HantoPlayerColor playerColor){
-		color = playerColor;
+		super(playerColor, HantoMove.WALK, 1);
+		type = HantoPieceType.SPARROW;
 	}
 	
-	@Override
-	public HantoPlayerColor getColor() {
-		return color;
-	}
-
-	@Override
-	public HantoPieceType getType() {
-		return HantoPieceType.SPARROW;
-	}
 }
