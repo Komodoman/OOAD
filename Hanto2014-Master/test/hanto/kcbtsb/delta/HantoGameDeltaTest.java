@@ -140,7 +140,7 @@ public class HantoGameDeltaTest {
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, -1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, 1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -2));
-			game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, 1), makeCoordinate(1, -1));
+			game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, 1), makeCoordinate(-1, 0));
 		}
 		
 		@Test(expected=HantoException.class)

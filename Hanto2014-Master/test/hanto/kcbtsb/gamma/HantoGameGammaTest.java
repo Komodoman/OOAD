@@ -107,7 +107,7 @@ public class HantoGameGammaTest {
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, 2));
-			MoveResult mr = game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, -1), makeCoordinate(-1, 0));
+			MoveResult mr = game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, -1), makeCoordinate(1, -1));
 			assertEquals(MoveResult.OK, mr);
 		}
 		
@@ -124,7 +124,7 @@ public class HantoGameGammaTest {
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, -1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, 1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -2));
-			game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, 1), makeCoordinate(1, -1));
+			game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, 1), makeCoordinate(-1, 0));
 		}
 		
 		@Test(expected=HantoException.class)

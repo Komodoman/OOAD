@@ -154,11 +154,9 @@ public class BetaHantoMasterTest
 	@Test(expected=HantoException.class)
 	public void attemptToPlaceTwoButterflies() throws HantoException
 	{
-		System.out.println("START TEST__________________________");
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		game.makeMove(SPARROW, null, makeCoordinate(-1, 0));
 		game.makeMove(BUTTERFLY, null, makeCoordinate(1, 0));
-		System.out.println("END TEST__________________________");
 	}
 	
 	@Test(expected=HantoException.class)

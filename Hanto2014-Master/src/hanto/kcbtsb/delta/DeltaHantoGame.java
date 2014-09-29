@@ -8,6 +8,7 @@ import hanto.common.MoveResult;
 import hanto.kcbtsb.common.HantoBaseGame;
 import hanto.kcbtsb.common.HantoCell;
 import hanto.kcbtsb.common.HantoGameManager;
+import hanto.kcbtsb.common.HantoMove;
 import hanto.kcbtsb.common.HantoPieceManager;
 
 public class DeltaHantoGame extends HantoBaseGame {
@@ -21,7 +22,7 @@ public class DeltaHantoGame extends HantoBaseGame {
 		gameManager = HantoGameManager.getInstance();
 		gameManager.setGame(this);
 		gameManager.addPieceToLineup(HantoPieceType.CRAB, 4);
-		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 4);
+		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 4, HantoMove.FLY, Integer.MAX_VALUE);
 		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1);
 		gameManager.setUp();
 	}
