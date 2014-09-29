@@ -101,6 +101,22 @@ public class HantoGameDeltaTest {
 		}
 		
 		@Test
+		public void redShouldForfeitAndBlueWins() throws HantoException
+		{
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
+			final MoveResult mr = game.makeMove(HantoPieceType.BUTTERFLY, null, null);
+			assertEquals(MoveResult.BLUE_WINS, mr);	
+		}
+		
+		@Test(expected=HantoException.class)
+		public void redShouldForfeitAndBlueTriesToMove() throws HantoException
+		{
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
+			game.makeMove(HantoPieceType.BUTTERFLY, null, null);
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 1));
+		}
+		
+		@Test
 		public void blueShouldWalkWithSparrow() throws HantoException
 		{	
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));

@@ -52,6 +52,11 @@ public class HantoGameManager {
 		instance = null;
 	}
 	
+	public void initialize(){
+		pieceManager = new HantoPieceManager();
+		cellManager = new HantoCellManager();
+	}
+	
 	public void setUp(){
 		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE, pieceLineup);
 		redPlayer = new HantoPlayer(HantoPlayerColor.RED, pieceLineup);
@@ -112,6 +117,24 @@ public class HantoGameManager {
 	 */
 	public void setCellManager(final HantoCellManager cellManager) {
 		this.cellManager = cellManager;
+	}
+	
+	/**
+	 * Getter for piece manager instance
+	 * @return
+	 * 		piece manager instance
+	 */
+	public HantoPieceManager getPieceManager() {
+		return pieceManager;
+	}
+
+	/**
+	 * Setter for cell manager instance
+	 * @param redPlayer
+	 * 		instance to be set as cell manager
+	 */
+	public void setPieceManager(final HantoPieceManager pieceManager) {
+		this.pieceManager = pieceManager;
 	}
 
 	/**

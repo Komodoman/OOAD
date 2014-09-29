@@ -16,7 +16,7 @@ public abstract class HantoBaseGame implements HantoGame {
 	public HantoBaseGame(HantoPlayerColor firstTurnColor){
 		HantoGameManager.clearInstance();
 		gameManager = HantoGameManager.getInstance();
-		gameManager.setCellManager(new HantoCellManager());
+		gameManager.initialize();
 		gameManager.setColorTurn(firstTurnColor);
 		gameManager.setTurnCount(1);
 		
@@ -64,17 +64,16 @@ public abstract class HantoBaseGame implements HantoGame {
 	protected MoveResult postCheck(HantoPieceType pieceType){
 		MoveResult result = MoveResult.OK;
 		
-		if (gameManager.getBluePlayer().getPieceCount() == 0){
-			result = MoveResult.DRAW;
-		}
-		
 		if (isVictory(HantoPlayerColor.BLUE)){
 			result = MoveResult.BLUE_WINS;
 		} else if (isVictory(HantoPlayerColor.RED)){
 			result = MoveResult.RED_WINS;
+		} else if (gameManager.getBluePlayer().getPieceCount() == 0){
+			result = MoveResult.DRAW;
+		} else {
+			getCurrentPlayer().removePieceFromLineup(pieceType);
+			HantoGameManager.getInstance().nextTurn();
 		}
-		getCurrentPlayer().removePieceFromLineup(pieceType);
-		HantoGameManager.getInstance().nextTurn();
 		return result;
 	}
 	

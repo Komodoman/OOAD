@@ -4,11 +4,11 @@ import hanto.common.HantoPieceType;
 
 public class HantoPieceManager {
 
-	private int SPARROW_MOVE_DISTANCE = 2;
+	private int SPARROW_MOVE_DISTANCE = 1;
 	private int BUTTERFLY_MOVE_DISTANCE = 1;
 	private int CRAB_MOVE_DISTANCE = 1;
 	
-	private HantoMove SPARROW_MOVE_TYPE = HantoMove.FLY;
+	private HantoMove SPARROW_MOVE_TYPE = HantoMove.WALK;
 	private HantoMove BUTTERFLY_MOVE_TYPE = HantoMove.WALK;
 	private HantoMove CRAB_MOVE_TYPE = HantoMove.WALK;
 	

@@ -62,7 +62,7 @@ public class HantoCellManager {
 		boolean isLegal = true;
 		int cellDistance = getDistance(from, to);
 		
-		if (cellDistance > 1){
+		if (cellDistance > HantoGameManager.getInstance().getPieceManager().getMoveDistance(pieceType)){
 			isLegal = false;
 		} else if (!isContiguous(to.getX(), to.getY())){
 			isLegal = false;
