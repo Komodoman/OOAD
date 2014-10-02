@@ -358,6 +358,16 @@ public class HantoCellManager {
 	}
 	
 	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param aPiece HantoPieceType
+	 */
+	public void addCell(final int x, final int y, final HantoPiece aPiece){
+		occupiedCells.add(new HantoCell(x, y, aPiece));
+	}
+	
+	/**
 	 * Adds a {@link HantoPiece} to the array of occupied cells
 	 * @param x
 	 * @param y
@@ -403,4 +413,5 @@ public class HantoCellManager {
 	public HantoPlayerColor getCellColor(HantoCell cell){
 		return findCell(cell.getX(), cell.getY()).getCellColor();
 	}
+	
 }

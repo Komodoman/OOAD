@@ -1,9 +1,12 @@
 package hanto.kcbtsb.gamma;
 
+import hanto.common.HantoPiece;
 import hanto.common.HantoPlayerColor;
 import hanto.kcbtsb.common.HantoBaseGame;
+import hanto.kcbtsb.common.HantoPieceFactory;
 
 import common.HantoTestGame;
+import common.HantoTestGameFactory;
 
 public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame {
 
@@ -14,7 +17,12 @@ public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame 
 	@Override
 	public void initializeBoard(PieceLocationPair[] initialPieces) {
 		// TODO Auto-generated method stub
-
+		for(int i = 0; i < initialPieces.length; i++)
+		{
+			PieceLocationPair pair = initialPieces[i];
+			HantoPiece piece = HantoPieceFactory.makeHantoPiece(pair.pieceType, pair.player);
+			gameManager.getCellManager().addCell(pair.location.getX(), pair.location.getY(),piece);
+		}
 	}
 
 	@Override
@@ -25,7 +33,7 @@ public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame 
 	@Override
 	public void setPlayerMoving(HantoPlayerColor player) {
 		// TODO Auto-generated method stub
-
+		gameManager.setColorTurn(player);
 	}
 
 }

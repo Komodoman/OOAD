@@ -37,7 +37,7 @@ public class HantoPieceFactoryTest {
 	
 	@Test
 	public void shouldMakeAFactory(){
-		HantoPieceFactory aFactory = new HantoPieceFactory();
+		HantoPieceFactory aFactory = HantoPieceFactory.getInstance();
 		HantoPiece butterfly = aFactory.makeHantoPiece(HantoPieceType.BUTTERFLY, HantoPlayerColor.BLUE);
 		assertTrue("Should be butterfly:", butterfly.getType() == HantoPieceType.BUTTERFLY);
 		assertTrue("Should be blue:", butterfly.getColor() == HantoPlayerColor.BLUE);

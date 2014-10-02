@@ -11,6 +11,7 @@
 package hanto.kcbtsb.common;
 
 import hanto.common.*;
+import hanto.kcbtsb.HantoGameFactory;
 
 /**
  * 
@@ -19,8 +20,24 @@ import hanto.common.*;
  */
 public class HantoPieceFactory{
 
+	private static final HantoPieceFactory INSTANCE = new HantoPieceFactory();
+	
+	/**
+	 * Default private descriptor.
+	 */
+	private HantoPieceFactory()
+	{
+		// Empty, but the private constructor is necessary for the singleton.
+	}
 
-	public HantoPieceFactory(){}
+	/**
+	 * @return the instance
+	 */
+	public static HantoPieceFactory getInstance()
+	{
+		return INSTANCE;
+	}
+
 	
 	/**
 	 * 
