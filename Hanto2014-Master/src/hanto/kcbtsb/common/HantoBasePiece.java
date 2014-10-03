@@ -15,6 +15,11 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 
+/**
+ * Realization of the HantoPiece Interface
+ * @author tsbujnevicie
+ *
+ */
 public class HantoBasePiece implements HantoPiece
 {
 	private HantoPlayerColor color;
@@ -62,23 +67,32 @@ public class HantoBasePiece implements HantoPiece
 		this.type = type;
 	}
 	
-	public HantoBasePiece(HantoPlayerColor playerColor, HantoPieceType type,HantoMove moveType){
-		this.color = playerColor;
+	/**
+	 * Constructor for Base Piece
+	 * @param playerColor
+	 * @param type
+	 * @param moveType
+	 */
+	public HantoBasePiece(HantoPlayerColor playerColor, HantoPieceType type, HantoMove moveType){
+		color = playerColor;
 		this.type = type;
 		switch(type)
 		{
 		case BUTTERFLY:
 			this.moveType = moveType;
-			this.moveDistance = 1;
+			moveDistance = 1;
+			break;
 		case CRAB:
 			this.moveType = moveType;
-			this.moveDistance = 1;
+			moveDistance = 1;
+			break;
 		case SPARROW:
 			this.moveType = moveType;
-			this.moveDistance = 1;
+			moveDistance = 1;
+			break;
 		default:
-			this.moveType = HantoMove.WALK;
-			this.moveDistance = 1;
+			moveType = HantoMove.WALK;
+			moveDistance = 1;
 			break;
 		}
 		

@@ -143,7 +143,6 @@ public class HantoGameMasterGammaTest
 	@Test
 	public void moveButterfly() throws HantoException
 	{
-		System.out.println("BEGIN TEST_____________________");
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
 		assertEquals(OK, game.makeMove(BUTTERFLY, makeCoordinate(0, 0), makeCoordinate(1, 0)));
@@ -151,7 +150,6 @@ public class HantoGameMasterGammaTest
 		assertEquals(BLUE, piece.getColor());
 		assertEquals(BUTTERFLY, piece.getType());
 		assertNull(game.getPieceAt(makeCoordinate(0, 0)));
-		System.out.println("____________________END TEST");
 	}
 	
 	@Test(expected=HantoException.class)

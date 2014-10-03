@@ -38,7 +38,7 @@ public class HantoGameBeta extends HantoBaseGame {
 	
 	@Override
 	protected void preCheck(HantoCoordinate from, HantoCoordinate to) throws HantoException
-	{	
+	{
 		if (from != null){
 			throw new HantoException("Can't make moves in Beta Hanto");
 		}

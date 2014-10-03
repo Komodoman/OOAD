@@ -33,27 +33,6 @@ public class GammaHantoGame extends HantoBaseGame {
 	}
 	
 	/**
-	 * @see HantoBaseGame.movePiece
-	 */
-	@Override
-	protected void movePiece(HantoCoordinate from, HantoCoordinate to, HantoPieceType pieceType) throws HantoException{
-		HantoCell toCell = new HantoCell(to.getX(), to.getY());
-		HantoBasePiece piece = generatePiece(from, pieceType);
-		
-		if (from == null && gameManager.getCellManager().isAdjacentToEnemy(toCell, gameManager.getPlayerTurn())){
-			if (gameManager.getTurnCount() > 2){
-				throw new HantoException("Can't place piece next to enemy.");
-			}
-		} else if (from != null){
-			HantoCell fromCell = new HantoCell(from.getX(), from.getY());
-			gameManager.getCellManager().remCell(fromCell);
-			gameManager.getCellManager().isLegalMovement(fromCell, toCell, piece);
-			
-		}
-		super.movePiece(from, to, pieceType);
-	}
-	
-	/**
 	 * @see HantoBaseGame.postCheck
 	 */
 	@Override

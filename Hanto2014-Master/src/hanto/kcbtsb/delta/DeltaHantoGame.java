@@ -10,12 +10,15 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.kcbtsb.common.HantoBaseGame;
-import hanto.kcbtsb.common.HantoBasePiece;
-import hanto.kcbtsb.common.HantoCell;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.common.HantoMove;
 import hanto.kcbtsb.common.HantoPieceFactory;
 
+/**
+ * Delta Implementation of the HantoBaseGame
+ * @author tsbujnevicie
+ *
+ */
 public class DeltaHantoGame extends HantoBaseGame {
 
 	HantoGameManager gameManager;
@@ -75,25 +78,6 @@ public class DeltaHantoGame extends HantoBaseGame {
 			break;
 		}
 		return isGameOver;
-	}
-
-	@Override
-	protected void movePiece(HantoCoordinate from, HantoCoordinate to, HantoPieceType pieceType) throws HantoException{
-		HantoCell toCell = new HantoCell(to.getX(), to.getY());
-		HantoBasePiece piece = generatePiece(from, pieceType);
-		
-		if (from == null && gameManager.getCellManager().isAdjacentToEnemy(toCell, gameManager.getPlayerTurn())){
-			if (gameManager.getTurnCount() > 2){
-				throw new HantoException("Can't place piece next to enemy.");
-			}
-		} else if (from != null){
-			HantoCell fromCell = new HantoCell(from.getX(), from.getY());
-			gameManager.getCellManager().remCell(fromCell);
-			if (!gameManager.getCellManager().isLegalMovement(fromCell, toCell, piece)){
-				throw new HantoException("Illegal Movement");
-			}
-		}
-		super.movePiece(from, to, pieceType);
 	}
 	
 	@Override

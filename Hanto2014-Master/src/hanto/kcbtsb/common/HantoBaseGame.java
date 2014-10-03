@@ -19,6 +19,11 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 
+/**
+ * Base Realization of HantoGame
+ * @author tsbujnevicie
+ *
+ */
 public abstract class HantoBaseGame implements HantoGame {
 	
 	private HantoGameManager gameManager;
@@ -27,7 +32,7 @@ public abstract class HantoBaseGame implements HantoGame {
 	 * Constructor encapulating the shared behavoir of all hanto games
 	 * @param firstTurnColor
 	 */
-	public HantoBaseGame(HantoPlayerColor firstTurnColor){
+	protected HantoBaseGame(HantoPlayerColor firstTurnColor){
 		HantoGameManager.clearInstance();
 		gameManager = HantoGameManager.getInstance();
 		gameManager.initialize();
@@ -69,6 +74,20 @@ public abstract class HantoBaseGame implements HantoGame {
 		if (!getCurrentPlayer().getPiecesRemaining().contains(pieceType) && from == null){
 			throw new HantoException("None of those pieces remaining");
 		}
+		HantoCell toCell = new HantoCell(to.getX(), to.getY());
+		HantoBasePiece piece = generatePiece(from, pieceType);
+		
+		if (from == null && gameManager.getCellManager().isAdjacentToEnemy(toCell, gameManager.getPlayerTurn())){
+			if (gameManager.getTurnCount() > 2){
+				throw new HantoException("Can't place piece next to enemy.");
+			}
+		} else if (from != null){
+			HantoCell fromCell = new HantoCell(from.getX(), from.getY());
+			gameManager.getCellManager().remCell(fromCell);
+			if (!gameManager.getCellManager().isLegalMovement(fromCell, toCell, piece)){
+				throw new HantoException("Illegal Movement");
+			}
+		}
 		gameManager.getCellManager().addCell(to.getX(), to.getY(), HantoPieceFactory.makeHantoPiece(pieceType, gameManager.getPlayerTurn()));
 	}
 	
@@ -80,7 +99,7 @@ public abstract class HantoBaseGame implements HantoGame {
 	 * @throws HantoException
 	 */
 	protected void preCheck(HantoCoordinate from, HantoCoordinate to) throws HantoException
-	{	
+	{
 		int turn = HantoGameManager.getInstance().getTurnCount();
 		if (turn == 1 && (to.getX() != 0 || to.getY() != 0)){
 			throw new HantoException("Player must place first piece at 0,0");
@@ -109,7 +128,7 @@ public abstract class HantoBaseGame implements HantoGame {
 	 * This includes checking if the move resulted in a win or a draw, and
 	 * incementing turn.</p>
 	 * @param pieceType
-	 * @return
+	 * @return moveResult
 	 */
 	protected MoveResult postCheck(HantoPieceType pieceType){
 		MoveResult result = MoveResult.OK;

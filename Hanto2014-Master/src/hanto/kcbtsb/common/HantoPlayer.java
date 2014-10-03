@@ -6,10 +6,8 @@ package hanto.kcbtsb.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import hanto.common.HantoException;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.common.MoveResult;
 
 /**
  * @author Kyle
@@ -53,7 +51,7 @@ public class HantoPlayer {
 	 * @return piece lineup
 	 */
 	public List<HantoPieceType> getPiecesRemaining(){
-		return (ArrayList<HantoPieceType>) pieceLineup;
+		return pieceLineup;
 	}
 	/**
 	 * <p> Removes Piece from Lineup

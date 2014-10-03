@@ -135,23 +135,27 @@ public class HantoGameDeltaTest {
 		}
 		
 		@Test(expected=HantoException.class)
-		public void blueShouldFailWalkMoreThanOneCellWithSparrow() throws HantoException {
+		public void blueShouldFailWalkMoreThanOneCellWithCrabs() throws HantoException {
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, -1));
-			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, 1));
-			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -2));
-			game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, 1), makeCoordinate(-1, 0));
+			game.makeMove(HantoPieceType.CRAB, null, makeCoordinate(0, 1));
+			game.makeMove(HantoPieceType.CRAB, null, makeCoordinate(0, -2));
+			game.makeMove(HantoPieceType.CRAB, makeCoordinate(0, 1), makeCoordinate(-1, 0));
 		}
 		
 		@Test(expected=HantoException.class)
-		public void blueShouldFailWalkIntoNonContiguousRegion() throws HantoException {
+		public void blueShouldFailFLYIntoNonContiguousRegion() throws HantoException {
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, -1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, 1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -2));
 			game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, 1), makeCoordinate(0, 2));
 		}
-
+		@Test(expected=HantoException.class)
+		public void redWinsFromResign() throws HantoException {
+			game.makeMove(null,null,null);
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, -1));
+		}
 		// Helper methods
 		private HantoCoordinate makeCoordinate(int x, int y)
 		{

@@ -52,7 +52,7 @@ public class HantoGameAlpha extends HantoBaseGame {
 		if (gameManager.getCellManager().isEmpty()){
 			// check for first move of game
 			if (to.getX() == 0 && to.getY() == 0 && pieceType == HantoPieceType.BUTTERFLY){
-				gameManager.getCellManager().addCell(to.getX(), to.getY(),HantoPieceFactory.makeHantoPiece(pieceType, gameManager.getPlayerTurn()));
+				gameManager.getCellManager().addCell(to.getX(), to.getY(), HantoPieceFactory.makeHantoPiece(pieceType, gameManager.getPlayerTurn()));
 			}
 			else{
 				throw new HantoException("First butterfly must be placed at 0,0");

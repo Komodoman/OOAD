@@ -18,7 +18,6 @@ public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame 
 
 	@Override
 	public String getPrintableBoard() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

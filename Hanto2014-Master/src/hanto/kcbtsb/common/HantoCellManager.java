@@ -59,6 +59,14 @@ public class HantoCellManager {
 		return isOccupied;
 	}
 	
+	/**
+	 * Determines if move is valid
+	 * @param from
+	 * @param to
+	 * @param piece
+	 * @return boolean
+	 * @throws HantoException
+	 */
 	public boolean isLegalMovement(HantoCell from, HantoCell to, HantoBasePiece piece)throws HantoException{
 		boolean isLegal = true;
 		int cellDistance = getDistance(from, to);
@@ -71,7 +79,7 @@ public class HantoCellManager {
 		}
 		if(piece.getMoveType() == HantoMove.WALK)
 		{
-			if(!slideCheck(from,to))
+			if(!slideCheck(from, to))
 			{
 				throw new HantoException("Slide Moves are illigal");
 			}
@@ -229,6 +237,12 @@ public class HantoCellManager {
 		return isVictory;
 	}
 	
+	/***
+	 * Determines if any piece is adjacent to a certain piece
+	 * @param to
+	 * @param myColor
+	 * @return boolean
+	 */
 	public boolean isAdjacentToEnemy(HantoCell to, HantoPlayerColor myColor){
 		boolean isEnemy = false;
 		final HantoCell neCell = new HantoCell(to.getX() + 1, to.getY());
@@ -302,10 +316,10 @@ public class HantoCellManager {
 	}
 	
 	/**
-	 * 
+	 * Find a cell from occupied cells
 	 * @param x
 	 * @param y
-	 * @return
+	 * @return HantoCell
 	 */
 	public HantoCell findCell(final int x, final int y){
 		HantoCell aCell = null;
@@ -320,8 +334,9 @@ public class HantoCellManager {
 	}
 	
 	/**
-	 * @param HantoCell
-	 * @return
+	 * Find a cell from occupied cells
+	 * @param aCell
+	 * @return HantoCell
 	 */
 	public HantoCell findCell(final HantoCell aCell){
 		HantoCell realCell = null;
@@ -336,10 +351,11 @@ public class HantoCellManager {
 	}
 	
 	/**
-	 * 
+	 * Find a cell from occupied cells
 	 * @param x
 	 * @param y
-	 * @return
+	 * @param board
+	 * @return HantoCell
 	 */
 	public HantoCell findCell(final int x, final int y, List<HantoCell> board){
 		HantoCell aCell = null;
@@ -367,7 +383,7 @@ public class HantoCellManager {
 	
 	/**
 	 * Removes a {@link HantoPiece} from the array of occupied cells
-	 * @param HantoCell
+	 * @param cell
 	 */
 	public void remCell(HantoCell cell){
 		HantoCell aCell = findCell(cell);
@@ -383,15 +399,6 @@ public class HantoCellManager {
 		occupiedCells.add(new HantoCell(x, y));
 	}
 	
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @param aPiece HantoPieceType
-	 */
-	/*public void addCell(final int x, final int y, final HantoPieceType aPiece){
-		occupiedCells.add(new HantoCell(x, y, aPiece));
-	}*/
 	
 	/**
 	 * 
@@ -405,8 +412,7 @@ public class HantoCellManager {
 	
 	/**
 	 * Adds a {@link HantoPiece} to the array of occupied cells
-	 * @param x
-	 * @param y
+	 * @param aCell
 	 */
 	public void addCell(HantoCell aCell){
 		occupiedCells.add(aCell);
@@ -434,7 +440,7 @@ public class HantoCellManager {
 	 * @return the cell's piece
 	 */
 	public HantoPiece getCellPiece(final int x, final int y){
-		HantoCell cell = findCell(x,y);
+		HantoCell cell = findCell(x, y);
 		HantoPiece piece = null;
 		if(cell != null)
 		{

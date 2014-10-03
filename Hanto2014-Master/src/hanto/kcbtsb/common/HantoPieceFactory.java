@@ -13,9 +13,9 @@ import hanto.common.*;
 public class HantoPieceFactory{
 
 	private static final HantoPieceFactory INSTANCE = new HantoPieceFactory();
-	private static HantoMove sparrowMoveType;
-	private static HantoMove butterflyMoveType;
-	private static HantoMove crabMoveType;
+	private static HantoMove sparrowMoveType = null;
+	private static HantoMove butterflyMoveType = null;
+	private static HantoMove crabMoveType = null;
 	
 	/**
 	 * Default private descriptor.
@@ -32,7 +32,12 @@ public class HantoPieceFactory{
 	{
 		return INSTANCE;
 	}
-
+	/**
+	 * Sets up move Types for all pieces
+	 * @param s
+	 * @param b
+	 * @param c
+	 */
 	public static void setUp(HantoMove s, HantoMove b, HantoMove c)
 	{
 		sparrowMoveType = s;
@@ -51,13 +56,13 @@ public class HantoPieceFactory{
 		HantoBasePiece piece = null;
 		switch (pieceId) {
 		case BUTTERFLY:
-			piece = new HantoBasePiece(pieceColor,pieceId, butterflyMoveType);
+			piece = new HantoBasePiece(pieceColor, pieceId, butterflyMoveType);
 			break;
 		case SPARROW:
-			piece = new HantoBasePiece(pieceColor,pieceId, sparrowMoveType);
+			piece = new HantoBasePiece(pieceColor, pieceId, sparrowMoveType);
 			break;
 		case CRAB:
-			piece = new HantoBasePiece(pieceColor,pieceId,crabMoveType);
+			piece = new HantoBasePiece(pieceColor, pieceId, crabMoveType);
 			break;
 		default:
 			break;

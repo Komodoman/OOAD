@@ -45,15 +45,22 @@ public class HantoGameManager {
 		}
 		return instance;
 	}
-	
+	/**
+	 * Clears the Instance of the Game Manager Singleton
+	 */
 	public static void clearInstance(){
 		instance = null;
 	}
-	
+	/**
+	 * Generate a cell manager
+	 */
 	public void initialize(){
 		cellManager = new HantoCellManager();
 	}
 	
+	/**
+	 * Set up blue and red players
+	 */
 	public void setUp(){
 		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE, pieceLineup);
 		redPlayer = new HantoPlayer(HantoPlayerColor.RED, pieceLineup);
@@ -129,7 +136,7 @@ public class HantoGameManager {
 
 	/**
 	 * Setter for what the current turn is
-	 * @param redPlayer
+	 * @param colorTurn
 	 * 		color to be set as current turn
 	 */
 	public void setColorTurn(final HantoPlayerColor colorTurn) {
