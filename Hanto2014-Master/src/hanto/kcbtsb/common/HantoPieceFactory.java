@@ -1,17 +1,9 @@
-/*******************************************************************************
- * This files was developed for CS4233: Object-Oriented Analysis & Design.
- * The course was taken at Worcester Polytechnic Institute.
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
-
+/**
+ * @author Kyle Bryant and Tim Bujnevicie
+ */
 package hanto.kcbtsb.common;
 
 import hanto.common.*;
-import hanto.kcbtsb.HantoGameFactory;
 
 /**
  * 
@@ -21,6 +13,9 @@ import hanto.kcbtsb.HantoGameFactory;
 public class HantoPieceFactory{
 
 	private static final HantoPieceFactory INSTANCE = new HantoPieceFactory();
+	private static HantoMove sparrowMoveType;
+	private static HantoMove butterflyMoveType;
+	private static HantoMove crabMoveType;
 	
 	/**
 	 * Default private descriptor.
@@ -38,30 +33,11 @@ public class HantoPieceFactory{
 		return INSTANCE;
 	}
 
-	
-	/**
-	 * 
-	 * @param pieceId
-	 * @param pieceColor
-	 * @return Piece that is made by the factory
-	 */
-	public static HantoPiece makeHantoPiece
-	(final HantoPieceType pieceId, final HantoPlayerColor pieceColor) {
-		HantoPiece piece = null;
-		switch (pieceId) {
-		case BUTTERFLY:
-			piece = new Butterfly(pieceColor);
-			break;
-		case SPARROW:
-			piece = new Sparrow(pieceColor);
-			break;
-		case CRAB:
-			piece = new Crab(pieceColor);
-			break;
-		default:
-			break;
-		}
-		return piece;
+	public static void setUp(HantoMove s, HantoMove b, HantoMove c)
+	{
+		sparrowMoveType = s;
+		butterflyMoveType = b;
+		crabMoveType = c;
 	}
 	
 	/**
@@ -70,18 +46,18 @@ public class HantoPieceFactory{
 	 * @param pieceColor
 	 * @return Piece that is made by the factory
 	 */
-	public static HantoPiece makeHantoPiece
-	(final HantoPieceType pieceId, final HantoPlayerColor pieceColor, final HantoMove moveType, final int moveDistance) {
-		HantoPiece piece = null;
+	public static HantoBasePiece makeHantoPiece
+	(final HantoPieceType pieceId, final HantoPlayerColor pieceColor) {
+		HantoBasePiece piece = null;
 		switch (pieceId) {
 		case BUTTERFLY:
-			piece = new Butterfly(pieceColor, moveType, moveDistance);
+			piece = new HantoBasePiece(pieceColor,pieceId, butterflyMoveType);
 			break;
 		case SPARROW:
-			piece = new Sparrow(pieceColor, moveType, moveDistance);
+			piece = new HantoBasePiece(pieceColor,pieceId, sparrowMoveType);
 			break;
 		case CRAB:
-			piece = new Crab(pieceColor, moveType, moveDistance);
+			piece = new HantoBasePiece(pieceColor,pieceId,crabMoveType);
 			break;
 		default:
 			break;

@@ -3,6 +3,7 @@
  */
 package hanto.kcbtsb.common;
 
+import hanto.common.HantoException;
 import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
@@ -58,16 +59,25 @@ public class HantoCellManager {
 		return isOccupied;
 	}
 	
-	public boolean isLegalMovement(HantoCell from, HantoCell to, HantoPieceType pieceType){
+	public boolean isLegalMovement(HantoCell from, HantoCell to, HantoBasePiece piece)throws HantoException{
 		boolean isLegal = true;
 		int cellDistance = getDistance(from, to);
-		System.out.println(cellDistance);
-		if (cellDistance > HantoGameManager.getInstance().getPieceManager().getMoveDistance(pieceType)){
-			isLegal = false;
-		} else if (!isContiguous(to.getX(), to.getY())){
-			isLegal = false;
-		} else if (breaksContinuity(from, to)){
-			isLegal = false;
+		
+		if (!isAdjacent(to.getX(), to.getY())){
+			throw new HantoException("Cell is not adjacent");
+		}
+		if (breaksContinuity(from, to)){
+			throw new HantoException("Contiunity would be broke");
+		}
+		if(piece.getMoveType() == HantoMove.WALK)
+		{
+			if(!slideCheck(from,to))
+			{
+				throw new HantoException("Slide Moves are illigal");
+			}
+			if (cellDistance > piece.getMoveDistance()){
+				throw new HantoException("Distance too far for piece");
+			}
 		}
 		return isLegal;
 	}
@@ -76,17 +86,18 @@ public class HantoCellManager {
 		boolean breaksContinuity = false;
 		int counter = 1;
 		
-		ArrayList<HantoCell> resultingBoard = new ArrayList<HantoCell>();
+		List<HantoCell> resultingBoard = new ArrayList<HantoCell>();
 		resultingBoard.addAll(occupiedCells);
 		resultingBoard.remove(from);
 		resultingBoard.add(to);
 		
-		ArrayList<HantoCell> contigCells = getContiguousCells(resultingBoard, to);
+		List<HantoCell> contigCells = getContiguousCells(resultingBoard, to);
 		resultingBoard.remove(to);
 		
 		for (int i = 0; i < contigCells.size(); i++){
 			resultingBoard.remove(contigCells.get(i));
 			contigCells.addAll(getContiguousCells(resultingBoard, contigCells.get(i)));
+			counter++;
 		}
 		
 		if (counter == contigCells.size()){
@@ -95,23 +106,23 @@ public class HantoCellManager {
 		return breaksContinuity;
 	}
 	
-	private ArrayList<HantoCell> getContiguousCells(ArrayList<HantoCell> board, HantoCell aCell){
-		ArrayList<HantoCell> contigCells = new ArrayList<HantoCell>();
+	private List<HantoCell> getContiguousCells(List<HantoCell> board, HantoCell aCell){
+		List<HantoCell> contigCells = new ArrayList<HantoCell>();
 		if (aCell != null){
 			int x = aCell.getX();
 			int y = aCell.getY();
 			
 			if (isCellOccupied(x, y + 1)){
 				contigCells.add(findCell(x, y + 1, board));
-			} else if (isCellOccupied(x + 1, y)){
+			} if (isCellOccupied(x + 1, y)){
 				contigCells.add(findCell(x + 1, y, board));
-			} else if (isCellOccupied(x - 1, y)){
+			} if (isCellOccupied(x - 1, y)){
 				contigCells.add(findCell(x - 1, y, board));
-			} else if (isCellOccupied(x, y - 1)){
+			} if (isCellOccupied(x, y - 1)){
 				contigCells.add(findCell(x, y - 1, board));
-			} else if (isCellOccupied(x + 1, y - 1)){
+			} if (isCellOccupied(x + 1, y - 1)){
 				contigCells.add(findCell(x + 1, y - 1, board));
-			} else if (isCellOccupied(x - 1, y + 1)){
+			} if (isCellOccupied(x - 1, y + 1)){
 				contigCells.add(findCell(x - 1, y + 1, board));
 			}
 		}
@@ -131,30 +142,56 @@ public class HantoCellManager {
 		return Math.abs(distance);
 	}
 	
+	private boolean slideCheck(HantoCell from, HantoCell to)
+	{
+		List<HantoCell> fromCells = getContiguousCells(occupiedCells, from);
+		List<HantoCell> toCells = getContiguousCells(occupiedCells, to);
+		int matches = 0;
+		boolean canSlide = true;
+		
+		for(int i = 0; i < fromCells.size(); i++)
+		{
+			for(int j = 0; j < toCells.size(); j++)
+			{
+				if(fromCells.get(i).getX() == toCells.get(i).getX() && fromCells.get(i).getY() == toCells.get(i).getY())
+				{
+					matches++;
+				}
+			}
+		}
+		if(matches > 1){
+			canSlide = false;
+		}
+		
+		return canSlide;
+	}
+	
+	
+	
 	/**
 	 * 
 	 * @param x
 	 * @param y
 	 * @return if cell is contiguous to another
 	 */
-	public boolean isContiguous(final int x, final int y){
-		boolean isContiguous = false;
+	public boolean isAdjacent(final int x, final int y){
+		boolean isAdjacent = false;
 		
 		if (isCellOccupied(x, y + 1)){
-			isContiguous = true;
+			isAdjacent = true;
 		} else if (isCellOccupied(x + 1, y)){
-			isContiguous = true;
+			isAdjacent = true;
 		} else if (isCellOccupied(x - 1, y)){
-			isContiguous = true;
+			isAdjacent = true;
 		} else if (isCellOccupied(x, y - 1)){
-			isContiguous = true;
+			isAdjacent = true;
 		} else if (isCellOccupied(x + 1, y - 1)){
-			isContiguous = true;
+			isAdjacent = true;
 		} else if (isCellOccupied(x - 1, y + 1)){
-			isContiguous = true;
+			isAdjacent = true;
 		}
 		
-		return isContiguous;
+		return isAdjacent;
 	}
 	
 	/**
@@ -184,8 +221,7 @@ public class HantoCellManager {
 				break;
 			}
 		}
-		
-		
+
 		if (butterflyCell != null){
 			isVictory = isSurroundingCellsOccupied(butterflyCell);
 		}
@@ -193,7 +229,7 @@ public class HantoCellManager {
 		return isVictory;
 	}
 	
-	public boolean isContiguousToEnemy(HantoCell to, HantoPlayerColor myColor){
+	public boolean isAdjacentToEnemy(HantoCell to, HantoPlayerColor myColor){
 		boolean isEnemy = false;
 		final HantoCell neCell = new HantoCell(to.getX() + 1, to.getY());
 		if (isCellOccupied(neCell)){
@@ -305,7 +341,7 @@ public class HantoCellManager {
 	 * @param y
 	 * @return
 	 */
-	public HantoCell findCell(final int x, final int y, ArrayList<HantoCell> board){
+	public HantoCell findCell(final int x, final int y, List<HantoCell> board){
 		HantoCell aCell = null;
 		for (int i = 0; i < board.size(); i++){
 			if (board.get(i).getX() == x && board.get(i).getY() == y){
@@ -353,9 +389,9 @@ public class HantoCellManager {
 	 * @param y
 	 * @param aPiece HantoPieceType
 	 */
-	public void addCell(final int x, final int y, final HantoPieceType aPiece){
+	/*public void addCell(final int x, final int y, final HantoPieceType aPiece){
 		occupiedCells.add(new HantoCell(x, y, aPiece));
-	}
+	}*/
 	
 	/**
 	 * 
@@ -382,7 +418,13 @@ public class HantoCellManager {
 	 * @return the cell's piece
 	 */
 	public HantoPiece getCellPiece(final HantoCell aCell){
-		return findCell(aCell.getX(), aCell.getY()).getPiece();
+		HantoCell cell = findCell(aCell.getX(), aCell.getY());
+		HantoPiece piece = null;
+		if(cell != null)
+		{
+			piece = cell.getPiece(); 
+		}
+		return piece;
 	}
 	
 	/**
@@ -392,7 +434,13 @@ public class HantoCellManager {
 	 * @return the cell's piece
 	 */
 	public HantoPiece getCellPiece(final int x, final int y){
-		return findCell(x, y).getPiece();
+		HantoCell cell = findCell(x,y);
+		HantoPiece piece = null;
+		if(cell != null)
+		{
+			piece = cell.getPiece(); 
+		}
+		return piece;
 	}
 	
 	/**

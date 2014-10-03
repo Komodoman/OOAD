@@ -1,3 +1,7 @@
+/**
+ * @author Kyle Bryant and Tim Bujnevicie
+ */
+
 package hanto.kcbtsb.delta;
 
 import hanto.common.HantoCoordinate;
@@ -6,10 +10,11 @@ import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.kcbtsb.common.HantoBaseGame;
+import hanto.kcbtsb.common.HantoBasePiece;
 import hanto.kcbtsb.common.HantoCell;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.common.HantoMove;
-import hanto.kcbtsb.common.HantoPieceManager;
+import hanto.kcbtsb.common.HantoPieceFactory;
 
 public class DeltaHantoGame extends HantoBaseGame {
 
@@ -19,12 +24,14 @@ public class DeltaHantoGame extends HantoBaseGame {
 	
 	public DeltaHantoGame(HantoPlayerColor firstTurnColor) {
 		super(firstTurnColor);
+		HantoPieceFactory.setUp(HantoMove.FLY, HantoMove.WALK, HantoMove.WALK);
 		gameManager = HantoGameManager.getInstance();
 		gameManager.setGame(this);
 		gameManager.addPieceToLineup(HantoPieceType.CRAB, 4);
-		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 4, HantoMove.FLY, Integer.MAX_VALUE);
+		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 4);
 		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1);
 		gameManager.setUp();
+		
 	}
 	
 	@Override
@@ -39,12 +46,10 @@ public class DeltaHantoGame extends HantoBaseGame {
 			case RED:
 				moveResult = MoveResult.BLUE_WINS;
 				break;
-				
 			}
 		} else {
 			moveResult = super.makeMove(pieceType, from, to);
 		}
-		
 		if (gameOver){
 			throw new HantoException("The game is over bro!");
 		} else {
@@ -65,6 +70,9 @@ public class DeltaHantoGame extends HantoBaseGame {
 		case RED_WINS:
 			isGameOver = true;
 			break;
+		case OK:
+			isGameOver = false;
+			break;
 		}
 		return isGameOver;
 	}
@@ -72,15 +80,16 @@ public class DeltaHantoGame extends HantoBaseGame {
 	@Override
 	protected void movePiece(HantoCoordinate from, HantoCoordinate to, HantoPieceType pieceType) throws HantoException{
 		HantoCell toCell = new HantoCell(to.getX(), to.getY());
+		HantoBasePiece piece = generatePiece(from, pieceType);
 		
-		if (from == null && gameManager.getCellManager().isContiguousToEnemy(toCell, gameManager.getPlayerTurn())){
+		if (from == null && gameManager.getCellManager().isAdjacentToEnemy(toCell, gameManager.getPlayerTurn())){
 			if (gameManager.getTurnCount() > 2){
 				throw new HantoException("Can't place piece next to enemy.");
 			}
 		} else if (from != null){
 			HantoCell fromCell = new HantoCell(from.getX(), from.getY());
 			gameManager.getCellManager().remCell(fromCell);
-			if (!gameManager.getCellManager().isLegalMovement(fromCell, toCell, pieceType)){
+			if (!gameManager.getCellManager().isLegalMovement(fromCell, toCell, piece)){
 				throw new HantoException("Illegal Movement");
 			}
 		}

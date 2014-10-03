@@ -103,6 +103,7 @@ public class HantoGameGammaTest {
 		@Test
 		public void blueShouldWalkWithSparrow() throws HantoException
 		{	
+			System.out.println("BEGIN TEST_______________");
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -1));
@@ -135,7 +136,14 @@ public class HantoGameGammaTest {
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -2));
 			game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, 1), makeCoordinate(0, 2));
 		}
-
+		@Test(expected=HantoException.class)
+		public void moveshouldBeIlligal() throws HantoException{
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
+			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, -1));
+			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, 1));
+			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -2));
+			game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, 1), makeCoordinate(0, 2));
+		}
 		// Helper methods
 		private HantoCoordinate makeCoordinate(int x, int y)
 		{

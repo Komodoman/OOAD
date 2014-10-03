@@ -1,5 +1,5 @@
 /**
- * 
+ * @author Kyle Bryant and Tim Bujnevicie
  */
 package hanto.kcbtsb.common;
 
@@ -22,8 +22,9 @@ public class HantoPlayer {
 	private List<HantoPieceType> pieceLineup = new ArrayList<HantoPieceType>();
 	
 	/**
-	 * 
+	 * <p> Constructor for HantoPlayer
 	 * @param color
+	 * @param pieces
 	 */
 	public HantoPlayer(final HantoPlayerColor color, List<HantoPieceType> pieces){
 		playerColor = color;
@@ -31,7 +32,7 @@ public class HantoPlayer {
 	}
 	
 	/**
-	 * 
+	 * <p> Constructor for HantoPlayer
 	 * @param color
 	 */
 	public HantoPlayer(final HantoPlayerColor color){
@@ -39,19 +40,32 @@ public class HantoPlayer {
 		pieceLineup = null;
 	}
 	
-	
+	/**
+	 * <p> Piece Count Getter </p>
+	 * @return size of piece lineup
+	 */
 	public int getPieceCount(){
 		return pieceLineup.size();
 	}
 	
-	public ArrayList<HantoPieceType> getPiecesRemaining(){
+	/**
+	 * <p> Pieces Remaining getter
+	 * @return piece lineup
+	 */
+	public List<HantoPieceType> getPiecesRemaining(){
 		return (ArrayList<HantoPieceType>) pieceLineup;
 	}
-	
+	/**
+	 * <p> Removes Piece from Lineup
+	 * @param pieceType
+	 */
 	public void removePieceFromLineup(HantoPieceType pieceType){
 		pieceLineup.remove(pieceType);
 	}
-	
+	/**
+	 * Getter for Player Color
+	 * @return
+	 */
 	public HantoPlayerColor getPlayerColor(){
 		return playerColor;
 	}

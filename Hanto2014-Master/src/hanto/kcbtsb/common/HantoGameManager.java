@@ -1,5 +1,5 @@
 /**
- * @author Kyle
+ * @author Kyle Bryant and Tim Bujnevicie
  */
 package hanto.kcbtsb.common;
 
@@ -25,9 +25,7 @@ public class HantoGameManager {
 	private HantoPlayer bluePlayer;
 	
 	private HantoCellManager cellManager;
-	
-	private HantoPieceManager pieceManager;
-	
+		
 	private HantoPlayerTurn colorTurn;
 	
 	private HantoGame game;
@@ -53,7 +51,6 @@ public class HantoGameManager {
 	}
 	
 	public void initialize(){
-		pieceManager = new HantoPieceManager();
 		cellManager = new HantoCellManager();
 	}
 	
@@ -119,23 +116,7 @@ public class HantoGameManager {
 		this.cellManager = cellManager;
 	}
 	
-	/**
-	 * Getter for piece manager instance
-	 * @return
-	 * 		piece manager instance
-	 */
-	public HantoPieceManager getPieceManager() {
-		return pieceManager;
-	}
 
-	/**
-	 * Setter for cell manager instance
-	 * @param redPlayer
-	 * 		instance to be set as cell manager
-	 */
-	public void setPieceManager(final HantoPieceManager pieceManager) {
-		this.pieceManager = pieceManager;
-	}
 
 	/**
 	 * Getter for what the current turn is
@@ -211,22 +192,4 @@ public class HantoGameManager {
 			pieceLineup.add(aPiece);
 		}
 	}
-	
-	/**
-	 * Adds a set amount of a specific {@link HantoPieceType} to the array of 
-	 * pieces that can be used
-	 * @param aPiece
-	 * 			piece type
-	 * @param amount
-	 * 			number to be added.
-	 */
-	public void addPieceToLineup(final HantoPieceType aPiece, final int amount, HantoMove aMoveType, int moveDistance){
-		for (int i = 0; i < amount; i++){
-			pieceLineup.add(aPiece);
-		}
-	}
-
-
-	
-
 }

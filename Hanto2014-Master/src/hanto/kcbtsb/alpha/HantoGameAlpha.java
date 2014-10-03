@@ -12,6 +12,7 @@ import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
 import hanto.kcbtsb.common.HantoBaseGame;
 import hanto.kcbtsb.common.HantoGameManager;
+import hanto.kcbtsb.common.HantoPieceFactory;
 import hanto.kcbtsb.common.HantoPlayer;
 
 /**
@@ -51,7 +52,7 @@ public class HantoGameAlpha extends HantoBaseGame {
 		if (gameManager.getCellManager().isEmpty()){
 			// check for first move of game
 			if (to.getX() == 0 && to.getY() == 0 && pieceType == HantoPieceType.BUTTERFLY){
-				gameManager.getCellManager().addCell(to.getX(), to.getY(), pieceType);
+				gameManager.getCellManager().addCell(to.getX(), to.getY(),HantoPieceFactory.makeHantoPiece(pieceType, gameManager.getPlayerTurn()));
 			}
 			else{
 				throw new HantoException("First butterfly must be placed at 0,0");
@@ -69,7 +70,7 @@ public class HantoGameAlpha extends HantoBaseGame {
 		
 		else{
 			// add cell to cell manager
-			gameManager.getCellManager().addCell(to.getX(), to.getY(), pieceType);
+			gameManager.getCellManager().addCell(to.getX(), to.getY(), HantoPieceFactory.makeHantoPiece(pieceType, gameManager.getPlayerTurn()));
 			if (gameManager.getPlayerTurn() == HantoPlayerColor.RED){
 				result = MoveResult.DRAW;
 			}

@@ -22,6 +22,13 @@ public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame 
 			PieceLocationPair pair = initialPieces[i];
 			HantoPiece piece = HantoPieceFactory.makeHantoPiece(pair.pieceType, pair.player);
 			gameManager.getCellManager().addCell(pair.location.getX(), pair.location.getY(),piece);
+			switch(pair.player)
+			{
+				case BLUE:
+					gameManager.getBluePlayer().removePieceFromLineup(pair.pieceType);
+				case RED:
+					gameManager.getRedPlayer().removePieceFromLineup(pair.pieceType);
+			}
 		}
 	}
 

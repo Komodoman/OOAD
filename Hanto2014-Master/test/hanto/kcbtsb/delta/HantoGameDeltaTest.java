@@ -117,13 +117,13 @@ public class HantoGameDeltaTest {
 		}
 		
 		@Test
-		public void blueShouldWalkWithSparrow() throws HantoException
+		public void blueShouldFlyWithSparrow() throws HantoException
 		{	
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, 2));
-			MoveResult mr = game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, -1), makeCoordinate(-1, 0));
+			MoveResult mr = game.makeMove(HantoPieceType.SPARROW, makeCoordinate(0, -1), makeCoordinate(0, 3));
 			assertEquals(MoveResult.OK, mr);
 		}
 		
