@@ -44,7 +44,17 @@ public class HantoCell implements HantoCoordinate {
 		occPiece = HantoPieceFactory.makeHantoPiece(
 				aPiece, HantoGameManager.getInstance().getPlayerTurn());
 	}
-	
+	/**
+	 * Constructor for HantoCell.
+	 * @param x int
+	 * @param y int
+	 * @param aPiece HantoPieceType
+	 */
+	public HantoCell(final int x, final int y, HantoPiece aPiece){
+		xLoc = x;
+		yLoc = y;
+		occPiece = aPiece;
+	}
 	
 	/**
 	 * Getter for the x coordinate

@@ -1,5 +1,5 @@
 /**
- * @author Kyle
+ * @author Kyle Bryant and Tim Bujnevicie
  */
 package hanto.kcbtsb.common;
 
@@ -25,7 +25,7 @@ public class HantoGameManager {
 	private HantoPlayer bluePlayer;
 	
 	private HantoCellManager cellManager;
-	
+		
 	private HantoPlayerTurn colorTurn;
 	
 	private HantoGame game;
@@ -33,14 +33,6 @@ public class HantoGameManager {
 	private int turnCounter;
 	
 	private List<HantoPieceType> pieceLineup = new ArrayList<HantoPieceType>();
-	
-	//Static instance of the Singleton
-	
-	
-	public void setUp(){
-		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE, pieceLineup);
-		redPlayer = new HantoPlayer(HantoPlayerColor.RED, pieceLineup);
-	}
 
 	/**
 	 * Creates an instance of HantoGameManager if none exists.
@@ -53,9 +45,25 @@ public class HantoGameManager {
 		}
 		return instance;
 	}
-	
+	/**
+	 * Clears the Instance of the Game Manager Singleton
+	 */
 	public static void clearInstance(){
 		instance = null;
+	}
+	/**
+	 * Generate a cell manager
+	 */
+	public void initialize(){
+		cellManager = new HantoCellManager();
+	}
+	
+	/**
+	 * Set up blue and red players
+	 */
+	public void setUp(){
+		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE, pieceLineup);
+		redPlayer = new HantoPlayer(HantoPlayerColor.RED, pieceLineup);
 	}
 	
 	/**
@@ -114,6 +122,8 @@ public class HantoGameManager {
 	public void setCellManager(final HantoCellManager cellManager) {
 		this.cellManager = cellManager;
 	}
+	
+
 
 	/**
 	 * Getter for what the current turn is
@@ -126,7 +136,7 @@ public class HantoGameManager {
 
 	/**
 	 * Setter for what the current turn is
-	 * @param redPlayer
+	 * @param colorTurn
 	 * 		color to be set as current turn
 	 */
 	public void setColorTurn(final HantoPlayerColor colorTurn) {
@@ -189,8 +199,4 @@ public class HantoGameManager {
 			pieceLineup.add(aPiece);
 		}
 	}
-
-
-	
-
 }

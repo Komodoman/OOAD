@@ -13,6 +13,7 @@ package hanto.kcbtsb;
 import hanto.common.*;
 import hanto.kcbtsb.alpha.HantoGameAlpha;
 import hanto.kcbtsb.beta.HantoGameBeta;
+import hanto.kcbtsb.delta.DeltaHantoGame;
 import hanto.kcbtsb.gamma.GammaHantoGame;
 
 /**
@@ -71,6 +72,10 @@ public class HantoGameFactory
 			break;
 		case GAMMA_HANTO:
 			game = new GammaHantoGame(movesFirst);
+			break;
+		case DELTA_HANTO:
+			game = new DeltaHantoGame(movesFirst);
+			break;
 		}
 		return game;
 	}

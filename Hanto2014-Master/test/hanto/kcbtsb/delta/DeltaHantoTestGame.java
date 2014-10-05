@@ -1,17 +1,24 @@
-package hanto.kcbtsb.gamma;
+package hanto.kcbtsb.delta;
 
+import hanto.common.HantoCoordinate;
+import hanto.common.HantoException;
 import hanto.common.HantoPiece;
+import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.kcbtsb.common.HantoBaseGame;
+import hanto.common.MoveResult;
 import hanto.kcbtsb.common.HantoPieceFactory;
-
 import common.HantoTestGame;
-import common.HantoTestGameFactory;
+import common.HantoTestGame.PieceLocationPair;
 
-public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame {
+public class DeltaHantoTestGame extends DeltaHantoGame implements HantoTestGame {
 
-	public GammaHantoTestGame(HantoPlayerColor firstTurnColor) {
+	public DeltaHantoTestGame(HantoPlayerColor firstTurnColor) {
 		super(firstTurnColor);
+	}
+
+	@Override
+	public String getPrintableBoard() {
+		return null;
 	}
 
 	@Override
@@ -37,9 +44,9 @@ public class GammaHantoTestGame extends GammaHantoGame implements HantoTestGame 
 		super.gameManager.setTurnCount(turnNumber);
 	}
 
+
 	@Override
 	public void setPlayerMoving(HantoPlayerColor player) {
-		// TODO Auto-generated method stub
 		gameManager.setColorTurn(player);
 	}
 

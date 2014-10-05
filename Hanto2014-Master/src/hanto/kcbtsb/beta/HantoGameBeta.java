@@ -13,6 +13,7 @@ import hanto.common.HantoException;
 import hanto.kcbtsb.common.HantoBaseGame;
 import hanto.kcbtsb.common.HantoCellManager;
 import hanto.kcbtsb.common.HantoGameManager;
+import hanto.kcbtsb.common.HantoPieceFactory;
 import hanto.kcbtsb.common.HantoPlayer;
 import hanto.kcbtsb.common.HantoPlayerTurn;
 
@@ -37,7 +38,7 @@ public class HantoGameBeta extends HantoBaseGame {
 	
 	@Override
 	protected void preCheck(HantoCoordinate from, HantoCoordinate to) throws HantoException
-	{	
+	{
 		if (from != null){
 			throw new HantoException("Can't make moves in Beta Hanto");
 		}
@@ -45,6 +46,16 @@ public class HantoGameBeta extends HantoBaseGame {
 		super.preCheck(from, to);
 	}
 
+	/**
+	 * @see HantoBaseGame.movePiece
+	 */
+	@Override
+	protected void movePiece(HantoCoordinate from, HantoCoordinate to, HantoPieceType pieceType) throws HantoException{
+		if (!getCurrentPlayer().getPiecesRemaining().contains(pieceType)){
+			throw new HantoException("None of those pieces remaining");
+		}
+		gameManager.getCellManager().addCell(to.getX(), to.getY(), HantoPieceFactory.makeHantoPiece(pieceType, gameManager.getPlayerTurn()));
+	}
 	@Override
 	public String getPrintableBoard() {
 		// TODO Auto-generated method stub
