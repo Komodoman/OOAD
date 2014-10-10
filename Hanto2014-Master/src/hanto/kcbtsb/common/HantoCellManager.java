@@ -75,13 +75,13 @@ public class HantoCellManager {
 			throw new HantoException("Cell is not adjacent");
 		}
 		if (breaksContinuity(from, to)){
-			throw new HantoException("Contiunity would be broke");
+			throw new HantoException("Contiunity would break");
 		}
 		if(piece.getMoveType() == HantoMove.WALK)
 		{
 			if(!slideCheck(from, to))
 			{
-				throw new HantoException("Slide Moves are illigal");
+				throw new HantoException("Slide Moves are illegal");
 			}
 			if (cellDistance > piece.getMoveDistance()){
 				throw new HantoException("Distance too far for piece");
@@ -92,23 +92,23 @@ public class HantoCellManager {
 	
 	private boolean breaksContinuity(HantoCell from, HantoCell to){
 		boolean breaksContinuity = false;
-		int counter = 1;
 		
+		// Create new board
 		List<HantoCell> resultingBoard = new ArrayList<HantoCell>();
 		resultingBoard.addAll(occupiedCells);
 		resultingBoard.remove(from);
 		resultingBoard.add(to);
 		
+		// Get cell 
 		List<HantoCell> contigCells = getContiguousCells(resultingBoard, to);
 		resultingBoard.remove(to);
 		
 		for (int i = 0; i < contigCells.size(); i++){
-			resultingBoard.remove(contigCells.get(i));
 			contigCells.addAll(getContiguousCells(resultingBoard, contigCells.get(i)));
-			counter++;
+			resultingBoard.remove(contigCells.get(i));
 		}
 		
-		if (counter == contigCells.size()){
+		if (resultingBoard.size() != 0){
 			breaksContinuity = true;
 		}
 		return breaksContinuity;
@@ -133,6 +133,7 @@ public class HantoCellManager {
 			} if (isCellOccupied(x - 1, y + 1)){
 				contigCells.add(findCell(x - 1, y + 1, board));
 			}
+			
 		}
 		
 		return contigCells;
@@ -153,18 +154,19 @@ public class HantoCellManager {
 	private boolean slideCheck(HantoCell from, HantoCell to)
 	{
 		List<HantoCell> fromCells = getContiguousCells(occupiedCells, from);
-		List<HantoCell> toCells = getContiguousCells(occupiedCells, to);
+		
+		List<HantoCell> resultingBoard = new ArrayList<HantoCell>();
+		resultingBoard.addAll(occupiedCells);
+		resultingBoard.remove(from);
+		
+		List<HantoCell> toCells = getContiguousCells(resultingBoard, to);
+		
 		int matches = 0;
 		boolean canSlide = true;
 		
-		for(int i = 0; i < fromCells.size(); i++)
-		{
-			for(int j = 0; j < toCells.size(); j++)
-			{
-				if(fromCells.get(i).getX() == toCells.get(i).getX() && fromCells.get(i).getY() == toCells.get(i).getY())
-				{
-					matches++;
-				}
+		for(int i = 0; i < fromCells.size(); i++){
+			if (toCells.contains(fromCells.get(i))){
+				matches++;
 			}
 		}
 		if(matches > 1){

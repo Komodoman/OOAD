@@ -152,6 +152,7 @@ public class DeltaHantoMasterTest
 	@Test(expected=HantoException.class)
 	public void crabWalksAndCreatesDisconnectedConfiguration() throws HantoException
 	{
+		System.out.println("START TEST");
 		final PieceLocationPair[] board = new PieceLocationPair[] {
 			    plPair(BLUE, BUTTERFLY, 0, 0), plPair(RED, BUTTERFLY, 0, 1),
 			    plPair(BLUE, SPARROW, -1, 0), plPair(RED, CRAB, 1, 0),
@@ -162,6 +163,7 @@ public class DeltaHantoMasterTest
 		testGame.setTurnNumber(4);
 		testGame.setPlayerMoving(RED);
 		game.makeMove(CRAB, makeCoordinate(1, 0), makeCoordinate(1, -1));
+		System.out.println("END TEST");
 	}
 	
 	@Test(expected=HantoException.class)
