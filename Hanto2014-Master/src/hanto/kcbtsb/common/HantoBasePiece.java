@@ -28,6 +28,43 @@ public class HantoBasePiece implements HantoPiece
 	private HantoMove moveType;
 	private int moveDistance;
 
+	
+	
+	/**
+	 * Constructor for Base Piece
+	 * @param playerColor
+	 * @param type
+	 * @param moveType
+	 */
+	public HantoBasePiece(HantoPlayerColor playerColor, HantoPieceType type, HantoMove moveType, int moveDistance){
+		color = playerColor;
+		this.type = type;
+		switch(type)
+		{
+		case BUTTERFLY:
+			this.moveType = moveType;
+			this.moveDistance = moveDistance;
+			break;
+		case CRAB:
+			this.moveType = moveType;
+			this.moveDistance = moveDistance;
+			break;
+		case SPARROW:
+			this.moveType = moveType;
+			this.moveDistance = moveDistance;
+			break;
+		case HORSE:
+			this.moveType = moveType;
+			this.moveDistance = moveDistance;
+			break;
+		default:
+			this.moveType = HantoMove.WALK;
+			this.moveDistance = moveDistance;
+			break;
+		}
+		
+	}
+	
 	/**
 	 * @see HantoPiece.getColor
 	 */
@@ -67,35 +104,6 @@ public class HantoBasePiece implements HantoPiece
 		this.type = type;
 	}
 	
-	/**
-	 * Constructor for Base Piece
-	 * @param playerColor
-	 * @param type
-	 * @param moveType
-	 */
-	public HantoBasePiece(HantoPlayerColor playerColor, HantoPieceType type, HantoMove moveType){
-		color = playerColor;
-		this.type = type;
-		switch(type)
-		{
-		case BUTTERFLY:
-			this.moveType = moveType;
-			moveDistance = 1;
-			break;
-		case CRAB:
-			this.moveType = moveType;
-			moveDistance = 1;
-			break;
-		case SPARROW:
-			this.moveType = moveType;
-			moveDistance = 1;
-			break;
-		default:
-			moveType = HantoMove.WALK;
-			moveDistance = 1;
-			break;
-		}
-		
-	}
+
 
 }

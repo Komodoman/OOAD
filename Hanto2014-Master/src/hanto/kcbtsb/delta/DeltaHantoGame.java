@@ -27,12 +27,11 @@ public class DeltaHantoGame extends HantoBaseGame {
 	
 	public DeltaHantoGame(HantoPlayerColor firstTurnColor) {
 		super(firstTurnColor);
-		HantoPieceFactory.setUp(HantoMove.FLY, HantoMove.WALK, HantoMove.WALK);
 		gameManager = HantoGameManager.getInstance();
 		gameManager.setGame(this);
-		gameManager.addPieceToLineup(HantoPieceType.CRAB, 4);
-		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 4);
-		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1);
+		gameManager.addPieceToLineup(HantoPieceType.CRAB, 4, HantoMove.WALK, 1);
+		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 4, HantoMove.FLY, Integer.MAX_VALUE);
+		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1, HantoMove.WALK, 1);
 		gameManager.setUp();
 		
 	}

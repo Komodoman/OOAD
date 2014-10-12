@@ -83,11 +83,57 @@ public class HantoCellManager {
 			{
 				throw new HantoException("Slide Moves are illegal");
 			}
-			if (cellDistance > piece.getMoveDistance()){
-				throw new HantoException("Distance too far for piece");
+		} else if (piece.getMoveType() == HantoMove.JUMP){
+			System.out.println("CHECKING HORSE STRAIGHT");
+			if (!isStraight(from, to)){
+				throw new HantoException("This Piece Must Move Straight but is Not");
 			}
 		}
+		if (cellDistance > piece.getMoveDistance()){
+			System.out.println(piece.getMoveDistance());
+			throw new HantoException("Distance too far for piece");
+		}
 		return isLegal;
+	}
+	
+	public boolean isLegalMovePresent(HantoPlayerColor aColor){
+		boolean legalMoves = false;
+		
+		List<HantoPieceType> pieceLineup = new ArrayList<HantoPieceType>();
+		switch(aColor){
+		case BLUE:
+			pieceLineup.addAll(HantoGameManager.getInstance().getBluePlayer().getPiecesRemaining());
+			break;
+		case RED:
+			pieceLineup.addAll(HantoGameManager.getInstance().getRedPlayer().getPiecesRemaining());
+			break;
+		default:
+			break;
+		}
+		System.out.println(pieceLineup);
+		if (pieceLineup.size() > 0){
+			legalMoves = true;
+		}
+		
+		return legalMoves;
+	}
+	
+	private boolean isStraight(HantoCell from, HantoCell to){
+		boolean isStraight = false;
+		
+		// Check North/South Move, NE/SW Move
+		if (from.getX() == to.getX() || from.getY() == to.getY() ){
+			System.out.println("N/S or NE/SW Movement good!");
+			isStraight = true;
+		}
+		
+		// Check NW/SE Move
+		if (from.getX() + from.getY() == 0 && to.getX() + to.getY() == 0){
+			System.out.println("NW/SE Movement good!");
+			isStraight = true;
+		}
+		
+		return isStraight;
 	}
 	
 	private boolean breaksContinuity(HantoCell from, HantoCell to){

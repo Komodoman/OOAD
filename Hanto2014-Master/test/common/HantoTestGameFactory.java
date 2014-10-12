@@ -14,6 +14,7 @@ import hanto.common.*;
 import hanto.kcbtsb.alpha.HantoGameAlpha;
 import hanto.kcbtsb.beta.HantoGameBeta;
 import hanto.kcbtsb.delta.DeltaHantoTestGame;
+import hanto.kcbtsb.epsilon.EpsilonHantoTestGame;
 import hanto.kcbtsb.gamma.GammaHantoGame;
 import hanto.kcbtsb.gamma.GammaHantoTestGame;
 
@@ -67,6 +68,10 @@ public class HantoTestGameFactory
 			case DELTA_HANTO:
 				game = new DeltaHantoTestGame(movesFirst);
 				break;
+			case EPSILON_HANTO:
+				game = new EpsilonHantoTestGame(movesFirst);
+				break;
+				
 		}
 		return game;
 	}

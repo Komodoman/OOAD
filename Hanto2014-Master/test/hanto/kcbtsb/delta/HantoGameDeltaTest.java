@@ -119,6 +119,7 @@ public class HantoGameDeltaTest {
 		@Test
 		public void blueShouldFlyWithSparrow() throws HantoException
 		{	
+			System.out.println("REALLY TESTING NOW");
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));
 			game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 1));
 			game.makeMove(HantoPieceType.SPARROW, null, makeCoordinate(0, -1));

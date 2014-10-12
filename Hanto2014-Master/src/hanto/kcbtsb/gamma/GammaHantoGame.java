@@ -26,10 +26,9 @@ public class GammaHantoGame extends HantoBaseGame {
 		super(color);
 		gameManager = HantoGameManager.getInstance();
 		gameManager.setGame(this);
-		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 5);
-		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1);
+		gameManager.addPieceToLineup(HantoPieceType.SPARROW, 5, HantoMove.WALK, 1);
+		gameManager.addPieceToLineup(HantoPieceType.BUTTERFLY, 1, HantoMove.WALK, 1);
 		gameManager.setUp();
-		HantoPieceFactory.setUp(HantoMove.WALK, HantoMove.WALK, HantoMove.WALK);
 	}
 	
 	/**

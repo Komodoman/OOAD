@@ -28,13 +28,7 @@ public class HantoPieceFactoryTest {
 		assertTrue("Should be butterfly:", butterfly.getType() == HantoPieceType.BUTTERFLY);
 		assertTrue("Should be blue:", butterfly.getColor() == HantoPlayerColor.BLUE);
 	}
-	
-	@Test
-	public void shouldMakeNullWhenTryingToMakeHorse(){
-		HantoPiece horse = HantoPieceFactory.makeHantoPiece(HantoPieceType.HORSE, HantoPlayerColor.BLUE);
-		assertTrue("Should be butterfly:", horse == null);
-	}
-	
+
 	@Test
 	public void shouldMakeAFactory(){
 		HantoPieceFactory aFactory = HantoPieceFactory.getInstance();

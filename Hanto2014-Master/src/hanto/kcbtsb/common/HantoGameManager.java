@@ -199,4 +199,19 @@ public class HantoGameManager {
 			pieceLineup.add(aPiece);
 		}
 	}
+	
+	/**
+	 * Adds a set amount of a specific {@link HantoPieceType} to the array of 
+	 * pieces that can be used
+	 * @param aPiece
+	 * 			piece type
+	 * @param amount
+	 * 			number to be added.
+	 */
+	public void addPieceToLineup(final HantoPieceType aPiece, final int amount, final HantoMove moveType, final int moveDist){
+		for (int i = 0; i < amount; i++){
+			pieceLineup.add(aPiece);
+		}
+		HantoPieceFactory.setupPiece(aPiece, moveType, moveDist);
+	}
 }
