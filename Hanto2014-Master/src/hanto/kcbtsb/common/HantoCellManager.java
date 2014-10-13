@@ -71,6 +71,7 @@ public class HantoCellManager {
 		boolean isLegal = true;
 		int cellDistance = getDistance(from, to);
 		
+		
 		if (!isAdjacent(to.getX(), to.getY())){
 			throw new HantoException("Cell is not adjacent");
 		}
@@ -113,10 +114,133 @@ public class HantoCellManager {
 		if (pieceLineup.size() > 0){
 			legalMoves = true;
 		}
+		else
+		{
+			legalMoves = checkPlayerPiecesForMoves(aColor);
+		}
+		
 		
 		return legalMoves;
 	}
 	
+	private boolean checkPlayerPiecesForMoves(HantoPlayerColor aColor)
+	{
+		boolean legalMove = false;
+		List<HantoCell> boardPieces = new ArrayList<HantoCell>();
+		List<HantoCell> possibleLocations = new ArrayList<HantoCell>();
+		
+		for(int i = 0; i < occupiedCells.size(); i++)
+		{
+			if(occupiedCells.get(i).getPiece().getColor() == aColor)
+			{
+				boardPieces.add(occupiedCells.get(i));
+			}
+		}
+		possibleLocations = generatePossibleMoves();
+		for(int j = 0; j < boardPieces.size(); j++)
+		{
+			for(int k = 0; k < possibleLocations.size();k++)
+			{
+				if(checkPieceForLegality(boardPieces.get(j),possibleLocations.get(k)))
+				{
+					legalMove = true;
+				}
+			}
+		}
+		
+		return legalMove;
+		
+	}
+	private boolean checkPieceForLegality(HantoCell from, HantoCell to)
+	{
+		boolean legalMove = false;
+		HantoBasePiece piece = (HantoBasePiece) from.getPiece();
+		int cellDistance = getDistance(from, to);
+		List<HantoCell> possibleCells = new ArrayList<HantoCell>();
+		possibleCells = generatePossibleMoves();
+		
+		
+		for(int i = 0; i < possibleCells.size(); i++)
+		{
+			legalMove = true;
+			if (isAdjacent(to.getX(), to.getY())){
+				legalMove = true;
+			}
+			else{
+				legalMove = false;
+			}
+			if (!breaksContinuity(from, to) && legalMove == true){
+				legalMove = true;
+			}
+			else{
+				legalMove = false;
+			}
+			if(piece.getMoveType() == HantoMove.WALK){
+				if(slideCheck(from, to) && legalMove == true){
+					legalMove = true;
+				}else{
+					legalMove = false;
+				}
+			} else if (piece.getMoveType() == HantoMove.JUMP){
+				if (isStraight(from, to) && legalMove == true){
+					legalMove = true;
+				}else{
+					legalMove = false;
+				}
+			}
+			if (cellDistance <= piece.getMoveDistance() && legalMove == true){
+				legalMove = true;
+			}
+			else
+			{
+				legalMove = false;
+			}
+			
+		}
+		return legalMove;
+	}
+	
+	private List<HantoCell> generatePossibleMoves()
+	{
+		List<HantoCell> cells = new ArrayList<HantoCell>();
+		
+		for(int i = 0; i < occupiedCells.size(); i++)
+		{
+			List<HantoCell> localCells = new ArrayList<HantoCell>();
+			localCells = checkAdjacentCells(occupiedCells.get(i));
+			for(int j = 0; j < localCells.size(); j++)
+			{
+				if(!cells.contains(localCells.get(j)))
+				{
+					cells.add(localCells.get(j));
+				}
+			}
+		}
+		
+		return cells;
+	}
+	private List<HantoCell> checkAdjacentCells(HantoCell cell)
+	{
+		List<HantoCell> emptyCells = new ArrayList<HantoCell>();
+		int x = cell.getX();
+		int y = cell.getY();
+		
+		
+		if (!isCellOccupied(x, y + 1)){
+			emptyCells.add(new HantoCell(x,y+1));
+		} if (!isCellOccupied(x + 1, y)){
+			emptyCells.add(new HantoCell(x + 1,y));
+		} if (!isCellOccupied(x - 1, y)){
+			emptyCells.add(new HantoCell(x - 1,y));
+		} if (!isCellOccupied(x, y - 1)){
+			emptyCells.add(new HantoCell(x,y -1));
+		} if (!isCellOccupied(x + 1, y - 1)){
+			emptyCells.add(new HantoCell(x + 1,y - 1));
+		} if (!isCellOccupied(x - 1, y + 1)){
+			emptyCells.add(new HantoCell(x - 1,y + 1));
+		}
+		return emptyCells;
+	}
 	private boolean isStraight(HantoCell from, HantoCell to){
 		boolean isStraight = false;
 		
@@ -285,7 +409,6 @@ public class HantoCellManager {
 		
 		return canSlide;
 	}
-	
 	
 	
 	/**

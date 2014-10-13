@@ -13,7 +13,7 @@ public class EpsilonHantoGame extends HantoBaseGame {
 
 	HantoGameManager gameManager;
 	
-	protected EpsilonHantoGame(HantoPlayerColor color) {
+	public EpsilonHantoGame(HantoPlayerColor color) {
 		super(color);
 		gameManager = HantoGameManager.getInstance();
 		gameManager.setGame(this);
