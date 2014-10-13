@@ -84,7 +84,6 @@ public class HantoCellManager {
 				throw new HantoException("Slide Moves are illegal");
 			}
 		} else if (piece.getMoveType() == HantoMove.JUMP){
-			System.out.println("CHECKING HORSE STRAIGHT");
 			if (!isStraight(from, to)){
 				throw new HantoException("This Piece Must Move Straight but is Not");
 			}
@@ -121,19 +120,84 @@ public class HantoCellManager {
 	private boolean isStraight(HantoCell from, HantoCell to){
 		boolean isStraight = false;
 		
-		// Check North/South Move, NE/SW Move
-		if (from.getX() == to.getX() || from.getY() == to.getY() ){
-			System.out.println("N/S or NE/SW Movement good!");
-			isStraight = true;
+		// Check North/South Move
+		if (from.getX() == to.getX()){
+			isStraight = isVerticallyOccupied(from, to);
+		}
+		
+		// Check NE/SW Move
+		else if (from.getY() == to.getY()){
+			isStraight = isHorizontallyOccupied(from, to);	
 		}
 		
 		// Check NW/SE Move
-		if (from.getX() + from.getY() == 0 && to.getX() + to.getY() == 0){
-			System.out.println("NW/SE Movement good!");
-			isStraight = true;
+		else if (from.getX() + from.getY() == to.getX() + to.getY()){
+			isStraight = isDiagonallyOccupied(from, to);
 		}
 		
 		return isStraight;
+	}
+	
+	private boolean isDiagonallyOccupied(HantoCell from, HantoCell to){
+		boolean isOccupied = false;
+		if (to.getX() > from.getX()){
+			for (int i = from.getX() + 1; i < to.getX(); i++){
+				if (findCell(i, -i) == null){
+					isOccupied = false;
+					System.out.println("MISSING A PIECE");
+					break;
+				}
+			}
+		} else {
+			for (int i = to.getX() - 1; i < from.getX(); i++){
+				if (findCell(i, -i) == null){
+					isOccupied = false;
+					break;
+				}
+			}
+		}
+		return isOccupied;
+	}
+	
+	private boolean isVerticallyOccupied(HantoCell from, HantoCell to){
+		boolean isOccupied = true;
+		if (to.getY() > from.getY()){
+			for (int i = from.getY() + 1; i < to.getY(); i++){
+				if (findCell(to.getX(), i) == null){
+					isOccupied = false;
+					System.out.println("MISSING A PIECE");
+					break;
+				}
+			}
+		} else {
+			for (int i = to.getY() - 1; i < from.getY(); i++){
+				if (findCell(to.getX(), i) == null){
+					isOccupied = false;
+					break;
+				}
+			}
+		}
+		return isOccupied;
+	}
+	
+	private boolean isHorizontallyOccupied(HantoCell from, HantoCell to){
+		boolean isOccupied = true;
+		if (to.getX() > from.getX()){
+			for (int i = from.getX() + 1; i < to.getX(); i++){
+				if (findCell(i, to.getY()) == null){
+					isOccupied = false;
+					break;
+				}
+			}
+		} else {
+			for (int i = to.getX() - 1; i < from.getX(); i++){
+				if (findCell(i, to.getY()) == null){
+					isOccupied = false;
+					break;
+				}
+			}
+		}
+		return isOccupied;
 	}
 	
 	private boolean breaksContinuity(HantoCell from, HantoCell to){
