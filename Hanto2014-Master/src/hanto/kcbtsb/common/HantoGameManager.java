@@ -20,9 +20,9 @@ import hanto.common.HantoPlayerColor;
 public class HantoGameManager {
 	private static HantoGameManager instance = null;
 	
-	private HantoPlayer redPlayer;
+	private HantoBasePlayer redPlayer;
 	
-	private HantoPlayer bluePlayer;
+	private HantoBasePlayer bluePlayer;
 	
 	private HantoCellManager cellManager;
 		
@@ -62,8 +62,8 @@ public class HantoGameManager {
 	 * Set up blue and red players
 	 */
 	public void setUp(){
-		bluePlayer = new HantoPlayer(HantoPlayerColor.BLUE, pieceLineup);
-		redPlayer = new HantoPlayer(HantoPlayerColor.RED, pieceLineup);
+		bluePlayer = new HantoBasePlayer(HantoPlayerColor.BLUE, pieceLineup);
+		redPlayer = new HantoBasePlayer(HantoPlayerColor.RED, pieceLineup);
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class HantoGameManager {
 	 * @return
 	 * 		Red Player instance
 	 */
-	public HantoPlayer getRedPlayer() {
+	public HantoBasePlayer getRedPlayer() {
 		return redPlayer;
 	}
 
@@ -101,7 +101,7 @@ public class HantoGameManager {
 	 * @return
 	 * 		Blue Player instance
 	 */
-	public HantoPlayer getBluePlayer() {
+	public HantoBasePlayer getBluePlayer() {
 		return bluePlayer;
 	}
 
