@@ -115,6 +115,7 @@ public class HantoCellManager {
 			legalMoves = true;
 		}
 		
+		
 		return legalMoves;
 	}
 	

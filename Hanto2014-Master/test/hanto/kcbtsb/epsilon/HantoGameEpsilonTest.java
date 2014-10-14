@@ -110,6 +110,20 @@ public class HantoGameEpsilonTest
 	}
 	
 	@Test(expected=HantoException.class)
+	public void blueMovesHorseOvershootNorthSouthWithContinuity() throws HantoException
+	{
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 1));
+		game.makeMove(HORSE, null, makeCoordinate(0, -1));
+		game.makeMove(HORSE, null, makeCoordinate(0, 2));
+		game.makeMove(CRAB, null, makeCoordinate(-1, 2));
+		game.makeMove(CRAB, null, makeCoordinate(-1, 3));
+		game.makeMove(CRAB, null, makeCoordinate(-1, 4));
+		game.makeMove(CRAB, null, makeCoordinate(-1, 5));
+		game.makeMove(HORSE, makeCoordinate(0, -1), makeCoordinate(0, 4));
+	}
+	
+	@Test(expected=HantoException.class)
 	public void blueMovesHorseNotStraight() throws HantoException
 	{
 		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
