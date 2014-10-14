@@ -71,6 +71,7 @@ public class HantoCellManager {
 		boolean isLegal = true;
 		int cellDistance = getDistance(from, to);
 		
+		
 		if (!isAdjacent(to.getX(), to.getY())){
 			throw new HantoException("Cell is not adjacent");
 		}
@@ -84,7 +85,6 @@ public class HantoCellManager {
 				throw new HantoException("Slide Moves are illegal");
 			}
 		} else if (piece.getMoveType() == HantoMove.JUMP){
-			System.out.println("CHECKING HORSE STRAIGHT");
 			if (!isStraight(from, to)){
 				throw new HantoException("This Piece Must Move Straight but is Not");
 			}
@@ -114,27 +114,215 @@ public class HantoCellManager {
 		if (pieceLineup.size() > 0){
 			legalMoves = true;
 		}
+		else
+		{
+			legalMoves = checkPlayerPiecesForMoves(aColor);
+		}
+		
 		
 		
 		return legalMoves;
 	}
 	
+	private boolean checkPlayerPiecesForMoves(HantoPlayerColor aColor)
+	{
+		boolean legalMove = false;
+		List<HantoCell> boardPieces = new ArrayList<HantoCell>();
+		List<HantoCell> possibleLocations = new ArrayList<HantoCell>();
+		
+		for(int i = 0; i < occupiedCells.size(); i++)
+		{
+			if(occupiedCells.get(i).getPiece().getColor() == aColor)
+			{
+				boardPieces.add(occupiedCells.get(i));
+			}
+		}
+		possibleLocations = generatePossibleMoves();
+		for(int j = 0; j < boardPieces.size(); j++)
+		{
+			for(int k = 0; k < possibleLocations.size();k++)
+			{
+				if(checkPieceForLegality(boardPieces.get(j),possibleLocations.get(k)))
+				{
+					legalMove = true;
+				}
+			}
+		}
+		
+		return legalMove;
+		
+	}
+	private boolean checkPieceForLegality(HantoCell from, HantoCell to)
+	{
+		boolean legalMove = false;
+		HantoBasePiece piece = (HantoBasePiece) from.getPiece();
+		int cellDistance = getDistance(from, to);
+		List<HantoCell> possibleCells = new ArrayList<HantoCell>();
+		possibleCells = generatePossibleMoves();
+		
+		
+		for(int i = 0; i < possibleCells.size(); i++)
+		{
+			legalMove = true;
+			if (isAdjacent(to.getX(), to.getY())){
+				legalMove = true;
+			}
+			else{
+				legalMove = false;
+			}
+			if (!breaksContinuity(from, to) && legalMove == true){
+				legalMove = true;
+			}
+			else{
+				legalMove = false;
+			}
+			if(piece.getMoveType() == HantoMove.WALK){
+				if(slideCheck(from, to) && legalMove == true){
+					legalMove = true;
+				}else{
+					legalMove = false;
+				}
+			} else if (piece.getMoveType() == HantoMove.JUMP){
+				if (isStraight(from, to) && legalMove == true){
+					legalMove = true;
+				}else{
+					legalMove = false;
+				}
+			}
+			if (cellDistance <= piece.getMoveDistance() && legalMove == true){
+				legalMove = true;
+			}
+			else
+			{
+				legalMove = false;
+			}
+			
+		}
+		return legalMove;
+	}
+	
+	private List<HantoCell> generatePossibleMoves()
+	{
+		List<HantoCell> cells = new ArrayList<HantoCell>();
+		
+		for(int i = 0; i < occupiedCells.size(); i++)
+		{
+			List<HantoCell> localCells = new ArrayList<HantoCell>();
+			localCells = checkAdjacentCells(occupiedCells.get(i));
+			for(int j = 0; j < localCells.size(); j++)
+			{
+				if(!cells.contains(localCells.get(j)))
+				{
+					cells.add(localCells.get(j));
+				}
+			}
+		}
+		
+		return cells;
+	}
+	private List<HantoCell> checkAdjacentCells(HantoCell cell)
+	{
+		List<HantoCell> emptyCells = new ArrayList<HantoCell>();
+		int x = cell.getX();
+		int y = cell.getY();
+		
+		
+		if (!isCellOccupied(x, y + 1)){
+			emptyCells.add(new HantoCell(x,y+1));
+		} if (!isCellOccupied(x + 1, y)){
+			emptyCells.add(new HantoCell(x + 1,y));
+		} if (!isCellOccupied(x - 1, y)){
+			emptyCells.add(new HantoCell(x - 1,y));
+		} if (!isCellOccupied(x, y - 1)){
+			emptyCells.add(new HantoCell(x,y -1));
+		} if (!isCellOccupied(x + 1, y - 1)){
+			emptyCells.add(new HantoCell(x + 1,y - 1));
+		} if (!isCellOccupied(x - 1, y + 1)){
+			emptyCells.add(new HantoCell(x - 1,y + 1));
+		}
+		return emptyCells;
+	}
 	private boolean isStraight(HantoCell from, HantoCell to){
 		boolean isStraight = false;
 		
-		// Check North/South Move, NE/SW Move
-		if (from.getX() == to.getX() || from.getY() == to.getY() ){
-			System.out.println("N/S or NE/SW Movement good!");
-			isStraight = true;
+		// Check North/South Move
+		if (from.getX() == to.getX()){
+			isStraight = isVerticallyOccupied(from, to);
+		}
+		
+		// Check NE/SW Move
+		else if (from.getY() == to.getY()){
+			isStraight = isHorizontallyOccupied(from, to);	
 		}
 		
 		// Check NW/SE Move
-		if (from.getX() + from.getY() == 0 && to.getX() + to.getY() == 0){
-			System.out.println("NW/SE Movement good!");
-			isStraight = true;
+		else if (from.getX() + from.getY() == to.getX() + to.getY()){
+			isStraight = isDiagonallyOccupied(from, to);
 		}
 		
 		return isStraight;
+	}
+	
+	private boolean isDiagonallyOccupied(HantoCell from, HantoCell to){
+		boolean isOccupied = false;
+		if (to.getX() > from.getX()){
+			for (int i = from.getX() + 1; i < to.getX(); i++){
+				if (findCell(i, -i) == null){
+					isOccupied = false;
+					System.out.println("MISSING A PIECE");
+					break;
+				}
+			}
+		} else {
+			for (int i = to.getX() - 1; i < from.getX(); i++){
+				if (findCell(i, -i) == null){
+					isOccupied = false;
+					break;
+				}
+			}
+		}
+		return isOccupied;
+	}
+	
+	private boolean isVerticallyOccupied(HantoCell from, HantoCell to){
+		boolean isOccupied = true;
+		if (to.getY() > from.getY()){
+			for (int i = from.getY() + 1; i < to.getY(); i++){
+				if (findCell(to.getX(), i) == null){
+					isOccupied = false;
+					System.out.println("MISSING A PIECE");
+					break;
+				}
+			}
+		} else {
+			for (int i = to.getY() - 1; i < from.getY(); i++){
+				if (findCell(to.getX(), i) == null){
+					isOccupied = false;
+					break;
+				}
+			}
+		}
+		return isOccupied;
+	}
+	
+	private boolean isHorizontallyOccupied(HantoCell from, HantoCell to){
+		boolean isOccupied = true;
+		if (to.getX() > from.getX()){
+			for (int i = from.getX() + 1; i < to.getX(); i++){
+				if (findCell(i, to.getY()) == null){
+					isOccupied = false;
+					break;
+				}
+			}
+		} else {
+			for (int i = to.getX() - 1; i < from.getX(); i++){
+				if (findCell(i, to.getY()) == null){
+					isOccupied = false;
+					break;
+				}
+			}
+		}
+		return isOccupied;
 	}
 	
 	private boolean breaksContinuity(HantoCell from, HantoCell to){
@@ -222,7 +410,6 @@ public class HantoCellManager {
 		
 		return canSlide;
 	}
-	
 	
 	
 	/**
