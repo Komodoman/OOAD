@@ -8,6 +8,7 @@ import hanto.kcbtsb.common.HantoBaseGame;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.common.HantoMove;
 import hanto.kcbtsb.common.HantoPieceFactory;
+import hanto.kcbtsb.common.HantoPrematureResignationException;
 
 public class EpsilonHantoGame extends HantoBaseGame {
 
@@ -37,7 +38,7 @@ public class EpsilonHantoGame extends HantoBaseGame {
 		if (from == null && to == null){
 			System.out.println("Checking for moves left.");
 			if(gameManager.getCellManager().isLegalMovePresent(gameManager.getPlayerTurn())){
-				throw new HantoException("Forfeited when legal moves were present.");
+				throw new HantoPrematureResignationException("Forfeited when legal moves were present.");
 			}
 		}
 		super.preCheck(from, to);

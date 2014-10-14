@@ -17,6 +17,7 @@ import static hanto.common.MoveResult.*;
 import static org.junit.Assert.*;
 import hanto.common.*;
 import hanto.kcbtsb.HantoGameFactory;
+import hanto.kcbtsb.common.HantoPrematureResignationException;
 
 import org.junit.*;
 import common.*;
@@ -208,12 +209,12 @@ public class EpsilonHantoMasterTest
 		game.makeMove(HORSE, makeCoordinate(1, -1), makeCoordinate(-2, 2));
 	}
 	
-//	@Test(expected=HantoPrematureResignationException.class)
-//	public void resignWhileThereAreStillMoves() throws HantoException
-//	{
-//		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
-//		game.makeMove(null,  null,  null);
-//	}
+	@Test(expected=HantoPrematureResignationException.class)
+	public void resignWhileThereAreStillMoves() throws HantoException
+	{
+		game.makeMove(BUTTERFLY, null, makeCoordinate(0, 0));
+		game.makeMove(null,  null,  null);
+	}
 	
 	@Test
 	public void crabMoves() throws HantoException
