@@ -178,8 +178,8 @@ public abstract class HantoBaseGame implements HantoGame {
 	 * <p> Returns the player who currently allowed to move or place pieces
 	 * @return HantoPlayer
 	 */
-	public HantoPlayer getCurrentPlayer(){
-		HantoPlayer curPlayer = null;
+	public HantoBasePlayer getCurrentPlayer(){
+		HantoBasePlayer curPlayer = null;
 		switch(gameManager.getPlayerTurn()){
 		case BLUE:
 			curPlayer = gameManager.getBluePlayer();

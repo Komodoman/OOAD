@@ -124,12 +124,8 @@ public class HantoCellManager {
 		return legalMoves;
 	}
 	
-	private boolean checkPlayerPiecesForMoves(HantoPlayerColor aColor)
-	{
-		boolean legalMove = false;
+	public List<HantoCell> getPlayerCells(HantoPlayerColor aColor){
 		List<HantoCell> boardPieces = new ArrayList<HantoCell>();
-		List<HantoCell> possibleLocations = new ArrayList<HantoCell>();
-		
 		for(int i = 0; i < occupiedCells.size(); i++)
 		{
 			if(occupiedCells.get(i).getPiece().getColor() == aColor)
@@ -137,6 +133,16 @@ public class HantoCellManager {
 				boardPieces.add(occupiedCells.get(i));
 			}
 		}
+		return boardPieces;
+	}
+	
+	private boolean checkPlayerPiecesForMoves(HantoPlayerColor aColor)
+	{
+		boolean legalMove = false;
+		
+		List<HantoCell> possibleLocations = new ArrayList<HantoCell>();	
+		List<HantoCell> boardPieces = getPlayerCells(aColor);
+		
 		possibleLocations = generatePossibleMoves();
 		for(int j = 0; j < boardPieces.size(); j++)
 		{
@@ -149,59 +155,64 @@ public class HantoCellManager {
 			}
 		}
 		
-		return legalMove;
-		
+		return legalMove;	
 	}
+	
+	public boolean isALegalMove(HantoPiece piece, HantoCell from, HantoCell to){
+		boolean legalMove = true;
+		HantoBasePiece bPiece = (HantoBasePiece) piece;
+		int cellDistance = getDistance(from, to);
+		if (isAdjacent(to.getX(), to.getY())){
+			legalMove = true;
+		}
+		else{
+			legalMove = false;
+		}
+		if (!breaksContinuity(from, to) && legalMove == true){
+			legalMove = true;
+		}
+		else{
+			legalMove = false;
+		}
+		if(bPiece.getMoveType() == HantoMove.WALK){
+			if(slideCheck(from, to) && legalMove == true){
+				legalMove = true;
+			}else{
+				legalMove = false;
+			}
+		} else if (bPiece.getMoveType() == HantoMove.JUMP){
+			if (isStraight(from, to) && legalMove == true){
+				legalMove = true;
+			}else{
+				legalMove = false;
+			}
+		}
+		if (cellDistance <= bPiece.getMoveDistance() && legalMove == true){
+			legalMove = true;
+		}
+		else
+		{
+			legalMove = false;
+		}
+		return legalMove;
+	}
+	
 	private boolean checkPieceForLegality(HantoCell from, HantoCell to)
 	{
 		boolean legalMove = false;
 		HantoBasePiece piece = (HantoBasePiece) from.getPiece();
-		int cellDistance = getDistance(from, to);
 		List<HantoCell> possibleCells = new ArrayList<HantoCell>();
 		possibleCells = generatePossibleMoves();
 		
 		
 		for(int i = 0; i < possibleCells.size(); i++)
 		{
-			legalMove = true;
-			if (isAdjacent(to.getX(), to.getY())){
-				legalMove = true;
-			}
-			else{
-				legalMove = false;
-			}
-			if (!breaksContinuity(from, to) && legalMove == true){
-				legalMove = true;
-			}
-			else{
-				legalMove = false;
-			}
-			if(piece.getMoveType() == HantoMove.WALK){
-				if(slideCheck(from, to) && legalMove == true){
-					legalMove = true;
-				}else{
-					legalMove = false;
-				}
-			} else if (piece.getMoveType() == HantoMove.JUMP){
-				if (isStraight(from, to) && legalMove == true){
-					legalMove = true;
-				}else{
-					legalMove = false;
-				}
-			}
-			if (cellDistance <= piece.getMoveDistance() && legalMove == true){
-				legalMove = true;
-			}
-			else
-			{
-				legalMove = false;
-			}
-			
+			legalMove = isALegalMove(piece, from, to);
 		}
 		return legalMove;
 	}
 	
-	private List<HantoCell> generatePossibleMoves()
+	public List<HantoCell> generatePossibleMoves()
 	{
 		List<HantoCell> cells = new ArrayList<HantoCell>();
 		

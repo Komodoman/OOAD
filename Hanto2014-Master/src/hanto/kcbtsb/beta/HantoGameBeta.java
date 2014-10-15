@@ -14,7 +14,7 @@ import hanto.kcbtsb.common.HantoBaseGame;
 import hanto.kcbtsb.common.HantoCellManager;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.common.HantoPieceFactory;
-import hanto.kcbtsb.common.HantoPlayer;
+import hanto.kcbtsb.common.HantoBasePlayer;
 import hanto.kcbtsb.common.HantoPlayerTurn;
 
 /**

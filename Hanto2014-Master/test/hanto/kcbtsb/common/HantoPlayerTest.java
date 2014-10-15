@@ -26,7 +26,7 @@ public class HantoPlayerTest {
 
 	@Test ()
 	public void testHantoPlayerGetter() {
-		HantoPlayer player = new HantoPlayer(HantoPlayerColor.RED);
+		HantoBasePlayer player = new HantoBasePlayer(HantoPlayerColor.RED);
 		assertEquals(HantoPlayerColor.RED, player.getPlayerColor());
 		
 	}
