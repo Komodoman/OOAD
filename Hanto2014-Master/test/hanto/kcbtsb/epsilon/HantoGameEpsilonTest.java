@@ -164,6 +164,18 @@ public class HantoGameEpsilonTest
 		
 	}
 	
+	@Test
+	public void resegnation() throws HantoException
+	{
+		PieceLocationPair[] pairs = {plPair(BLUE,BUTTERFLY,0,0),
+				plPair(RED,BUTTERFLY,1,0), plPair(BLUE,HORSE,2,0),
+				};
+		testGame.initializeBoard(pairs);
+		testGame.setTurnNumber(4);
+		testGame.setPlayerMoving(RED);
+		assertEquals(game.makeMove(BUTTERFLY,null,null),MoveResult.BLUE_WINS);
+	}
+	
 	
 	// Helper methods
 	private HantoCoordinate makeCoordinate(int x, int y)

@@ -19,9 +19,16 @@ import java.util.List;
 public class HantoCellManager {
 	
 	private final List<HantoCell> occupiedCells;
+	private HantoGameManager gameManager;
 	
-	public HantoCellManager(){
+	/**
+	 * Constructor for Cell Manager
+	 * @param m
+	 * 		game manager
+	 */
+	public HantoCellManager(HantoGameManager m){
 		occupiedCells = new ArrayList<HantoCell>();
+		gameManager = m;
 	}
 	
 	/**
@@ -70,7 +77,7 @@ public class HantoCellManager {
 	public boolean isLegalMovement(HantoCell from, HantoCell to, HantoBasePiece piece)throws HantoException{
 		boolean isLegal = true;
 		int cellDistance = getDistance(from, to);
-		
+
 		
 		if (!isAdjacent(to.getX(), to.getY())){
 			throw new HantoException("Cell is not adjacent");
@@ -90,9 +97,9 @@ public class HantoCellManager {
 			}
 		}
 		if (cellDistance > piece.getMoveDistance()){
-			System.out.println(piece.getMoveDistance());
 			throw new HantoException("Distance too far for piece");
 		}
+
 		return isLegal;
 	}
 	
@@ -108,23 +115,21 @@ public class HantoCellManager {
 		List<HantoPieceType> pieceLineup = new ArrayList<HantoPieceType>();
 		switch(aColor){
 		case BLUE:
-			pieceLineup.addAll(HantoGameManager.getInstance().getBluePlayer().getPiecesRemaining());
+			pieceLineup.addAll(gameManager.getBluePlayer().getPiecesRemaining());
 			break;
 		case RED:
-			pieceLineup.addAll(HantoGameManager.getInstance().getRedPlayer().getPiecesRemaining());
+			pieceLineup.addAll(gameManager.getRedPlayer().getPiecesRemaining());
 			break;
 		default:
 			break;
 		}
-		System.out.println(pieceLineup);
 		if (pieceLineup.size() > 0){
-			legalMoves = true;
+			legalMoves = checkPlayerPiecesForPlacement(aColor);
 		}
 		else
 		{
 			legalMoves = checkPlayerPiecesForMoves(aColor);
 		}
-		
 		
 		
 		return legalMoves;
@@ -146,7 +151,25 @@ public class HantoCellManager {
 		}
 		return boardPieces;
 	}
-	
+	private boolean checkPlayerPiecesForPlacement(HantoPlayerColor aColor)
+	{
+		boolean legalMove = false;
+		List<HantoCell> possibleLocations = new ArrayList<HantoCell>();	
+		possibleLocations = generatePossibleMoves();
+		for(int i = 0; i < possibleLocations.size();i++)
+		{
+			if(!isAdjacentToEnemy(possibleLocations.get(i), aColor) && isAdjacent(possibleLocations.get(i).getX(), possibleLocations.get(i).getY())){
+				legalMove = true;
+				break;
+			}
+		}
+		if(gameManager.getTurnCount() < 2)
+		{
+			legalMove = true;
+		}
+
+		return legalMove;
+	}
 	private boolean checkPlayerPiecesForMoves(HantoPlayerColor aColor)
 	{
 		boolean legalMove = false;
@@ -181,6 +204,7 @@ public class HantoCellManager {
 		boolean legalMove = true;
 		HantoBasePiece bPiece = (HantoBasePiece) piece;
 		int cellDistance = getDistance(from, to);
+
 		if (isAdjacent(to.getX(), to.getY())){
 			legalMove = true;
 		}
@@ -196,7 +220,7 @@ public class HantoCellManager {
 		if(bPiece.getMoveType() == HantoMove.WALK){
 			if(slideCheck(from, to) && legalMove){
 				legalMove = true;
-			}else{
+			}else{ 
 				legalMove = false;
 			}
 		} else if (bPiece.getMoveType() == HantoMove.JUMP){
@@ -312,6 +336,9 @@ public class HantoCellManager {
 		else if (from.getX() + from.getY() == to.getX() + to.getY()){
 			isStraight = isDiagonallyOccupied(from, to);
 		}
+		if(getDistance(from, to) < 2){
+			isStraight = false;
+		}
 		
 		return isStraight;
 	}
@@ -328,7 +355,6 @@ public class HantoCellManager {
 			for (int i = from.getX() + 1; i < to.getX(); i++){
 				if (findCell(i, -i) == null){
 					isOccupied = false;
-					System.out.println("MISSING A PIECE");
 					break;
 				}
 			}
@@ -355,7 +381,6 @@ public class HantoCellManager {
 			for (int i = from.getY() - 1; i > to.getY(); i--){
 				if (findCell(to.getX(), i) == null){
 					isOccupied = false;
-					System.out.println("MISSING A PIECE");
 					break;
 				}
 			}
@@ -465,15 +490,18 @@ public class HantoCellManager {
 	 * 		distance
 	 */
 	private int getDistance(HantoCell from, HantoCell to){
+		
 		int distance = 0;
-		if (to.getY() > to.getX()){
-			distance = (to.getX() - from.getX()) + (to.getY() - from.getY());
-		} else if ((from.getX() + from.getY()) > (to.getX() + to.getY())){
-			distance = from.getY() - to.getY();
-		} else{
-			distance = to.getX() - from.getX();
+
+		int xdiff = from.getX() - to.getX();
+		int ydiff = from.getY() - to.getY();
+		
+		if(xdiff*ydiff > 0){
+			distance = Math.abs(xdiff) + Math.abs(ydiff);
+		} else {
+			distance = Math.max(Math.abs(xdiff), Math.abs(ydiff));
 		}
-		return Math.abs(distance);
+		return distance;
 	}
 	
 	private boolean slideCheck(HantoCell from, HantoCell to)
@@ -792,6 +820,10 @@ public class HantoCellManager {
 	 */
 	public HantoPlayerColor getCellColor(HantoCell cell){
 		return findCell(cell.getX(), cell.getY()).getCellColor();
+	}
+	public List<HantoCell> getOccupiedCells()
+	{
+		return occupiedCells;
 	}
 	
 }

@@ -37,7 +37,7 @@ public abstract class HantoBaseGame implements HantoGame {
 		gameManager = HantoGameManager.getInstance();
 		gameManager.initialize();
 		gameManager.setColorTurn(firstTurnColor);
-		gameManager.setTurnCount(1);
+		gameManager.setTurnCount(0);
 		
 	}
 
@@ -48,9 +48,27 @@ public abstract class HantoBaseGame implements HantoGame {
 	public MoveResult makeMove(HantoPieceType pieceType, HantoCoordinate from,
 		HantoCoordinate to) throws HantoException {
 		
-		preCheck(from, to);
-		movePiece(from, to, pieceType);
-		return postCheck(pieceType);
+		MoveResult result = null;
+		if (from == null && to == null){
+			System.out.println("Checking for moves left.");
+			if(gameManager.getCellManager().isLegalMovePresent(gameManager.getPlayerTurn())){
+				throw new HantoPrematureResignationException("Forfeited when legal moves were present.");
+			}
+			if(gameManager.getPlayerTurn() == HantoPlayerColor.RED){
+				result = MoveResult.BLUE_WINS;
+			}
+			if(gameManager.getPlayerTurn() == HantoPlayerColor.BLUE){
+				result = MoveResult.RED_WINS;
+			}
+			System.out.println("RESIGNING");
+		}
+		else{
+			preCheck(from, to);
+			movePiece(from, to, pieceType);
+			result = postCheck(pieceType);
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -78,7 +96,7 @@ public abstract class HantoBaseGame implements HantoGame {
 		HantoBasePiece piece = generatePiece(from, pieceType);
 		
 		if (from == null && gameManager.getCellManager().isAdjacentToEnemy(toCell, gameManager.getPlayerTurn())){
-			if (gameManager.getTurnCount() > 2){
+			if (gameManager.getTurnCount() > 1){
 				throw new HantoException("Can't place piece next to enemy.");
 			}
 		} else if (from != null){
@@ -100,10 +118,10 @@ public abstract class HantoBaseGame implements HantoGame {
 	 */
 	protected void preCheck(HantoCoordinate from, HantoCoordinate to) throws HantoException
 	{
-		int turn = HantoGameManager.getInstance().getTurnCount();
-		if (turn == 1 && (to.getX() != 0 || to.getY() != 0)){
+		int turn = gameManager.getTurnCount();
+		if (turn == 0 && (to.getX() != 0 || to.getY() != 0)){
 			throw new HantoException("Player must place first piece at 0,0");
-		} else if (turn >= 7 && getCurrentPlayer().getPiecesRemaining().contains(HantoPieceType.BUTTERFLY)){
+		} else if (turn >= 5 && getCurrentPlayer().getPiecesRemaining().contains(HantoPieceType.BUTTERFLY)){
 			throw new HantoException("Player must place butterfly by fourth turn.");
 		}
 		if(from != null)
@@ -116,7 +134,7 @@ public abstract class HantoBaseGame implements HantoGame {
 		if (gameManager.getCellManager().isCellOccupied(to.getX(), to.getY())){
 			throw new HantoException("Cell is already occupied.");
 		} else if (!gameManager.getCellManager().isAdjacent(to.getX(), to.getY())){
-			if (gameManager.getTurnCount() != 1){
+			if (gameManager.getTurnCount() != 0){
 				throw new HantoException("Cell is not contiguous to another piece");
 			}
 		}
@@ -137,11 +155,9 @@ public abstract class HantoBaseGame implements HantoGame {
 			result = MoveResult.BLUE_WINS;
 		} else if (isVictory(HantoPlayerColor.RED)){
 			result = MoveResult.RED_WINS;
-		} else if (gameManager.getBluePlayer().getPieceCount() == 0){
-			result = MoveResult.DRAW;
 		} else {
 			getCurrentPlayer().removePieceFromLineup(pieceType);
-			HantoGameManager.getInstance().nextTurn();
+			gameManager.nextTurn();
 		}
 		return result;
 	}
@@ -202,7 +218,7 @@ public abstract class HantoBaseGame implements HantoGame {
 	 * @param winnerColor
 	 * @return RED_WINS <br> BLUE_WINS <br> DRAW
 	 */
-	private boolean isVictory(HantoPlayerColor winnerColor){
+	protected boolean isVictory(HantoPlayerColor winnerColor){
 		return gameManager.getCellManager().isVictory(winnerColor);
 	}
 

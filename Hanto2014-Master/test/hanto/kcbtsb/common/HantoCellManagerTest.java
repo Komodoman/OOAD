@@ -30,8 +30,8 @@ import hanto.common.MoveResult;
 import hanto.kcbtsb.HantoGameFactory;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.gamma.GammaHantoTestGame;
-import hanto.kcbtsb.tournament.HantoPlayer;
 import hanto.kcbtsb.epsilon.EpsilonHantoTestGame;
+import hanto.studentkcbtsb.tournament.HantoPlayer;
 
 /**
  * The class <code>HantoCellManagerTest</code> contains tests for the class

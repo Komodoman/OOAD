@@ -45,6 +45,23 @@ public class HantoGameBeta extends HantoBaseGame {
 		
 		super.preCheck(from, to);
 	}
+	
+	@Override
+	protected MoveResult postCheck(HantoPieceType pieceType){
+		MoveResult result = MoveResult.OK;
+		
+		if (isVictory(HantoPlayerColor.BLUE)){
+			result = MoveResult.BLUE_WINS;
+		} else if (isVictory(HantoPlayerColor.RED)){
+			result = MoveResult.RED_WINS;
+		} else if(gameManager.getTurnCount() >= 5) {
+			result = MoveResult.DRAW;
+		} else{
+			getCurrentPlayer().removePieceFromLineup(pieceType);
+			gameManager.nextTurn();
+		}
+		return result;
+	}
 
 	/**
 	 * @see HantoBaseGame.movePiece

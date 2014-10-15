@@ -38,7 +38,7 @@ public class HantoGameManagerTest {
 		HantoGameManager manager = HantoGameManager.getInstance();
 		HantoGameFactory.getInstance();
 		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
-		HantoCellManager cellManager = new HantoCellManager();
+		HantoCellManager cellManager = new HantoCellManager(manager);
 		manager.setCellManager(cellManager);
 		assertEquals(manager.getCellManager(),cellManager);
 	}

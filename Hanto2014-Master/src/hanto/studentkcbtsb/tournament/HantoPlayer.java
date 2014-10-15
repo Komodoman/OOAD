@@ -2,13 +2,13 @@
  * @author Kyle Bryant and Tim Bujnevicie
  */
 
-package hanto.kcbtsb.tournament;
+package hanto.studentkcbtsb.tournament;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import hanto.common.HantoCoordinate;
+
 import hanto.common.HantoException;
 import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
@@ -43,14 +43,15 @@ public class HantoPlayer implements HantoGamePlayer {
 	@Override
 	public void startGame(HantoGameID version, HantoPlayerColor myColor,
 			boolean doIMoveFirst) {
+		HantoGameManager.clearInstance();
 		this.myColor = myColor;
 		tournyGame = setupGame(doIMoveFirst, version);
+		
 	}
 
 	@Override
 	public HantoMoveRecord makeMove(HantoMoveRecord opponentsMove) {
 		HantoMoveRecord responseMove = null;
-		System.out.println("TURN NUMBER: " + gameManager.getTurnCount());
 		if (opponentsMove == null){
 			responseMove = new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, new HantoCell(0, 0));
 			try {
@@ -58,56 +59,43 @@ public class HantoPlayer implements HantoGamePlayer {
 			} catch (HantoException e) {
 				e.printStackTrace();
 			}
-		} else{
+		} 
+		else{
+			
 				try {
 					tournyGame.makeMove(opponentsMove.getPiece(), opponentsMove.getFrom(), opponentsMove.getTo());
-					if (opponentsMove.getFrom() == null){
-						System.out.println("Opponent is placing a " + opponentsMove.getPiece() + " at " + opponentsMove.getTo().getX() + ", " + opponentsMove.getTo().getY());
-					} else {
-						System.out.println("Opponent is moving " + opponentsMove.getPiece() + " from " + opponentsMove.getFrom().getX() + ", " + opponentsMove.getFrom().getY() + " to " + opponentsMove.getTo().getX() + ", " + opponentsMove.getTo().getY());
-					}
-					System.out.println("TURN NUMBER: " + gameManager.getTurnCount());
 					responseMove = findRandomMove();
 					tournyGame.makeMove(responseMove.getPiece(), responseMove.getFrom(), responseMove.getTo());
-					
-				} catch (HantoException e) {
+				} 
+				catch (HantoException e) {
 					e.printStackTrace();
 				}
-			} 
+		} 
 		
-		if (responseMove.getFrom() == null){
-			System.out.println("Placing a " + responseMove.getPiece() + " at " + responseMove.getTo().getX() + ", " + responseMove.getTo().getY());
-		} else {
-			System.out.println("Moving " + opponentsMove.getPiece() + " from " + responseMove.getFrom().getX() + ", " + responseMove.getFrom().getY() + " to " + responseMove.getTo().getX() + ", " + responseMove.getTo().getY());
-		}
 		return responseMove;
 	}
 	
 	/**
 	 * Finds a random move to play
 	 * @return
-	 * @throws HantoException
+	 * 		random HantoMoveRecord
 	 */
-	protected HantoMoveRecord findRandomMove() throws HantoException{
+	protected HantoMoveRecord findRandomMove(){
 		HantoMoveRecord aMove = null;
-		HantoCoordinate to = null;
 		List<HantoCell> possCells = new ArrayList<HantoCell>();
 		possCells.addAll(gameManager.getCellManager().generatePossibleMoves());
 		List<HantoMoveRecord> possMoves = getPossMoves(possCells);
 		
-		if (gameManager.getTurnCount() == 2){
-			aMove = new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, new HantoCell(0,1));
+		if (gameManager.getTurnCount() == 1){
+			aMove = new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, new HantoCell(0, 1));
 		}
 		else if (arePiecesLeftInLineup() && !possMoves.isEmpty()){
 			// Flip a coin, 0 - place a piece, 1 - move a piece
-			System.out.println("Deciding on placing or moving");
 			if (randInt(0, 1) == 0){
 				// place a piece
-				System.out.println("Placing");
 				aMove = placeRandomPiece(possCells);
 			} else {
 				// move a piece
-				System.out.println("Moving");
 				aMove = possMoves.get(randInt(0, possMoves.size() - 1));
 			}	  
 		} else if (arePiecesLeftInLineup()) {
@@ -118,9 +106,27 @@ public class HantoPlayer implements HantoGamePlayer {
 			aMove = possMoves.get(randInt(0, possMoves.size() - 1));
 		} else {
 			// forfeit 
-			aMove = new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, null);
+			aMove = new HantoMoveRecord(null, null, null);
 		}	
 		return aMove;
+	}
+	
+	private HantoMoveRecord placeFailMoveCheck()
+	{
+		HantoMoveRecord move = null;
+		List<HantoCell> possCells = new ArrayList<HantoCell>();
+		possCells.addAll(gameManager.getCellManager().generatePossibleMoves());
+		List<HantoMoveRecord> possMoves = getPossMoves(possCells);
+		
+		if(!possMoves.isEmpty())
+		{
+			move = possMoves.get(randInt(0, possMoves.size() - 1));
+		}
+		else{
+			move = new HantoMoveRecord(null, null, null);
+		}
+		
+		return move;
 	}
 	
 	private HantoMoveRecord placeRandomPiece(List<HantoCell> possCells){
@@ -132,8 +138,12 @@ public class HantoPlayer implements HantoGamePlayer {
 				goodMoves.add(possCells.get(i));
 			} 
 		}
-		
-		move = new HantoMoveRecord(chosenPiece, null, goodMoves.get(randInt(0, goodMoves.size() - 1)));
+		if(goodMoves.isEmpty()){
+			move = placeFailMoveCheck();
+		}
+		else{
+			move = new HantoMoveRecord(chosenPiece, null, goodMoves.get(randInt(0, goodMoves.size() - 1)));
+		}
 		
 		return move;
 	}
@@ -142,14 +152,14 @@ public class HantoPlayer implements HantoGamePlayer {
 		List<HantoMoveRecord> possibleMoves = new ArrayList<HantoMoveRecord>();
 		List<HantoCell> boardPieces = new ArrayList<HantoCell>();
 		if (gameManager.getCellManager().getPlayerCells(myColor) != null){
-		boardPieces.addAll(gameManager.getCellManager().getPlayerCells(myColor));
-		for (int i = 0; i < boardPieces.size(); i++){
-			for (int j = 0; j < openCells.size(); j++){
-				if (gameManager.getCellManager().isALegalMove(boardPieces.get(i).getPiece(), boardPieces.get(i), openCells.get(j))){
-					possibleMoves.add(new HantoMoveRecord(boardPieces.get(i).getPiece().getType(), boardPieces.get(i), openCells.get(j)));
+			boardPieces.addAll(gameManager.getCellManager().getPlayerCells(myColor));
+			for (int i = 0; i < boardPieces.size(); i++){
+				for (int j = 0; j < openCells.size(); j++){
+					if (gameManager.getCellManager().isALegalMove(boardPieces.get(i).getPiece(), boardPieces.get(i), openCells.get(j))){
+						possibleMoves.add(new HantoMoveRecord(boardPieces.get(i).getPiece().getType(), boardPieces.get(i), openCells.get(j)));
+					}
 				}
 			}
-		}
 		}
 		return possibleMoves;
 	}
@@ -215,18 +225,28 @@ public class HantoPlayer implements HantoGamePlayer {
 	 */
 	public static int randInt(int min, int max) {
 
+		int randomNum;
 	    // NOTE: Usually this should be a field rather than a method
 	    // variable so that it is not re-seeded every call.
 		Random rand = new Random();
 		if (RANDOM_SEED != Integer.MAX_VALUE){
 			rand = new Random(RANDOM_SEED);
 		} 
-
 	    // nextInt is normally exclusive of the top value,
 	    // so add 1 to make it inclusive
-	    int randomNum = rand.nextInt((max - min) + 1) + min;
-
+		if(max < 0){
+			randomNum = 0;
+		}
+		else{
+			randomNum = rand.nextInt((max - min) + 1) + min;
+		}
+	    
 	    return randomNum;
+	}
+	
+	public HantoGameManager getManager()
+	{
+		return gameManager;
 	}
 
 }

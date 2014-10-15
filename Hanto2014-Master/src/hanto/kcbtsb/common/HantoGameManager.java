@@ -10,7 +10,7 @@ import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
-import hanto.kcbtsb.tournament.HantoPlayer;
+import hanto.studentkcbtsb.tournament.HantoPlayer;
 
 /**
  * <p> Singleton game manager that holds all the data used in the game.
@@ -56,7 +56,7 @@ public class HantoGameManager {
 	 * Generate a cell manager
 	 */
 	public void initialize(){
-		cellManager = new HantoCellManager();
+		cellManager = new HantoCellManager(this);
 	}
 	
 	/**
