@@ -12,7 +12,7 @@ import hanto.common.*;
  */
 public class HantoPieceFactory{
 
-	private static final HantoPieceFactory INSTANCE = new HantoPieceFactory();
+	private static HantoPieceFactory instance = null;
 	private static HantoMove sparrowMoveType = HantoMove.FLY;
 	private static HantoMove butterflyMoveType = HantoMove.WALK;
 	private static HantoMove crabMoveType = HantoMove.WALK;
@@ -32,14 +32,23 @@ public class HantoPieceFactory{
 	}
 
 	/**
+	 * 
 	 * @return the instance
 	 */
 	public static HantoPieceFactory getInstance()
 	{
-		return INSTANCE;
+		if(instance == null){
+			instance = new HantoPieceFactory();
+		}
+		return instance;
 	}
 
-
+	/**
+	 * Sets up move type and move distance for each piece
+	 * @param aPiece
+	 * @param moveType
+	 * @param moveDist
+	 */
 	
 	public static void setupPiece(final HantoPieceType aPiece, final HantoMove moveType, final int moveDist){
 		
@@ -65,51 +74,7 @@ public class HantoPieceFactory{
 		
 		}
 	}
-	/*
-	public HantoMove getMoveType(HantoPieceType aPiece){
-		HantoMove aMoveType = null;
-		switch(aPiece){
-		case BUTTERFLY:
-			aMoveType = butterflyMoveType;
-			break;
-		case CRAB:
-			aMoveType = crabMoveType;
-			break;
-		case HORSE:
-			aMoveType = horseMoveType;
-			break;
-		case SPARROW:
-			aMoveType = sparrowMoveType;
-			break;
-		default:
-			break;
-		
-		}
-		return aMoveType;
-	}
-		
-	public int getMoveDist(HantoPieceType aPiece){
-			int moveDist = 0;
-			switch(aPiece){
-			case BUTTERFLY:
-				moveDist = butterflyMoveDist;
-				break;
-			case CRAB:
-				moveDist = crabMoveDist;
-				break;
-			case HORSE:
-				moveDist = horseMoveDist;
-				break;
-			case SPARROW:
-				moveDist = sparrowMoveDist;
-				break;
-			default:
-				break;
-			
-			}
-		return moveDist;	
-	}
-	*/
+
 	/**
 	 * 
 	 * @param pieceId

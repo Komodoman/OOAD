@@ -35,6 +35,7 @@ public class HantoBasePiece implements HantoPiece
 	 * @param playerColor
 	 * @param type
 	 * @param moveType
+	 * @param moveDistance
 	 */
 	public HantoBasePiece(HantoPlayerColor playerColor, HantoPieceType type, HantoMove moveType, int moveDistance){
 		color = playerColor;

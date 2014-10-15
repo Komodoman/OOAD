@@ -30,6 +30,7 @@ import hanto.common.MoveResult;
 import hanto.kcbtsb.HantoGameFactory;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.gamma.GammaHantoTestGame;
+import hanto.kcbtsb.tournament.HantoPlayer;
 import hanto.kcbtsb.epsilon.EpsilonHantoTestGame;
 
 /**
@@ -112,7 +113,7 @@ public class HantoCellManagerTest{
 	public void checkPossibleMoveTrueWithoutPieces(){
 		HantoGameManager manager = HantoGameManager.getInstance();
 		ArrayList<HantoPieceType> list= new ArrayList<HantoPieceType>();
-		manager.setRedPlayer(new HantoPlayer(HantoPlayerColor.RED,list));
+		manager.setRedPlayer(new HantoBasePlayer(HantoPlayerColor.RED,list));
 		HantoBasePiece bButterfly = new HantoBasePiece(HantoPlayerColor.BLUE, HantoPieceType.BUTTERFLY, HantoMove.WALK, 1);
 		HantoBasePiece rButterfly = new HantoBasePiece(HantoPlayerColor.RED, HantoPieceType.BUTTERFLY, HantoMove.WALK, 1);
 		HantoBasePiece bCrab = new HantoBasePiece(HantoPlayerColor.BLUE, HantoPieceType.CRAB, HantoMove.WALK, 1);

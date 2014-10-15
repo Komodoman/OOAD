@@ -1,3 +1,7 @@
+/**
+ * @author Kyle Bryant and Tim Bujnevicie
+ */
+
 package hanto.kcbtsb.tournament;
 
 import java.util.ArrayList;
@@ -17,6 +21,11 @@ import hanto.kcbtsb.common.HantoGameManager;
 import hanto.tournament.HantoGamePlayer;
 import hanto.tournament.HantoMoveRecord;
 
+/**
+ * Hanto Player AI to play hanto Games
+ * @author tsbujnevicie
+ *
+ */
 public class HantoPlayer implements HantoGamePlayer {
 	
 	protected HantoGame tournyGame;
@@ -56,7 +65,11 @@ public class HantoPlayer implements HantoGamePlayer {
 		return responseMove;
 	}
 	
-	
+	/**
+	 * Finds a random move to play
+	 * @return
+	 * @throws HantoException
+	 */
 	protected HantoMoveRecord findRandomMove() throws HantoException{
 		HantoMoveRecord aMove = null;
 		HantoCoordinate to = null;
@@ -66,11 +79,11 @@ public class HantoPlayer implements HantoGamePlayer {
 		System.out.println("Finding a random move, turn number is " + gameManager.getTurnCount());
 		if (gameManager.getTurnCount() == 2 || gameManager.getTurnCount() == 1){
 			System.out.println("The turn is # 2, so placing butterfly");
-			aMove = new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, new HantoCell(0,1));
+			aMove = new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, new HantoCell(0, 1));
 		}
-		else if (arePiecesLeftInLineup() && possMoves.isEmpty() == false){
+		else if (arePiecesLeftInLineup() && !possMoves.isEmpty()){
 			// Flip a coin, 0 - place a piece, 1 - move a piece
-			if (randInt(0,1) == 0){
+			if (randInt(0, 1) == 0){
 				// place a piece
 				possCells.addAll(gameManager.getCellManager().generatePossibleMoves());
 				aMove = placeRandomPiece(possCells);
@@ -83,7 +96,7 @@ public class HantoPlayer implements HantoGamePlayer {
 			// place a piece
 			possCells.addAll(gameManager.getCellManager().generatePossibleMoves());
 			aMove = placeRandomPiece(possCells);
-		} else if (possMoves.isEmpty() == false){
+		} else if (!possMoves.isEmpty()){
 			// move a piece
 			possCells.addAll(gameManager.getCellManager().generatePossibleMoves());
 			aMove = possMoves.get(randInt(0, possMoves.size() - 1));
@@ -96,7 +109,7 @@ public class HantoPlayer implements HantoGamePlayer {
 	
 	private HantoMoveRecord placeRandomPiece(List<HantoCell> possCells){
 		HantoMoveRecord move = null;
-		ArrayList<HantoCell> goodMoves = new ArrayList<HantoCell>();
+		List<HantoCell> goodMoves = new ArrayList<HantoCell>();
 		HantoPieceType chosenPiece = myPlayer.getPiecesRemaining().get(randInt(0, myPlayer.getPieceCount() - 1));
 		for (int i =0; i < possCells.size(); i++){
 			if (!gameManager.getCellManager().isAdjacentToEnemy(possCells.get(i), myColor)){
@@ -134,7 +147,13 @@ public class HantoPlayer implements HantoGamePlayer {
 		return piecesLeft;
 	}
 	
-	
+	/**
+	 * Sets up game for player
+	 * @param doIMoveFirst
+	 * @param version
+	 * @return
+	 * 		game instance
+	 */
 	protected HantoGame setupGame(boolean doIMoveFirst, HantoGameID version){
 		HantoGame aGame = null;
 		if (doIMoveFirst){

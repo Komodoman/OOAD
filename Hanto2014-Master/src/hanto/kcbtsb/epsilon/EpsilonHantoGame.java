@@ -1,3 +1,7 @@
+/**
+ * @author Kyle Bryant and Tim Bujnevicie
+ */
+
 package hanto.kcbtsb.epsilon;
 
 import hanto.common.HantoCoordinate;
@@ -7,9 +11,13 @@ import hanto.common.HantoPlayerColor;
 import hanto.kcbtsb.common.HantoBaseGame;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.common.HantoMove;
-import hanto.kcbtsb.common.HantoPieceFactory;
 import hanto.kcbtsb.common.HantoPrematureResignationException;
 
+/**
+ * Epsilon realization of BaseHantoGame
+ * @author tsbujnevicie
+ *
+ */
 public class EpsilonHantoGame extends HantoBaseGame {
 
 	HantoGameManager gameManager;

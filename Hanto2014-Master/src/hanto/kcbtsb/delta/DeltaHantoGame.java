@@ -12,7 +12,7 @@ import hanto.common.MoveResult;
 import hanto.kcbtsb.common.HantoBaseGame;
 import hanto.kcbtsb.common.HantoGameManager;
 import hanto.kcbtsb.common.HantoMove;
-import hanto.kcbtsb.common.HantoPieceFactory;
+
 
 /**
  * Delta Implementation of the HantoBaseGame
