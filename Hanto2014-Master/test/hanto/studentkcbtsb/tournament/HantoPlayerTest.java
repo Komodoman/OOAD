@@ -10,7 +10,9 @@ import hanto.common.HantoPiece;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
 import hanto.common.MoveResult;
+import hanto.kcbtsb.common.HantoCell;
 import hanto.kcbtsb.common.HantoGameManager;
+import hanto.kcbtsb.tournament.HantoPlayer;
 import hanto.tournament.HantoMoveRecord;
 
 import org.junit.Test;
@@ -19,31 +21,26 @@ public class HantoPlayerTest {
 
 	@Test
 	public void bothPlayersPlaceButterfly() throws HantoException
-	{
-		HantoTestPlayer redPlayer = new HantoTestPlayer();
-		HantoTestPlayer bluePlayer = new HantoTestPlayer();
+	{	
+		HantoGameManager.clearInstance();
+		HantoPlayer bluePlayer = new HantoPlayer();
+		bluePlayer.RANDOM_SEED = 5;
 		bluePlayer.startGame(HantoGameID.EPSILON_HANTO, HantoPlayerColor.BLUE, true);
-		redPlayer.startGame(HantoGameID.EPSILON_HANTO, HantoPlayerColor.RED, false);
 		HantoMoveRecord blueMove = bluePlayer.makeMove(null);
-		System.out.println("IT IS # " + HantoGameManager.getInstance().getTurnCount() + " TURN.");
-		HantoMoveRecord redMove = redPlayer.makeMove(blueMove);
-		assertEquals(blueMove.getPiece(), HantoPieceType.BUTTERFLY);
-		assertEquals(redMove.getPiece(), HantoPieceType.BUTTERFLY);
-		
+		HantoMoveRecord r = new HantoMoveRecord(HantoPieceType.BUTTERFLY, null, new HantoCell(0,1));
+		bluePlayer.makeMove(r);
+		r = new HantoMoveRecord(HantoPieceType.HORSE, null, new HantoCell(1, 0));
+		bluePlayer.makeMove(r);
+		r = new HantoMoveRecord(HantoPieceType.HORSE, null, new HantoCell(0,3));
+		bluePlayer.makeMove(r);
+		r = new HantoMoveRecord(HantoPieceType.HORSE, null, new HantoCell(0,4));
+		bluePlayer.makeMove(r);
+		r = new HantoMoveRecord(HantoPieceType.HORSE, null, new HantoCell(0,5));
+		bluePlayer.makeMove(r);
+		r = new HantoMoveRecord(HantoPieceType.CRAB, null, new HantoCell(0,6));
+		bluePlayer.makeMove(r);
+		r = new HantoMoveRecord(HantoPieceType.CRAB, null, new HantoCell(0,7));
+		bluePlayer.makeMove(r);
 	}
 	
-	@Test
-	public void bothPlayersPlayAWhile() throws HantoException
-	{
-		HantoTestPlayer redPlayer = new HantoTestPlayer();
-		HantoTestPlayer bluePlayer = new HantoTestPlayer();
-		bluePlayer.startGame(HantoGameID.EPSILON_HANTO, HantoPlayerColor.BLUE, true);
-		redPlayer.startGame(HantoGameID.EPSILON_HANTO, HantoPlayerColor.RED, false);
-		HantoMoveRecord blueMove = bluePlayer.makeMove(null);
-		HantoMoveRecord redMove = redPlayer.makeMove(blueMove);
-		blueMove = bluePlayer.makeMove(redMove);
-		redMove = redPlayer.makeMove(blueMove);
-		blueMove = bluePlayer.makeMove(redMove);
-		
-	}
 }

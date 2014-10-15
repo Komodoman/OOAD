@@ -173,6 +173,10 @@ public abstract class HantoBaseGame implements HantoGame {
 		return piece;
 	}
 	
+	public HantoGameManager getManager(){
+		return gameManager;
+	}
+	
 	/**
 	 * <h2>Base Hanto Get Current Player </h2>
 	 * <p> Returns the player who currently allowed to move or place pieces
