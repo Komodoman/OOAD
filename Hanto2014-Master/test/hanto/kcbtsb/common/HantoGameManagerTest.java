@@ -1,7 +1,10 @@
 package hanto.kcbtsb.common;
 
+import static org.junit.Assert.*;
+import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.kcbtsb.HantoGameFactory;
+import hanto.kcbtsb.epsilon.EpsilonHantoGame;
 
 import org.junit.Test;
 
@@ -27,6 +30,29 @@ public class HantoGameManagerTest {
 		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
 		manager.setColorTurn(null);
 		manager.getPlayerTurn();
+	}
+	
+	@Test
+	public void setCellManage()
+	{
+		HantoGameManager manager = HantoGameManager.getInstance();
+		HantoGameFactory.getInstance();
+		HantoGameFactory.makeHantoGame(HantoGameID.ALPHA_HANTO);
+		HantoCellManager cellManager = new HantoCellManager();
+		manager.setCellManager(cellManager);
+		assertEquals(manager.getCellManager(),cellManager);
+	}
+	@Test
+	public void testGetGame()
+	{
+		EpsilonHantoGame game =  (EpsilonHantoGame) HantoGameFactory.makeHantoGame(HantoGameID.EPSILON_HANTO);
+		assertNotNull(HantoGameManager.getInstance().getGame());
+	}
+	@Test
+	public void testGetTurnColor()
+	{
+		EpsilonHantoGame game =  (EpsilonHantoGame) HantoGameFactory.makeHantoGame(HantoGameID.EPSILON_HANTO);
+		assertNotNull(HantoGameManager.getInstance().getColorTurn());
 	}
 	
 }

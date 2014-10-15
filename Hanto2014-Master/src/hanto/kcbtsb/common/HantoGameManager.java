@@ -10,6 +10,7 @@ import hanto.common.HantoGame;
 import hanto.common.HantoGameID;
 import hanto.common.HantoPieceType;
 import hanto.common.HantoPlayerColor;
+import hanto.kcbtsb.tournament.HantoPlayer;
 
 /**
  * <p> Singleton game manager that holds all the data used in the game.
@@ -95,6 +96,13 @@ public class HantoGameManager {
 	public HantoBasePlayer getRedPlayer() {
 		return redPlayer;
 	}
+	/**
+	 * Setter for the RedP Player Instance
+	 * @param p
+	 */
+	public void setRedPlayer(HantoBasePlayer p){
+		redPlayer = p;
+	}
 
 	/**
 	 * Getter for Blue Player instance
@@ -103,6 +111,13 @@ public class HantoGameManager {
 	 */
 	public HantoBasePlayer getBluePlayer() {
 		return bluePlayer;
+	}
+	/**
+	 * Setter for the RedP Player Instance
+	 * @param p
+	 */
+	public void setBluePlayer(HantoBasePlayer p){
+		bluePlayer = p;
 	}
 
 	/**
@@ -207,6 +222,10 @@ public class HantoGameManager {
 	 * 			piece type
 	 * @param amount
 	 * 			number to be added.
+	 * @param moveType
+	 * 			type of move the piece has
+	 * @param moveDist
+	 * 			distance a piece can move;
 	 */
 	public void addPieceToLineup(final HantoPieceType aPiece, final int amount, final HantoMove moveType, final int moveDist){
 		for (int i = 0; i < amount; i++){
