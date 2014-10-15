@@ -70,6 +70,11 @@ public class HantoGameGammaTest {
 		}
 		
 		@Test
+		public void createGammaHantoGame()
+		{
+			assertNotNull(HantoGameFactory.makeHantoGame(HantoGameID.GAMMA_HANTO));
+		}
+		@Test
 		public void bluePlacesInitialHantoPieceAtOrigin() throws HantoException
 		{
 			final MoveResult mr = game.makeMove(HantoPieceType.BUTTERFLY, null, makeCoordinate(0, 0));

@@ -95,6 +95,13 @@ public class HantoGameManager {
 	public HantoPlayer getRedPlayer() {
 		return redPlayer;
 	}
+	/**
+	 * Setter for the RedP Player Instance
+	 * @param p
+	 */
+	public void setRedPlayer(HantoPlayer p){
+		redPlayer = p;
+	}
 
 	/**
 	 * Getter for Blue Player instance
@@ -103,6 +110,13 @@ public class HantoGameManager {
 	 */
 	public HantoPlayer getBluePlayer() {
 		return bluePlayer;
+	}
+	/**
+	 * Setter for the RedP Player Instance
+	 * @param p
+	 */
+	public void setBluePlayer(HantoPlayer p){
+		bluePlayer = p;
 	}
 
 	/**

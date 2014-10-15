@@ -38,33 +38,8 @@ public class HantoPieceFactory{
 	{
 		return INSTANCE;
 	}
-	/**
-	 * Sets up move Types for all pieces
-	 * @param s
-	 * @param b
-	 * @param c
-	 */
-	public static void setUp(HantoMove s, HantoMove b, HantoMove c)
-	{
-		sparrowMoveType = s;
-		butterflyMoveType = b;
-		crabMoveType = c;
-	}
-	
-//	/**
-//	 * Sets up move Types for all pieces
-//	 * @param s
-//	 * @param b
-//	 * @param c
-//	 * @param h
-//	 */
-//	public static void setUp(HantoMove s, HantoMove b, HantoMove c, HantoMove h)
-//	{
-//		sparrowMoveType = s;
-//		butterflyMoveType = b;
-//		crabMoveType = c;
-//		horseMoveType = h;
-//	}
+
+
 	
 	public static void setupPiece(final HantoPieceType aPiece, final HantoMove moveType, final int moveDist){
 		
@@ -90,7 +65,7 @@ public class HantoPieceFactory{
 		
 		}
 	}
-	
+	/*
 	public HantoMove getMoveType(HantoPieceType aPiece){
 		HantoMove aMoveType = null;
 		switch(aPiece){
@@ -134,7 +109,7 @@ public class HantoPieceFactory{
 			}
 		return moveDist;	
 	}
-	
+	*/
 	/**
 	 * 
 	 * @param pieceId

@@ -286,8 +286,8 @@ public class HantoCellManager {
 	
 	private boolean isVerticallyOccupied(HantoCell from, HantoCell to){
 		boolean isOccupied = true;
-		if (to.getY() > from.getY()){
-			for (int i = from.getY() + 1; i < to.getY(); i++){
+		if (to.getY() < from.getY()){
+			for (int i = from.getY() - 1; i > to.getY(); i--){
 				if (findCell(to.getX(), i) == null){
 					isOccupied = false;
 					System.out.println("MISSING A PIECE");
@@ -295,7 +295,7 @@ public class HantoCellManager {
 				}
 			}
 		} else {
-			for (int i = to.getY() - 1; i < from.getY(); i++){
+			for (int i = from.getY() + 1; i < to.getY(); i++){
 				if (findCell(to.getX(), i) == null){
 					isOccupied = false;
 					break;
@@ -307,15 +307,16 @@ public class HantoCellManager {
 	
 	private boolean isHorizontallyOccupied(HantoCell from, HantoCell to){
 		boolean isOccupied = true;
-		if (to.getX() > from.getX()){
-			for (int i = from.getX() + 1; i < to.getX(); i++){
+		
+		if (to.getX() < from.getX()){
+			for (int i = from.getX() - 1; i > to.getX(); i--){
 				if (findCell(i, to.getY()) == null){
 					isOccupied = false;
 					break;
 				}
 			}
 		} else {
-			for (int i = to.getX() - 1; i < from.getX(); i++){
+			for (int i = from.getX() + 1; i < to.getX(); i++){
 				if (findCell(i, to.getY()) == null){
 					isOccupied = false;
 					break;
