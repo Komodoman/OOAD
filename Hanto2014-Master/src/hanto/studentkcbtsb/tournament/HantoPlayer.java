@@ -111,7 +111,7 @@ public class HantoPlayer implements HantoGamePlayer {
 		return aMove;
 	}
 	
-	private HantoMoveRecord placeFailMoveCheck()
+	public HantoMoveRecord placeFailMoveCheck()
 	{
 		HantoMoveRecord move = null;
 		List<HantoCell> possCells = new ArrayList<HantoCell>();
@@ -129,7 +129,7 @@ public class HantoPlayer implements HantoGamePlayer {
 		return move;
 	}
 	
-	private HantoMoveRecord placeRandomPiece(List<HantoCell> possCells){
+	public HantoMoveRecord placeRandomPiece(List<HantoCell> possCells){
 		HantoMoveRecord move = null;
 		List<HantoCell> goodMoves = new ArrayList<HantoCell>();
 		HantoPieceType chosenPiece = myPlayer.getPiecesRemaining().get(randInt(0, myPlayer.getPieceCount() - 1));
@@ -164,7 +164,7 @@ public class HantoPlayer implements HantoGamePlayer {
 		return possibleMoves;
 	}
 	
-	private boolean arePiecesLeftInLineup(){
+	protected boolean arePiecesLeftInLineup(){
 		boolean piecesLeft = true;
 		if (myPlayer.getPiecesRemaining().isEmpty()){
 			piecesLeft = false;
@@ -207,10 +207,7 @@ public class HantoPlayer implements HantoGamePlayer {
 		return aGame;
 		
 	}
-	
-	public HantoBaseGame getGame(){
-		return (HantoBaseGame) tournyGame;
-	}
+
 	
 	
 	/**
@@ -244,9 +241,21 @@ public class HantoPlayer implements HantoGamePlayer {
 	    return randomNum;
 	}
 	
-	public HantoGameManager getManager()
-	{
+	public HantoGameManager getManager(){
 		return gameManager;
 	}
+	
+	public HantoBaseGame getGame(){
+		return (HantoBaseGame) tournyGame;
+	}
+	
+	public HantoPlayerColor getColor(){
+		return myColor;
+	}
+	
+	public HantoBasePlayer getPlayer(){
+		return myPlayer;
+	}
+	
 
 }
