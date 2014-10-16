@@ -36,15 +36,6 @@ public class HantoPlayerTest {
 		bluePlayer.makeMove(null);
 	}
 	@Test
-	public void lineupIsEmpty() throws HantoException
-	{
-		HantoGameManager.clearInstance();
-		TournamentTestPlayer bluePlayer = new TournamentTestPlayer();
-		bluePlayer.RANDOM_SEED = 5;
-		bluePlayer.startGame(HantoGameID.EPSILON_HANTO, HantoPlayerColor.BLUE, true);
-		assertTrue("No pieces left: ", bluePlayer.testLineupChecker());
-	}
-	@Test
 	public void bothPlayersPlaceButterfly() throws HantoException
 	{	
 		HantoGameManager.clearInstance();

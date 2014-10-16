@@ -111,6 +111,10 @@ public class HantoPlayer implements HantoGamePlayer {
 		return aMove;
 	}
 	
+	/**
+	 * 
+	 * @return HantoMoveRecord a forfeit or a legal move
+	 */
 	public HantoMoveRecord placeFailMoveCheck()
 	{
 		HantoMoveRecord move = null;
@@ -129,6 +133,11 @@ public class HantoPlayer implements HantoGamePlayer {
 		return move;
 	}
 	
+	/**
+	 * 
+	 * @param possCells
+	 * @return a move that places a random piece
+	 */
 	public HantoMoveRecord placeRandomPiece(List<HantoCell> possCells){
 		HantoMoveRecord move = null;
 		List<HantoCell> goodMoves = new ArrayList<HantoCell>();
@@ -164,6 +173,10 @@ public class HantoPlayer implements HantoGamePlayer {
 		return possibleMoves;
 	}
 	
+	/**
+	 * 
+	 * @return true if there a pieces left in players lineup
+	 */
 	protected boolean arePiecesLeftInLineup(){
 		boolean piecesLeft = true;
 		if (myPlayer.getPiecesRemaining().isEmpty()){
